@@ -715,6 +715,40 @@ input[type=number]{-moz-appearance:textfield;}
 .portion-btn{background:var(--tag);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.15s,color 0.15s;}
 .portion-btn.active{background:var(--accentBg);border-color:var(--accent);color:var(--accentGlow);font-weight:600;}
 
+/* ── PANTRY TAG ────────────────────────────────────────────────── */
+.pantry-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accentDim);background:var(--accentBg);border:1px solid var(--accentDim);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:middle;}
+
+/* ── WEEK DOT STRIP ────────────────────────────────────────────── */
+.week-dot-strip{display:flex;justify-content:space-between;background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 10px;margin-bottom:10px;}
+.wds-day{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1;}
+.wds-label{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px;}
+.wds-dot{width:10px;height:10px;border-radius:50%;background:var(--border);border:1.5px solid var(--borderHi);transition:background 0.15s;}
+.wds-dot.filled{background:var(--accent);border-color:var(--accent);}
+.wds-dot.complete{background:var(--success);border-color:var(--success);}
+.wds-dot.today{box-shadow:0 0 0 2px var(--accentDim);}
+
+/* ── YOUR WEEK CARD ────────────────────────────────────────────── */
+.your-week-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 14px;margin-bottom:12px;}
+.yw-greeting{font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px;}
+.yw-greeting span{color:var(--accent);}
+.yw-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.yw-stat{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 10px;}
+.yw-stat-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);line-height:1;}
+.yw-stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* ── PROFILE SECTION ───────────────────────────────────────────── */
+.profile-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:12px;overflow:hidden;}
+.profile-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;cursor:pointer;}
+.profile-title{font-size:13px;font-weight:600;color:var(--text);}
+.profile-body{padding:0 14px 14px;border-top:1px solid var(--border);}
+.profile-row{display:flex;flex-direction:column;gap:4px;margin-top:12px;}
+.profile-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.profile-input{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;padding:7px 10px;width:100%;}
+.profile-input:focus{outline:none;border-color:var(--accent);}
+.hs-btns{display:flex;gap:6px;margin-top:4px;}
+.hs-btn{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--muted);font-size:13px;font-family:'DM Sans',sans-serif;padding:7px 4px;cursor:pointer;transition:all 0.15s;}
+.hs-btn.active{background:var(--accentBg);border-color:var(--accent);color:var(--accent);font-weight:700;}
+
 /* ── START PLANNING CTA ────────────────────────────────────────── */
 .start-planning-btn{width:100%;background:var(--accent);color:#000;font-weight:700;font-size:14px;border:none;border-radius:var(--r-md);padding:13px 16px;margin-bottom:14px;letter-spacing:0.3px;transition:background 0.15s,transform 0.1s;}
 .start-planning-btn:active{background:var(--accent2);transform:scale(0.98);}
@@ -772,8 +806,54 @@ input[type=number]{-moz-appearance:textfield;}
 <!-- ===== SUMMARY TAB ===== -->
 <div id="tab-summary" class="content tab-content" style="display:block;">
 
+  <!-- START CTA -->
+  <button class="start-planning-btn" onclick="goToTab('plan')" style="margin-top:6px;">📅 Start Planning This Week →</button>
+
+  <!-- YOUR WEEK CARD -->
+  <div class="your-week-card" id="yourWeekCard">
+    <div class="yw-greeting" id="ywGreeting">👋 Let's build your first week</div>
+    <div id="yw-empty" style="font-size:13px;color:var(--muted);line-height:1.6;">No meals planned yet — <span onclick="goToTab('plan')" style="color:var(--accent);text-decoration:underline;text-underline-offset:2px;cursor:pointer;">go to Plan →</span></div>
+    <div class="yw-stats" id="yw-stats" style="display:none;">
+      <div class="yw-stat"><div class="yw-stat-val" id="ywMeals">0<span style="font-size:14px;color:var(--muted)">/28</span></div><div class="yw-stat-label">Meals planned</div></div>
+      <div class="yw-stat"><div class="yw-stat-val" id="ywGrocery">0<span style="font-size:14px;color:var(--muted)">%</span></div><div class="yw-stat-label">Grocery done</div></div>
+      <div class="yw-stat"><div class="yw-stat-val" id="ywProtein">0<span style="font-size:14px;color:var(--muted)">g</span></div><div class="yw-stat-label">Protein today</div></div>
+      <div class="yw-stat"><div class="yw-stat-val" id="ywFavs">0</div><div class="yw-stat-label">Favorites saved</div></div>
+    </div>
+  </div>
+
+  <!-- PROFILE SETTINGS -->
+  <div class="profile-card">
+    <div class="profile-header" onclick="toggleProfile()">
+      <span class="profile-title">⚙️ My Settings</span>
+      <span class="chevron" id="profile-chev">▾</span>
+    </div>
+    <div class="profile-body" id="profile-body" style="display:none;">
+      <div class="profile-row">
+        <div class="profile-label">Your Name</div>
+        <input class="profile-input" id="userNameInput" type="text" placeholder="e.g. Alex" maxlength="30" oninput="saveProfile()" />
+      </div>
+      <div class="profile-row">
+        <div class="profile-label">Cooking for</div>
+        <div class="hs-btns" id="hsBtns">
+          <button class="hs-btn active" onclick="setHousehold(1,this)">1</button>
+          <button class="hs-btn" onclick="setHousehold(2,this)">2</button>
+          <button class="hs-btn" onclick="setHousehold(3,this)">3</button>
+          <button class="hs-btn" onclick="setHousehold(4,this)">4+</button>
+        </div>
+        <div id="hsHint" style="font-size:11px;color:var(--accent);margin-top:6px;display:none;"></div>
+      </div>
+      <div class="profile-row">
+        <div class="profile-label">Daily Protein Goal</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input class="profile-input" id="proteinGoalProfile" type="number" min="50" max="400" placeholder="e.g. 175" style="max-width:100px;" oninput="updateProteinGoalFromProfile()" />
+          <span style="font-size:12px;color:var(--muted);">g/day</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- HOW TO USE -->
-  <div class="how-to-card" style="margin-top:6px;">
+  <div class="how-to-card">
     <div class="how-to-header" onclick="toggleHowTo()">
       <span class="how-to-title">🚀 How to Use This App</span>
       <span class="chevron open" id="how-to-chev">▾</span>
@@ -802,15 +882,12 @@ input[type=number]{-moz-appearance:textfield;}
     </div>
   </div>
 
-  <!-- START CTA -->
-  <button class="start-planning-btn" onclick="goToTab('plan')">📅 Start Planning This Week →</button>
-
   <!-- APP OVERVIEW -->
   <div class="section-label">App Overview</div>
-  <div class="info-row"><span class="info-key">📅 Plan Length</span><span class="info-val">2 weeks (repeatable)</span></div>
-  <div class="info-row"><span class="info-key">💰 Est. Weekly Cost</span><span class="info-val">~$185–$200 at 3 stores</span></div>
+  <div class="info-row"><span class="info-key">📅 Plan Length</span><span class="info-val">7-day plan — run it every week, same shop</span></div>
+  <div class="info-row"><span class="info-key">💰 Est. Weekly Cost</span><span class="info-val">~$185–$200 first shop · ~$70–$90 ongoing</span></div>
   <div class="info-row"><span class="info-key">🍽 Meals Covered</span><span class="info-val">Breakfast · Lunch · Snack · Dinner</span></div>
-  <div class="info-row"><span class="info-key">🎯 Nutrition Focus</span><span class="info-val">High protein (160–200g/day), whole foods</span></div>
+  <div class="info-row"><span class="info-key">🎯 Nutrition Focus</span><span class="info-val">High protein (100–200g/day), adaptable to your goal</span></div>
   <div class="info-row"><span class="info-key">🍳 Prep Style</span><span class="info-val">Sunday batch (60–90 min) + Wed refresh (20 min)</span></div>
   <div class="info-row"><span class="info-key">📖 Recipes</span><span class="info-val">75+ recipes, 5 categories, searchable & filterable</span></div>
   <div class="info-row"><span class="info-key">✏️ Customizable</span><span class="info-val">Swap any recipe, store, or meal slot to fit your schedule, budget, or taste</span></div>
@@ -821,6 +898,10 @@ input[type=number]{-moz-appearance:textfield;}
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Costco <span style="font-size:10px;color:var(--dim);font-weight:400;">· Sam's Club</span></span><span class="store-pick-est">~$115</span></div><div class="store-pick-note">Bulk proteins, oats, almonds, olive oil — best $/lb</div></div>
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Sprouts <span style="font-size:10px;color:var(--dim);font-weight:400;">· Walmart, Trader Joe's, Whole Foods</span></span><span class="store-pick-est">~$50</span></div><div class="store-pick-note">Produce, dairy, pantry sauces & canned goods</div></div>
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Safeway <span style="font-size:10px;color:var(--dim);font-weight:400;">· Fry's, Kroger, HEB, Publix</span></span><span class="store-pick-est">~$30</span></div><div class="store-pick-note">Weekly sales on avocados, fresh veg, spice upgrades</div></div>
+
+  <div style="background:var(--accentBg);border:1px solid var(--accentDim);border-radius:var(--r-sm);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accentGlow);line-height:1.7;">
+    💡 <strong>First shop is ~$185–$200</strong> because it includes pantry items (rice, oats, olive oil, spices) that last 4–8 weeks. <strong>Ongoing weekly cost drops to ~$70–$90</strong> — just proteins, fresh produce, and dairy.
+  </div>
 
   <div class="divider"></div>
 
@@ -996,7 +1077,7 @@ input[type=number]{-moz-appearance:textfield;}
     <div class="grocery-item" id="gi-c6" data-est="13" data-optional="false">
       <div class="checkbox" onclick="toggleItem('c6',this)"></div>
       <div class="item-info">
-        <div class="item-name"><span>Brown rice (25 lb)</span></div>
+        <div class="item-name"><span>Brown rice (25 lb)</span><span class="pantry-tag">PANTRY</span></div>
         <div class="item-meta">1 bag · Will last months</div>
       </div>
       <div class="price-area">
@@ -1008,7 +1089,7 @@ input[type=number]{-moz-appearance:textfield;}
     <div class="grocery-item" id="gi-c7" data-est="9" data-optional="false">
       <div class="checkbox" onclick="toggleItem('c7',this)"></div>
       <div class="item-info">
-        <div class="item-name"><span>Rolled oats (10 lb)</span></div>
+        <div class="item-name"><span>Rolled oats (10 lb)</span><span class="pantry-tag">PANTRY</span></div>
         <div class="item-meta">1 bag · Breakfast staple</div>
       </div>
       <div class="price-area">
@@ -1020,7 +1101,7 @@ input[type=number]{-moz-appearance:textfield;}
     <div class="grocery-item" id="gi-c8" data-est="14" data-optional="true">
       <div class="checkbox" onclick="toggleItem('c8',this)"></div>
       <div class="item-info">
-        <div class="item-name"><span>Olive oil (2L)</span></div>
+        <div class="item-name"><span>Olive oil (2L)</span><span class="pantry-tag">PANTRY</span></div>
         <div class="item-meta">1 bottle · Optional if you have some</div>
       </div>
       <div class="price-area">
@@ -1122,32 +1203,32 @@ input[type=number]{-moz-appearance:textfield;}
     <div class="section-head">Pantry</div>
     <div class="grocery-item" id="gi-w11" data-est="2" data-optional="false">
       <div class="checkbox" onclick="toggleItem('w11',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Low-sodium soy sauce</span></div><div class="item-meta">1 bottle · Sesame ginger sauce</div></div>
+      <div class="item-info"><div class="item-name"><span>Low-sodium soy sauce</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">1 bottle · Sesame ginger sauce</div></div>
       <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-w12" data-est="3" data-optional="false">
       <div class="checkbox" onclick="toggleItem('w12',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Sesame oil</span></div><div class="item-meta">1 small bottle · Flavor bomb</div></div>
+      <div class="item-info"><div class="item-name"><span>Sesame oil</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">1 small bottle · Flavor bomb</div></div>
       <div class="price-area"><div class="price-est">~$3</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-w13" data-est="4" data-optional="false">
       <div class="checkbox" onclick="toggleItem('w13',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Honey</span></div><div class="item-meta">1 bottle · Sauces + oats</div></div>
+      <div class="item-info"><div class="item-name"><span>Honey</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">1 bottle · Sauces + oats</div></div>
       <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-w14" data-est="3" data-optional="false">
       <div class="checkbox" onclick="toggleItem('w14',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Chipotle peppers in adobo</span></div><div class="item-meta">2 cans · Master sauce base</div></div>
+      <div class="item-info"><div class="item-name"><span>Chipotle peppers in adobo</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">2 cans · Master sauce base</div></div>
       <div class="price-area"><div class="price-est">~$3</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-w15" data-est="4" data-optional="false">
       <div class="checkbox" onclick="toggleItem('w15',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Canned black beans (15 oz)</span></div><div class="item-meta">4 cans · Fiber + protein filler</div></div>
+      <div class="item-info"><div class="item-name"><span>Canned black beans (15 oz)</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">4 cans · Fiber + protein filler</div></div>
       <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-w16" data-est="4" data-optional="false">
       <div class="checkbox" onclick="toggleItem('w16',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Canned diced tomatoes</span></div><div class="item-meta">4 cans · Pasta + chili base</div></div>
+      <div class="item-info"><div class="item-name"><span>Canned diced tomatoes</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">4 cans · Pasta + chili base</div></div>
       <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-w17" data-est="6" data-optional="false">
@@ -1157,7 +1238,7 @@ input[type=number]{-moz-appearance:textfield;}
     </div>
     <div class="grocery-item" id="gi-w18" data-est="5" data-optional="true">
       <div class="checkbox" onclick="toggleItem('w18',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Coconut aminos</span></div><div class="item-meta">1 bottle · Optional: soy sauce swap, sweeter</div></div>
+      <div class="item-info"><div class="item-name"><span>Coconut aminos</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">1 bottle · Optional: soy sauce swap, sweeter</div></div>
       <div class="price-area"><div class="price-est">~$5</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="store-subtotal">
@@ -1207,32 +1288,32 @@ input[type=number]{-moz-appearance:textfield;}
     <div class="section-head">Pantry</div>
     <div class="grocery-item" id="gi-f7" data-est="4" data-optional="false">
       <div class="checkbox" onclick="toggleItem('f7',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Pasta (penne or rotini)</span></div><div class="item-meta">2 boxes (1 lb each) · Wed night easy dinner</div></div>
+      <div class="item-info"><div class="item-name"><span>Pasta (penne or rotini)</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">2 boxes (1 lb each) · Wed night easy dinner</div></div>
       <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-f8" data-est="6" data-optional="false">
       <div class="checkbox" onclick="toggleItem('f8',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Chicken/beef broth (32 oz)</span></div><div class="item-meta">2 cartons · Rice cooking + soups</div></div>
+      <div class="item-info"><div class="item-name"><span>Chicken/beef broth (32 oz)</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">2 cartons · Rice cooking + soups</div></div>
       <div class="price-area"><div class="price-est">~$6</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-f9" data-est="5" data-optional="false">
       <div class="checkbox" onclick="toggleItem('f9',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Tahini (sesame paste)</span></div><div class="item-meta">1 jar · Lemon herb sauce base</div><div class="item-note">Replaces yogurt in sauce — nuttier, richer, dairy-light</div></div>
+      <div class="item-info"><div class="item-name"><span>Tahini (sesame paste)</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">1 jar · Lemon herb sauce base</div><div class="item-note">Replaces yogurt in sauce — nuttier, richer, dairy-light</div></div>
       <div class="price-area"><div class="price-est">~$5</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-f10" data-est="4" data-optional="true">
       <div class="checkbox" onclick="toggleItem('f10',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Everything Bagel seasoning</span></div><div class="item-meta">1 jar · Upgrade spice — eggs, avocado, chicken</div></div>
+      <div class="item-info"><div class="item-name"><span>Everything Bagel seasoning</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">1 jar · Upgrade spice — eggs, avocado, chicken</div></div>
       <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-f11" data-est="3" data-optional="true">
       <div class="checkbox" onclick="toggleItem('f11',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Smoked paprika</span></div><div class="item-meta">1 jar · Depth of flavor</div></div>
+      <div class="item-info"><div class="item-name"><span>Smoked paprika</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">1 jar · Depth of flavor</div></div>
       <div class="price-area"><div class="price-est">~$3</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="grocery-item" id="gi-f12" data-est="2" data-optional="true">
       <div class="checkbox" onclick="toggleItem('f12',this)"></div>
-      <div class="item-info"><div class="item-name"><span>Red pepper flakes</span></div><div class="item-meta">1 jar</div></div>
+      <div class="item-info"><div class="item-name"><span>Red pepper flakes</span><span class="pantry-tag">PANTRY</span></div><div class="item-meta">1 jar</div></div>
       <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="store-subtotal">
@@ -1321,9 +1402,13 @@ input[type=number]{-moz-appearance:textfield;}
 <div id="tab-plan" class="content tab-content" style="display:none;">
   <div class="plan-toolbar" style="margin-top:6px;">
     <div class="section-label" style="margin:0;">Weekly Meal Planner</div>
-    <button class="plan-clear-btn" onclick="clearPlan()">🗑 Clear All</button>
+    <div style="display:flex;gap:6px;">
+      <button class="plan-clear-btn" onclick="collapseAllPlan()" title="Collapse all days">⊟ Collapse</button>
+      <button class="plan-clear-btn" onclick="clearPlan()">🗑 Clear</button>
+    </div>
   </div>
-  <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Tap a day to expand. Choose a recipe for each meal — ingredients will load below each pick.</p>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.6;">Tap a day to expand. Choose a recipe for each meal — ingredients will load below each pick.</p>
+  <div class="week-dot-strip" id="weekDotStrip"></div>
   <div id="planContent"></div>
 </div>
 
@@ -1999,7 +2084,7 @@ const TYPE_COLORS = {
 
 // ─── STATE ──────────────────────────────────────────────────────
 let budget = null;
-let openStore = 'costco';
+let openStore = '';
 let openRecipes = {};
 let prepChecked = {};
 let midWeekChecked = {};
@@ -2008,7 +2093,7 @@ let recipeSearchQuery = '';
 let timeFilter = 'all';
 let favorites = {};
 let weekPlan = {};
-let openPlanDays = {0:true};
+let openPlanDays = {};
 let proteinToday = 0;
 let portionMult = {};
 let proteinGoal = 175;
@@ -2016,6 +2101,83 @@ let planAdder = {};
 window._groceryPlanFilter = false;
 window._hideChecked = false;
 window._matrixFilter = 'all';
+let userName = '';
+let householdSize = 1;
+
+// ─── PROFILE & YOUR WEEK ────────────────────────────────────────
+function renderYourWeek(){
+  const meals = Object.values(weekPlan).filter(Boolean).length;
+  const allItems = document.querySelectorAll('.grocery-item');
+  const checkedItems2 = document.querySelectorAll('.grocery-item.checked');
+  const pct = allItems.length ? Math.round((checkedItems2.length / allItems.length) * 100) : 0;
+  const favCount = Object.values(favorites).filter(Boolean).length;
+  const isEmpty = meals === 0 && pct === 0 && proteinToday === 0 && favCount === 0;
+  // Toggle empty state vs stats grid
+  const emptyEl = document.getElementById('yw-empty');
+  const statsEl = document.getElementById('yw-stats');
+  if(emptyEl) emptyEl.style.display = isEmpty ? 'block' : 'none';
+  if(statsEl) statsEl.style.display = isEmpty ? 'none' : 'grid';
+  // Update stat values
+  const el = document.getElementById('ywMeals');
+  if(el) el.innerHTML = `${meals}<span style="font-size:14px;color:var(--muted)">/28</span>`;
+  const ge = document.getElementById('ywGrocery');
+  if(ge) ge.innerHTML = `${pct}<span style="font-size:14px;color:var(--muted)">%</span>`;
+  const pe = document.getElementById('ywProtein');
+  if(pe) pe.innerHTML = `${proteinToday}<span style="font-size:14px;color:var(--muted)">g</span>`;
+  const fe = document.getElementById('ywFavs');
+  if(fe) fe.textContent = favCount;
+  // Conditional greeting
+  const greet = document.getElementById('ywGreeting');
+  if(greet){
+    if(userName) greet.innerHTML = `👋 Hey, <span>${userName}</span>!`;
+    else if(!isEmpty) greet.innerHTML = '👋 Welcome back!';
+    else greet.innerHTML = "👋 Let's build your first week";
+  }
+}
+function restoreProfile(){
+  const ni = document.getElementById('userNameInput');
+  if(ni && userName) ni.value = userName;
+  const pi = document.getElementById('proteinGoalProfile');
+  if(pi) pi.value = proteinGoal;
+  document.querySelectorAll('.hs-btn').forEach((btn, i) => {
+    const vals = [1, 2, 3, 4];
+    btn.classList.toggle('active', vals[i] === householdSize);
+  });
+  const hint = document.getElementById('hsHint');
+  if(hint){
+    if(householdSize > 1){ hint.style.display = 'block'; hint.textContent = `Scaling to ×${householdSize} people — portions adjust in recipes`; }
+    else { hint.style.display = 'none'; }
+  }
+}
+function toggleProfile(){
+  const body = document.getElementById('profile-body');
+  const chev = document.getElementById('profile-chev');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if(chev) chev.classList.toggle('open', !isOpen);
+}
+function saveProfile(){
+  const ni = document.getElementById('userNameInput');
+  if(ni) userName = ni.value.trim();
+  saveState();
+  renderYourWeek();
+}
+function setHousehold(n, btn){
+  householdSize = n;
+  document.querySelectorAll('.hs-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  saveState();
+  const hint = document.getElementById('hsHint');
+  if(hint){
+    if(n === 1){ hint.style.display = 'none'; hint.textContent = ''; }
+    else { hint.style.display = 'block'; hint.textContent = `Scaling to ×${n} people — portions adjust in recipes`; }
+  }
+}
+function updateProteinGoalFromProfile(){
+  const pi = document.getElementById('proteinGoalProfile');
+  const val = parseInt(pi.value);
+  if(val && val > 0){ proteinGoal = val; renderProtein(); saveState(); }
+}
 
 // ─── INIT ───────────────────────────────────────────────────────
 function init(){
@@ -2029,6 +2191,8 @@ function init(){
   restoreChecks();
   updateGroceryProgress();
   updateGroceryNudge();
+  restoreProfile();
+  renderYourWeek();
   // Date label on protein tracker
   const dateEl = document.getElementById('proteinDate');
   if(dateEl){ const now = new Date(); dateEl.textContent = '· ' + now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); }
@@ -2060,6 +2224,8 @@ function loadState(){
       if(d.weekPlan) weekPlan = d.weekPlan;
       if(d.proteinToday) proteinToday = d.proteinToday;
       if(d.proteinGoal)  proteinGoal  = d.proteinGoal;
+      if(d.userName) userName = d.userName;
+      if(d.householdSize) householdSize = d.householdSize;
       if(d.openStore) openStore = d.openStore;
       if(d.openRecipeFolders) openRecipeFolders = d.openRecipeFolders;
       // restore price inputs
@@ -2102,7 +2268,7 @@ function saveState(){
       const id = item.id.replace('gi-','');
       checkedItems[id] = item.classList.contains('checked');
     });
-    localStorage.setItem('mealplan_state', JSON.stringify({budget, prepChecked, midWeekChecked, openStore, openRecipeFolders, prices, checkedItems, favorites, weekPlan, proteinToday, proteinGoal}));
+    localStorage.setItem('mealplan_state', JSON.stringify({budget, prepChecked, midWeekChecked, openStore, openRecipeFolders, prices, checkedItems, favorites, weekPlan, proteinToday, proteinGoal, userName, householdSize}));
   }catch(e){}
 }
 
@@ -2527,6 +2693,7 @@ function toggleItem(id, cbEl){
   if(!checked) item.style.display = '';
   updateTotal();
   saveState();
+  renderYourWeek();
 }
 
 // ─── PRICE TOTAL ─────────────────────────────────────────────────
@@ -2777,6 +2944,7 @@ function renderPlan(){
     </div>`;
   }).join('');
   el.innerHTML = prompt + days;
+  renderWeekStrip();
 }
 
 function togglePlanDay(di){
@@ -2784,11 +2952,34 @@ function togglePlanDay(di){
   renderPlan();
 }
 
+function collapseAllPlan(){
+  openPlanDays = {};
+  renderPlan();
+}
+
+function renderWeekStrip(){
+  const el = document.getElementById('weekDotStrip');
+  if(!el) return;
+  const today = (new Date().getDay() + 6) % 7; // Mon=0 ... Sun=6
+  const labels = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+  el.innerHTML = labels.map((lbl, di)=>{
+    const filled = PLAN_SLOTS.filter(sl=>weekPlan[`${di}-${sl.key}`]).length;
+    const complete = filled === PLAN_SLOTS.length;
+    const dotClass = complete ? 'wds-dot complete' : filled > 0 ? 'wds-dot filled' : 'wds-dot';
+    const todayClass = di === today ? ' today' : '';
+    return `<div class="wds-day" onclick="openPlanDays[${di}]=true;renderPlan();document.getElementById('planContent').children[${di}]&&document.getElementById('planContent').children[${di}].scrollIntoView({behavior:'smooth'})">
+      <div class="wds-label">${lbl}</div>
+      <div class="${dotClass}${todayClass}"></div>
+    </div>`;
+  }).join('');
+}
+
 function setPlanMeal(sk, val){
   weekPlan[sk] = val;
   renderPlan();
   saveState();
   updateGroceryNudge();
+  renderYourWeek();
   // Refresh grocery filter if it's active
   if(window._groceryPlanFilter) applyGroceryPlanFilter(true);
   // Toast nudge toward Grocery tab
@@ -2801,7 +2992,7 @@ function setPlanMeal(sk, val){
 function clearPlan(){
   if(!confirm('Clear all planned meals?')) return;
   weekPlan = {};
-  openPlanDays = {0:true};
+  openPlanDays = {};
   // reset grocery filter
   if(window._groceryPlanFilter){ window._groceryPlanFilter = false; applyGroceryPlanFilter(false); }
   renderPlan();
@@ -2954,6 +3145,7 @@ function toggleFavorite(key, e){
   favorites[key] = !favorites[key];
   renderRecipes();
   saveState();
+  renderYourWeek();
 }
 
 function togglePlanAdder(key, e){
@@ -3042,6 +3234,7 @@ function addProtein(g){
   proteinToday += g;
   renderProtein();
   saveState();
+  renderYourWeek();
 }
 
 function resetProtein(){
