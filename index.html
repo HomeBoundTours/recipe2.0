@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Meal Plan — Chandler AZ</title>
+<title>Meal Plan — 2-Week Plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* ── DESIGN TOKENS ─────────────────────────────────────────────── */
@@ -470,7 +470,8 @@ button{font-family:'DM Sans',sans-serif;cursor:pointer;}
   padding:13px 14px;
   display:flex;justify-content:space-between;align-items:center;
   color:var(--text);text-align:left;
-  min-height:44px;
+  min-height:44px;cursor:pointer;
+  user-select:none;-webkit-user-select:none;
 }
 .recipe-toggle-left .recipe-name{
   font-weight:700;
@@ -629,18 +630,118 @@ input[type=number]{-moz-appearance:textfield;}
   color:var(--muted);font-size:14px;line-height:1.75;
 }
 .search-no-results .no-results-icon{font-size:38px;margin-bottom:10px;display:block;}
+
+/* ── PLAN TAB ──────────────────────────────────────────────────── */
+.plan-day-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:10px;overflow:hidden;}
+.plan-day-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;background:var(--card);}
+.plan-day-name{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--accentGlow);letter-spacing:1px;}
+.plan-day-summary{font-size:11px;color:var(--muted);margin-top:2px;}
+.plan-day-body{padding:8px 14px 12px;border-top:1px solid var(--border);}
+.plan-slot{padding:8px 0;border-bottom:1px solid var(--border);}
+.plan-slot:last-child{border-bottom:none;}
+.plan-slot-top{display:flex;align-items:center;gap:10px;}
+.plan-slot-label{font-size:11px;color:var(--muted);width:72px;flex-shrink:0;}
+.plan-select{flex:1;background:var(--card2);border:1px solid var(--borderHi);border-radius:var(--r-sm);color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;padding:6px 8px;}
+.plan-select:focus{outline:none;border-color:var(--accent);}
+/* Plan recipe preview */
+.plan-recipe-preview{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:7px 10px;margin-top:6px;}
+.prp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+.prp-name{font-size:11px;font-weight:600;color:var(--accentGlow);}
+.prp-time{font-size:10px;color:var(--muted);}
+.prp-clear{background:none;border:none;color:var(--dim);cursor:pointer;font-size:14px;padding:0 0 0 6px;line-height:1;transition:color .15s;}
+.prp-clear:hover{color:var(--red);}
+.prp-ings{display:flex;flex-wrap:wrap;gap:4px;}
+.prp-ing{font-size:10px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 6px;}
+/* Plan header toolbar */
+.plan-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.plan-clear-btn{background:none;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--muted);font-size:11px;padding:5px 11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .15s,color .15s;}
+.plan-clear-btn:hover{border-color:var(--red);color:var(--red);}
+/* Add to Plan row in recipe card */
+.add-to-plan-row{display:flex;align-items:center;gap:6px;padding:8px 0 2px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.atp-label{font-size:10px;color:var(--muted);letter-spacing:.5px;flex-shrink:0;text-transform:uppercase;}
+.atp-select{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-size:11px;font-family:'DM Sans',sans-serif;padding:4px 6px;flex:1;min-width:72px;}
+.atp-btn{background:var(--accentBg);border:1px solid var(--accent);border-radius:var(--r-sm);color:var(--accentGlow);font-size:11px;font-weight:700;padding:4px 12px;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.atp-btn:active{opacity:.7;}
+/* Grocery plan filter */
+.plan-filter-btn{display:flex;align-items:center;gap:8px;width:100%;background:var(--card2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;font-size:12px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;transition:border-color .15s,color .15s,background .15s;}
+.plan-filter-btn.active{border-color:var(--accent);color:var(--accentGlow);background:var(--accentBg);}
+.plan-filter-count{margin-left:auto;font-size:10px;background:var(--border);border-radius:10px;padding:1px 7px;color:var(--muted);}
+
+/* ── TIME FILTER ───────────────────────────────────────────────── */
+.time-filter-row{display:flex;gap:6px;padding:6px 0 8px;flex-wrap:wrap;}
+.time-filter-btn{background:var(--tag);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.15s,border-color 0.15s,color 0.15s;}
+.time-filter-btn.active{background:var(--accentBg);border-color:var(--accent);color:var(--accentGlow);font-weight:600;}
+
+/* ── FAVORITES ─────────────────────────────────────────────────── */
+.recipe-fav-btn{background:transparent;border:none;font-size:15px;padding:2px 4px;color:var(--dim);transition:color 0.15s,transform 0.1s;flex-shrink:0;line-height:1;}
+.recipe-fav-btn:active{transform:scale(1.3);}
+.recipe-fav-btn.faved{color:#e05a5a;}
+.recipe-plan-btn{background:transparent;border:none;font-size:14px;padding:2px 4px;color:var(--dim);transition:opacity 0.15s,transform 0.1s;flex-shrink:0;line-height:1;cursor:pointer;opacity:0.8;}
+.recipe-plan-btn:hover,.recipe-plan-btn.active{opacity:1;}
+.recipe-plan-btn.active{filter:drop-shadow(0 0 3px var(--accent));color:var(--accent);}
+.recipe-quick-add{display:flex;align-items:center;gap:6px;padding:8px 14px;border-top:1px solid var(--border);background:var(--accentBg);flex-wrap:wrap;}
+
+/* ── PROTEIN TRACKER ───────────────────────────────────────────── */
+.protein-tracker{background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:var(--r-md);padding:13px 16px;margin-bottom:14px;}
+.protein-tracker-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.protein-amount{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--blue);line-height:1;}
+.protein-target{font-size:11px;color:var(--muted);cursor:pointer;border-bottom:1px dashed var(--dim);display:inline-block;}
+.protein-target:hover{color:var(--accent);}
+.protein-goal-hint{font-size:9px;color:var(--dim);text-align:right;margin-top:2px;}
+/* How-to card */
+.how-to-card{background:var(--accentBg);border:1px solid var(--accentDim);border-radius:var(--r-md);margin-bottom:14px;overflow:hidden;}
+.how-to-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;cursor:pointer;}
+.how-to-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--accentGlow);}
+.how-to-body{padding:0 14px 14px;border-top:1px solid var(--accentDim);}
+.how-to-step{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.how-to-step:last-child{border-bottom:none;}
+.hts-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);line-height:1;flex-shrink:0;width:22px;text-align:center;}
+.hts-text strong{display:block;font-size:13px;color:var(--text);margin-bottom:1px;}
+.hts-tab-link{color:var(--accent);text-decoration:underline;text-underline-offset:2px;cursor:pointer;}
+.hts-text span{font-size:11px;color:var(--muted);line-height:1.5;}
+/* Plan prompt */
+.plan-grocery-prompt{background:var(--accentBg);border:1px solid var(--accentDim);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--accentGlow);line-height:1.5;}
+.protein-bar-wrap{height:4px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:10px;}
+.protein-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#7ad4f0);border-radius:4px;transition:width 0.3s;}
+.protein-btns{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.protein-add-btn{background:var(--tag);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.15s,color 0.15s,border-color 0.15s;}
+.protein-add-btn:hover{background:rgba(90,180,212,0.1);color:var(--blue);border-color:var(--blue);}
+.protein-reset-btn{background:transparent;border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--dim);cursor:pointer;font-family:'DM Sans',sans-serif;margin-left:auto;transition:color 0.15s;}
+.protein-reset-btn:hover{color:var(--muted);}
+
+/* ── PORTION MULTIPLIER ────────────────────────────────────────── */
+.portion-row{display:flex;align-items:center;gap:6px;padding:8px 0 4px;margin-bottom:2px;border-top:1px solid var(--border);}
+.portion-label{font-size:11px;color:var(--muted);}
+.portion-btn{background:var(--tag);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.15s,color 0.15s;}
+.portion-btn.active{background:var(--accentBg);border-color:var(--accent);color:var(--accentGlow);font-weight:600;}
+
+/* ── START PLANNING CTA ────────────────────────────────────────── */
+.start-planning-btn{width:100%;background:var(--accent);color:#000;font-weight:700;font-size:14px;border:none;border-radius:var(--r-md);padding:13px 16px;margin-bottom:14px;letter-spacing:0.3px;transition:background 0.15s,transform 0.1s;}
+.start-planning-btn:active{background:var(--accent2);transform:scale(0.98);}
+
+/* ── NEW WEEK BUTTON ───────────────────────────────────────────── */
+.new-week-btn{width:100%;background:transparent;border:1px dashed var(--border);border-radius:var(--r-md);padding:11px;color:var(--muted);font-size:13px;font-family:'DM Sans',sans-serif;margin-top:14px;transition:border-color 0.15s,color 0.15s;}
+.new-week-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* ── COPY TOAST ────────────────────────────────────────────────── */
+.copy-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--success);color:#000;border-radius:var(--r-md);padding:10px 20px;font-size:13px;font-weight:600;z-index:300;opacity:0;transition:opacity 0.25s;pointer-events:none;white-space:nowrap;}
+.copy-toast.show{opacity:1;}
+
+/* ── COPY GROCERY BTN ──────────────────────────────────────────── */
+.copy-list-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);padding:9px;color:var(--muted);font-size:12px;font-family:'DM Sans',sans-serif;margin-bottom:10px;transition:border-color 0.15s,color 0.15s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.copy-list-btn:hover{border-color:var(--accent);color:var(--accent);}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
-<div class="header" style="padding:14px 16px 12px;">
+<div class="header" style="padding:12px 16px 10px;">
   <div class="header-top">
     <div>
-      <div class="header-label">Chandler, AZ · 2-Week Plan</div>
-      <div class="header-title" style="font-size:30px;">MEAL PLAN</div>
+      <div class="header-title" style="font-size:26px;line-height:1;">MEAL PREP</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:0.3px;">High-protein eating on a budget</div>
     </div>
-    <div style="font-size:11px;color:var(--muted);text-align:right;line-height:1.6;padding-top:6px;">High protein<br>Cook 3×/week</div>
+    <div style="font-size:11px;color:var(--muted);text-align:right;line-height:1.6;padding-top:4px;">75+ recipes · 3 stores</div>
   </div>
 </div>
 
@@ -660,61 +761,111 @@ input[type=number]{-moz-appearance:textfield;}
 
 <!-- TABS -->
 <div class="tabs" id="tabBar">
-  <button class="tab-btn" onclick="switchTab('summary',this)"><span class="tab-icon">📋</span>Summary</button>
-  <button class="tab-btn" onclick="switchTab('grocery',this)"><span class="tab-icon">🛒</span>Grocery</button>
-  <button class="tab-btn active" onclick="switchTab('prep',this)"><span class="tab-icon">🍳</span>Prep</button>
+  <button class="tab-btn active" onclick="switchTab('summary',this)"><span class="tab-icon">📋</span>Summary</button>
   <button class="tab-btn" onclick="switchTab('recipes',this)"><span class="tab-icon">📖</span>Recipes</button>
-  <button class="tab-btn" onclick="switchTab('matrix',this)"><span class="tab-icon">🔀</span>Mix</button>
+  <button class="tab-btn" onclick="switchTab('plan',this)"><span class="tab-icon">📅</span>Plan</button>
+  <button class="tab-btn" onclick="switchTab('grocery',this)"><span class="tab-icon">🛒</span>Grocery</button>
+  <button class="tab-btn" onclick="switchTab('prep',this)"><span class="tab-icon">🍳</span>Prep</button>
+  <button class="tab-btn" onclick="switchTab('matrix',this)"><span class="tab-icon">♻️</span>Leftovers</button>
 </div>
 
 <!-- ===== SUMMARY TAB ===== -->
-<div id="tab-summary" class="content tab-content" style="display:none;">
-  <div class="section-label" style="margin-top:6px;">Plan Overview</div>
-  <div class="info-row"><span class="info-key">📅 Duration</span><span class="info-val">2 weeks (14 days)</span></div>
-  <div class="info-row"><span class="info-key">💰 Est. Cost</span><span class="info-val">~$185–$200</span></div>
-  <div class="info-row"><span class="info-key">🍽 Meals/Day</span><span class="info-val">Breakfast + Lunch + Snack + Dinner</span></div>
-  <div class="info-row"><span class="info-key">🎯 Focus</span><span class="info-val">High protein (160–200g/day), minimal heavy cream</span></div>
-  <div class="info-row"><span class="info-key">🍳 Prep</span><span class="info-val">Sunday (main) + Wed/Thu refresh</span></div>
+<div id="tab-summary" class="content tab-content" style="display:block;">
+
+  <!-- HOW TO USE -->
+  <div class="how-to-card" style="margin-top:6px;">
+    <div class="how-to-header" onclick="toggleHowTo()">
+      <span class="how-to-title">🚀 How to Use This App</span>
+      <span class="chevron open" id="how-to-chev">▾</span>
+    </div>
+    <div class="how-to-body" id="how-to-body">
+      <div class="how-to-step">
+        <div class="hts-num">1</div>
+        <div class="hts-text"><strong><span class="hts-tab-link" onclick="goToTab('recipes')">Recipes tab</span></strong><span>Browse or search all meals. Open any card to see ingredients, steps, and swaps. Use ×2/×3 to scale portions, or heart to favorite it.</span></div>
+      </div>
+      <div class="how-to-step">
+        <div class="hts-num">2</div>
+        <div class="hts-text"><strong><span class="hts-tab-link" onclick="goToTab('plan')">Weekly Plan tab</span></strong><span>Choose a recipe for each meal slot across the week. Ingredient previews load automatically under each choice.</span></div>
+      </div>
+      <div class="how-to-step">
+        <div class="hts-num">3</div>
+        <div class="hts-text"><strong><span class="hts-tab-link" onclick="goToTab('grocery')">Grocery tab</span></strong><span>Tap "Filter by Weekly Plan" to see only the ingredients needed for planned meals. Check items off as you shop — totals update live.</span></div>
+      </div>
+      <div class="how-to-step">
+        <div class="hts-num">4</div>
+        <div class="hts-text"><strong><span class="hts-tab-link" onclick="goToTab('prep')">Prep tab</span></strong><span>Follow the Sunday prep timeline to batch-cook everything in 60–90 min. Check each step off as it's done. Mid-week refresh takes ~20 min.</span></div>
+      </div>
+      <div class="how-to-step">
+        <div class="hts-num">5</div>
+        <div class="hts-text"><strong><span class="hts-tab-link" onclick="goToTab('matrix')">Leftovers tab</span></strong><span>See how leftover proteins, carbs, and veggies can be remixed into new meals — cut food waste and stretch your prep further without cooking twice.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- START CTA -->
+  <button class="start-planning-btn" onclick="goToTab('plan')">📅 Start Planning This Week →</button>
+
+  <!-- APP OVERVIEW -->
+  <div class="section-label">App Overview</div>
+  <div class="info-row"><span class="info-key">📅 Plan Length</span><span class="info-val">2 weeks (repeatable)</span></div>
+  <div class="info-row"><span class="info-key">💰 Est. Weekly Cost</span><span class="info-val">~$185–$200 at 3 stores</span></div>
+  <div class="info-row"><span class="info-key">🍽 Meals Covered</span><span class="info-val">Breakfast · Lunch · Snack · Dinner</span></div>
+  <div class="info-row"><span class="info-key">🎯 Nutrition Focus</span><span class="info-val">High protein (160–200g/day), whole foods</span></div>
+  <div class="info-row"><span class="info-key">🍳 Prep Style</span><span class="info-val">Sunday batch (60–90 min) + Wed refresh (20 min)</span></div>
+  <div class="info-row"><span class="info-key">📖 Recipes</span><span class="info-val">75+ recipes, 5 categories, searchable & filterable</span></div>
 
   <div class="divider"></div>
-  <div class="section-label">Why These Stores</div>
-  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Costco for bulk proteins at best $/lb, Walmart for produce & pantry fill-ins, Fry's for weekly deals on fresh veg and spice upgrades.</p>
+  <div class="section-label">Grocery Strategy</div>
+  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Split across 3 stores to maximize value — Costco for bulk proteins, Walmart for produce & pantry, Fry's for weekly deals on fresh veg.</p>
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Costco</span><span class="store-pick-est">~$115</span></div><div class="store-pick-note">Bulk proteins, oats, almonds, olive oil — best $/lb</div></div>
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Walmart</span><span class="store-pick-est">~$50</span></div><div class="store-pick-note">Produce, dairy, pantry sauces & canned goods</div></div>
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Fry's</span><span class="store-pick-est">~$30</span></div><div class="store-pick-note">Weekly sales on avocados, fresh veg, spice upgrades</div></div>
 
   <div class="divider"></div>
-  <div class="section-label">🧂 Pantry Upgrades to Buy</div>
-  <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">You have basics — grab these to take flavor from good → great:</p>
-  <div class="spice-item">✦ Everything Bagel Seasoning — eggs, avocado, chicken (Fry's ~$4)</div>
-  <div class="spice-item">✦ Smoked Paprika — transforms chicken, salmon, potatoes (Fry's ~$3)</div>
-  <div class="spice-item">✦ Sesame Oil — 1 tsp elevates any Asian dish (Walmart ~$3)</div>
-  <div class="spice-item">✦ Chipotle in Adobo — smoky heat for sauces & rice (Walmart ~$1.50/can)</div>
-  <div class="spice-item">✦ Coconut Aminos — umami + sweetness, great for marinades (~$5)</div>
-  <div class="spice-item">✦ Fish Sauce — 1 tsp makes stir fry taste like a restaurant (~$3)</div>
-  <div class="spice-item">✦ Dried Thyme + Oregano — herb-crusted proteins (if needed)</div>
 
-  <div class="divider"></div>
-  <div class="section-label">Master Sauces</div>
-  <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Make these Sunday. They turn simple ingredients into craveable meals all week.</p>
-  <div class="sauce-card" style="border-left-color:#e8873a;">
-    <div class="sauce-name">🌶 Chipotle Lime Crema</div>
-    <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 1 chipotle pepper + 2 tbsp adobo sauce + ½ cup cottage cheese (blended smooth) + juice of 1 lime + pinch of salt</div>
-    <div class="sauce-use"><strong>Use on:</strong> Rice bowls, chicken tacos, scrambled eggs, salmon</div>
-    <div class="sauce-makes">~½ cup · keeps 7 days in fridge</div>
+  <!-- PANTRY UPGRADES — collapsible -->
+  <button class="store-toggle" onclick="toggleSummarySection('pantry')" id="btn-pantry" style="margin-top:0;">
+    <div><div class="store-name" style="color:var(--warn);">🧂 Pantry Upgrades</div><div class="store-sub">7 spices that take meals from good → great</div></div>
+    <span class="chevron" id="chev-pantry">▾</span>
+  </button>
+  <div class="store-body" id="body-pantry" style="display:none;padding:10px 14px;">
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Stock these once — they're used across dozens of recipes in this plan.</p>
+    <div class="spice-item">✦ Everything Bagel Seasoning — eggs, avocado, chicken (~$4)</div>
+    <div class="spice-item">✦ Smoked Paprika — transforms chicken, salmon, potatoes (~$3)</div>
+    <div class="spice-item">✦ Sesame Oil — 1 tsp elevates any Asian dish (~$3)</div>
+    <div class="spice-item">✦ Chipotle in Adobo — smoky heat for sauces & rice (~$1.50/can)</div>
+    <div class="spice-item">✦ Coconut Aminos — umami + sweetness, great for marinades (~$5)</div>
+    <div class="spice-item">✦ Fish Sauce — 1 tsp makes stir fry taste like a restaurant (~$3)</div>
+    <div class="spice-item">✦ Dried Thyme + Oregano — herb-crusted proteins (~$2)</div>
   </div>
-  <div class="sauce-card" style="border-left-color:var(--accent);">
-    <div class="sauce-name">🌿 Lemon Herb Tahini Sauce</div>
-    <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 3 tbsp tahini + juice of 1 lemon + 1 tsp garlic powder + 2 tbsp water + 1 tbsp olive oil + dried dill/parsley + salt</div>
-    <div class="sauce-use"><strong>Use on:</strong> Salmon topping, wrap spread, salad dressing, dipping sauce</div>
-    <div class="sauce-makes">~½ cup · keeps 10 days in fridge</div>
+
+  <!-- MASTER SAUCES — collapsible -->
+  <button class="store-toggle" onclick="toggleSummarySection('sauces')" id="btn-sauces" style="margin-top:8px;">
+    <div><div class="store-name" style="color:var(--blue);">🫙 Master Sauces</div><div class="store-sub">Make Sunday · use all week · 3 recipes</div></div>
+    <span class="chevron" id="chev-sauces">▾</span>
+  </button>
+  <div class="store-body" id="body-sauces" style="display:none;padding:10px 14px 14px;">
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Batch these on Sunday — they unlock flavor across every meal without extra cooking time.</p>
+    <div class="sauce-card" style="border-left-color:#e8873a;">
+      <div class="sauce-name">🌶 Chipotle Lime Crema</div>
+      <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 1 chipotle pepper + 2 tbsp adobo sauce + ½ cup cottage cheese (blended smooth) + juice of 1 lime + pinch of salt</div>
+      <div class="sauce-use"><strong>Use on:</strong> Rice bowls, chicken tacos, scrambled eggs, salmon</div>
+      <div class="sauce-makes">~½ cup · keeps 7 days in fridge</div>
+    </div>
+    <div class="sauce-card" style="border-left-color:var(--accent);">
+      <div class="sauce-name">🌿 Lemon Herb Tahini Sauce</div>
+      <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 3 tbsp tahini + juice of 1 lemon + 1 tsp garlic powder + 2 tbsp water + 1 tbsp olive oil + dried dill/parsley + salt</div>
+      <div class="sauce-use"><strong>Use on:</strong> Salmon topping, wrap spread, salad dressing, dipping sauce</div>
+      <div class="sauce-makes">~½ cup · keeps 10 days in fridge</div>
+    </div>
+    <div class="sauce-card" style="border-left-color:#5ab4d4;">
+      <div class="sauce-name">🥢 Sesame Ginger Drizzle</div>
+      <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 2 tbsp soy sauce + 1 tbsp sesame oil + 1 tsp honey + ½ tsp ginger powder + 1 tsp lime juice</div>
+      <div class="sauce-use"><strong>Use on:</strong> Stir fry glaze, rice bowl drizzle, salmon marinade, cold noodle sauce</div>
+      <div class="sauce-makes">~¼ cup · keeps 2 weeks</div>
+    </div>
   </div>
-  <div class="sauce-card" style="border-left-color:#5ab4d4;">
-    <div class="sauce-name">🥢 Sesame Ginger Drizzle</div>
-    <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 2 tbsp soy sauce + 1 tbsp sesame oil + 1 tsp honey + ½ tsp ginger powder + 1 tsp lime juice</div>
-    <div class="sauce-use"><strong>Use on:</strong> Stir fry glaze, rice bowl drizzle, salmon marinade, cold noodle sauce</div>
-    <div class="sauce-makes">~¼ cup · keeps 2 weeks</div>
-  </div>
+
 </div>
 
 <!-- ===== GROCERY TAB ===== -->
@@ -725,7 +876,7 @@ input[type=number]{-moz-appearance:textfield;}
     <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
       <div class="grocery-cost-left">
         <div class="gc-label">Projected Total (pre-tax)</div>
-        <div class="gc-amount" id="grandTotal">$0.00</div>
+        <div class="gc-amount" id="grandTotal" style="font-size:22px;">$0.00</div>
       </div>
       <div class="grocery-cost-right">
         <div class="gc-label">items checked</div>
@@ -739,19 +890,35 @@ input[type=number]{-moz-appearance:textfield;}
     </div>
   </div>
 
-  <!-- BUDGET FILTER -->
-  <div class="budget-banner" style="margin:0 -14px 14px;border-radius:0;">
-    <div class="budget-title">🎯 BUDGET FILTER</div>
-    <div class="budget-row">
+  <!-- COMPACT TOOLBAR ROW -->
+  <div style="display:flex;gap:8px;margin-bottom:10px;">
+    <button class="copy-list-btn" style="margin-bottom:0;flex:1;" onclick="copyGroceryList()">📋 Copy List</button>
+    <button class="plan-filter-btn" id="planFilterBtn" style="margin-bottom:0;flex:1;padding:9px 10px;" onclick="toggleGroceryPlanFilter()">
+      <span id="planFilterLabel">🗓 Filter by Plan</span>
+      <span class="plan-filter-count" id="planFilterCount" style="display:none;"></span>
+    </button>
+  </div>
+
+  <!-- EMPTY PLAN NUDGE -->
+  <div id="groceryPlanNudge" style="display:none;background:var(--accentBg);border:1px solid var(--accentDim);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--accentGlow);line-height:1.6;">
+    💡 <strong>Tip:</strong> Set your meals in the <span class="hts-tab-link" onclick="goToTab('plan')" style="font-size:12px;">Weekly Plan tab</span> first — then tap "Filter by Plan" to see only what you need to buy.
+  </div>
+
+  <!-- BUDGET FILTER — collapsible -->
+  <button class="store-toggle" onclick="toggleSummarySection('budget')" id="btn-budget" style="margin-bottom:4px;">
+    <div><div class="store-name" style="color:var(--warn);font-size:13px;">🎯 Budget Filter</div><div class="store-sub">Dim items above your spend limit</div></div>
+    <span class="chevron" id="chev-budget">▾</span>
+  </button>
+  <div class="store-body" id="body-budget" style="display:none;padding:12px 14px;">
+    <div class="budget-row" style="margin-bottom:6px;">
       <span style="color:var(--muted);font-size:13px;">$</span>
       <input class="budget-input" type="number" id="budgetInput" placeholder="e.g. 150" min="0" step="1" oninput="liveApplyBudget()"/>
       <button class="budget-clear-btn" onclick="clearBudget()">Clear</button>
     </div>
     <div class="budget-status" id="budgetStatus" style="display:none;"></div>
-  </div>
-
-  <div id="groceryFilterInfo" style="display:none;" class="filter-info">
-    💡 Budget filter active — items marked <strong>optional</strong> or above budget are dimmed. Actual prices may vary; update each item's price as you shop for a live total.
+    <div id="groceryFilterInfo" style="display:none;" class="filter-info" style="margin-top:6px;">
+      💡 Items marked <strong>optional</strong> or above budget are dimmed.
+    </div>
   </div>
 
   <!-- COSTCO -->
@@ -1074,9 +1241,39 @@ input[type=number]{-moz-appearance:textfield;}
 </div>
 
 <!-- ===== PREP TAB ===== -->
-<div id="tab-prep" class="content tab-content">
-  <div class="section-label" style="margin-top:6px;">Sunday Prep — 60–90 min</div>
+<div id="tab-prep" class="content tab-content" style="display:none;">
+
+  <!-- PROTEIN TRACKER -->
+  <div class="protein-tracker" style="margin-top:6px;">
+    <div class="protein-tracker-top">
+      <div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;">Today's Protein</div>
+        <div class="protein-amount" id="proteinAmount">0g</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="protein-target" id="proteinTargetLabel" onclick="editProteinGoal()" title="Tap to change goal">Goal: <span id="proteinGoalVal">175</span>g/day</div>
+        <div id="proteinGoalEditor" style="display:none;margin-top:4px;display:none;">
+          <input id="proteinGoalInput" type="number" min="1" max="500" onkeydown="if(event.key==='Enter')confirmProteinGoal();if(event.key==='Escape')cancelProteinGoal();" style="width:60px;background:var(--bg);border:1px solid var(--accent);border-radius:6px;color:var(--text);font-size:12px;padding:3px 6px;font-family:'DM Sans',sans-serif;" />
+          <button onclick="confirmProteinGoal()" style="background:var(--accentBg);border:1px solid var(--accent);border-radius:6px;color:var(--accentGlow);font-size:11px;font-weight:700;padding:3px 8px;cursor:pointer;margin-left:3px;font-family:'DM Sans',sans-serif;">✓</button>
+          <button onclick="cancelProteinGoal()" style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:11px;padding:3px 6px;cursor:pointer;margin-left:2px;font-family:'DM Sans',sans-serif;">✕</button>
+        </div>
+        <div class="protein-goal-hint" id="proteinGoalHint"><strong>Set Protein Goal</strong></div>
+        <div id="proteinStatus" style="font-size:11px;color:var(--muted);margin-top:2px;"></div>
+      </div>
+    </div>
+    <div class="protein-bar-wrap"><div class="protein-bar-fill" id="proteinBarFill" style="width:0%"></div></div>
+    <div class="protein-btns">
+      <button class="protein-add-btn" onclick="addProtein(25)">+25g</button>
+      <button class="protein-add-btn" onclick="addProtein(30)">+30g</button>
+      <button class="protein-add-btn" onclick="addProtein(40)">+40g</button>
+      <button class="protein-add-btn" onclick="addProtein(50)">+50g</button>
+      <button class="protein-reset-btn" onclick="resetProtein()">Reset</button>
+    </div>
+  </div>
+
+  <div class="section-label">Sunday Prep — 60–90 min</div>
   <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">Do this once and your whole week is assembled. Wednesday add a quick salmon cook or pasta night (15–20 min).</p>
+  <div style="font-size:11px;color:var(--dim);margin-bottom:8px;letter-spacing:.3px;">⏱ ~75 min total · check off each step as you go</div>
   <div class="prep-progress">
     <div class="prep-progress-bar-wrap"><div class="prep-progress-bar-fill" id="prepProgressFill"></div></div>
     <div class="prep-progress-label" id="prepProgressLabel">0 of 7 done</div>
@@ -1085,13 +1282,23 @@ input[type=number]{-moz-appearance:textfield;}
   <div class="divider"></div>
   <div class="section-label">Mid-Week Refresh (Wed/Thu · 20 min)</div>
   <div id="midWeekList"></div>
+
+  <button class="new-week-btn" onclick="newWeek()">🔄 ⚠️ Start New Week — clear all checkboxes & prep</button>
 </div>
 
 <!-- ===== RECIPES TAB ===== -->
 <div id="tab-recipes" class="content tab-content" style="display:none;">
   <div class="recipe-search-wrap" style="padding-top:8px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Cook time</div>
+    <div class="time-filter-row" id="timeFilterRow">
+      <button class="time-filter-btn active" onclick="setTimeFilter('all',this)">All</button>
+      <button class="time-filter-btn" onclick="setTimeFilter('fast',this)">⚡ Under 15 min</button>
+      <button class="time-filter-btn" onclick="setTimeFilter('med',this)">🕐 15–30 min</button>
+      <button class="time-filter-btn" onclick="setTimeFilter('slow',this)">🍳 30+ min</button>
+    </div>
     <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Quick filters</div>
     <div class="search-keyword-hint" id="searchHints">
+      <span onclick="searchRecipes('__fav__');setSearchInput('')" style="color:#e05a5a;border-color:rgba(224,90,90,0.3);">❤️ favorites</span>
       <span onclick="searchRecipes('fish');setSearchInput('fish')">🐟 fish</span>
       <span onclick="searchRecipes('spicy');setSearchInput('spicy')">🌶 spicy</span>
       <span onclick="searchRecipes('quick');setSearchInput('quick')">⚡ quick</span>
@@ -1106,6 +1313,16 @@ input[type=number]{-moz-appearance:textfield;}
     <div class="search-results-label" id="searchResultsLabel"></div>
   </div>
   <div id="recipeList"></div>
+</div>
+
+<!-- ===== PLAN TAB ===== -->
+<div id="tab-plan" class="content tab-content" style="display:none;">
+  <div class="plan-toolbar" style="margin-top:6px;">
+    <div class="section-label" style="margin:0;">Weekly Meal Planner</div>
+    <button class="plan-clear-btn" onclick="clearPlan()">🗑 Clear All</button>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Tap a day to expand. Choose a recipe for each meal — ingredients will load below each pick.</p>
+  <div id="planContent"></div>
 </div>
 
 <!-- ===== MIX & MATCH TAB ===== -->
@@ -1778,6 +1995,15 @@ let prepChecked = {};
 let midWeekChecked = {};
 let openRecipeFolders = {Breakfast:true};
 let recipeSearchQuery = '';
+let timeFilter = 'all';
+let favorites = {};
+let weekPlan = {};
+let openPlanDays = {0:true};
+let proteinToday = 0;
+let portionMult = {};
+let proteinGoal = 175;
+let planAdder = {};
+window._groceryPlanFilter = false;
 
 // ─── INIT ───────────────────────────────────────────────────────
 function init(){
@@ -1785,8 +2011,26 @@ function init(){
   renderPrep();
   renderRecipes();
   renderMatrix();
+  renderPlan();
+  renderProtein();
   updateTotal();
   restoreChecks();
+  updateGroceryProgress();
+  updateGroceryNudge();
+  // How-to: open on first visit, collapsed after
+  const body = document.getElementById('how-to-body');
+  const chev = document.getElementById('how-to-chev');
+  if(!localStorage.getItem('mealplan_howto_seen')){
+    if(body) body.style.display = 'block';
+    if(chev) chev.classList.add('open');
+    localStorage.setItem('mealplan_howto_seen','1');
+  } else {
+    if(body) body.style.display = 'none';
+    if(chev) chev.classList.remove('open');
+  }
+  // Search bar hidden on load (Summary tab is default)
+  const sw = document.querySelector('.global-search-wrap');
+  if(sw) sw.style.display = 'none';
 }
 
 function loadState(){
@@ -1797,6 +2041,10 @@ function loadState(){
       if(d.budget) budget = d.budget;
       if(d.prepChecked) prepChecked = d.prepChecked;
       if(d.midWeekChecked) midWeekChecked = d.midWeekChecked;
+      if(d.favorites) favorites = d.favorites;
+      if(d.weekPlan) weekPlan = d.weekPlan;
+      if(d.proteinToday) proteinToday = d.proteinToday;
+      if(d.proteinGoal)  proteinGoal  = d.proteinGoal;
       if(d.openStore) openStore = d.openStore;
       if(d.openRecipeFolders) openRecipeFolders = d.openRecipeFolders;
       // restore price inputs
@@ -1839,7 +2087,7 @@ function saveState(){
       const id = item.id.replace('gi-','');
       checkedItems[id] = item.classList.contains('checked');
     });
-    localStorage.setItem('mealplan_state', JSON.stringify({budget, prepChecked, midWeekChecked, openStore, openRecipeFolders, prices, checkedItems}));
+    localStorage.setItem('mealplan_state', JSON.stringify({budget, prepChecked, midWeekChecked, openStore, openRecipeFolders, prices, checkedItems, favorites, weekPlan, proteinToday, proteinGoal}));
   }catch(e){}
 }
 
@@ -1998,27 +2246,42 @@ function renderRecipes(){
   });
 
   // Filter
+  const isFavFilter = q === '__fav__';
   const filtered = {};
   let totalMatches = 0;
   types.forEach(type=>{
-    filtered[type] = isSearching
-      ? typeIndex[type].filter(({r})=>recipeMatchesQuery(r,terms))
-      : typeIndex[type];
-    totalMatches += filtered[type].length;
+    let pool = typeIndex[type];
+    if(isFavFilter){
+      pool = pool.filter(({r,ri})=>favorites[`${type}-${ri}`]);
+    } else if(isSearching){
+      pool = pool.filter(({r})=>recipeMatchesQuery(r,terms));
+    }
+    if(timeFilter !== 'all'){
+      pool = pool.filter(({r})=>{
+        const mins = parseMinutes(r.time);
+        if(timeFilter==='fast') return mins < 15;
+        if(timeFilter==='med')  return mins >= 15 && mins <= 30;
+        if(timeFilter==='slow') return mins > 30;
+        return true;
+      });
+    }
+    filtered[type] = pool;
+    totalMatches += pool.length;
   });
 
   // Search feedback
-  const label  = document.getElementById('searchResultsLabel');
+  const label    = document.getElementById('searchResultsLabel');
   const clearBtn = document.getElementById('searchClearBtn');
-  const hints  = document.getElementById('searchHints');
+  const hints    = document.getElementById('searchHints');
+  const isActive = isSearching || isFavFilter || timeFilter !== 'all';
   if(label){
-    label.style.display = isSearching ? 'block' : 'none';
-    label.textContent   = isSearching
-      ? `${totalMatches} recipe${totalMatches!==1?'s':''} found for "${q}"`
-      : '';
+    label.style.display = isActive ? 'block' : 'none';
+    if(isFavFilter)    label.textContent = `${totalMatches} favorite recipe${totalMatches!==1?'s':''}`;
+    else if(isSearching) label.textContent = `${totalMatches} recipe${totalMatches!==1?'s':''} found for "${q}"`;
+    else               label.textContent = `${totalMatches} recipe${totalMatches!==1?'s':''} (filtered)`;
   }
-  if(clearBtn) clearBtn.style.display = isSearching ? 'flex' : 'none';
-  if(hints)    hints.style.display    = isSearching ? 'none' : 'flex';
+  if(clearBtn) clearBtn.style.display = (isSearching||isFavFilter) ? 'flex' : 'none';
+  if(hints)    hints.style.display    = (isSearching||isFavFilter) ? 'none' : 'flex';
 
   // Build HTML
   const folderHtml = types.map(type=>{
@@ -2033,23 +2296,56 @@ function renderRecipes(){
       : `${recs.length} recipes · ${meta.sub}`;
 
     const cards = recs.map(({r,ri})=>{
-      const key  = `${type}-${ri}`;
-      const open = openRecipes[key];
+      const key   = `${type}-${ri}`;
+      const open  = openRecipes[key];
+      const isFav = !!favorites[key];
+      const mult  = portionMult[key] || 1;
+      const adderOpen = !!planAdder[key];
+      const adderHtml = adderOpen ? `
+        <div class="recipe-quick-add" onclick="event.stopPropagation()">
+          <select class="atp-select" id="qa-day-${key}">
+            ${PLAN_DAYS.map((d,i)=>`<option value="${i}">${d}</option>`).join('')}
+          </select>
+          <select class="atp-select" id="qa-slot-${key}">
+            ${PLAN_SLOTS.map(sl=>`<option value="${sl.key}"${sl.type===type?' selected':''}>${sl.label.replace(/^\S+\s/,'')}</option>`).join('')}
+          </select>
+          <button class="atp-btn" onclick="quickAddToPlan('${r.name.replace(/'/g,"\\'")}','${key}');event.stopPropagation()">Add</button>
+          <button onclick="planAdder['${key}']=false;renderRecipes();event.stopPropagation()" style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--dim);font-size:11px;padding:4px 8px;cursor:pointer;">✕</button>
+        </div>` : '';
       return `
         <div class="recipe-card" id="rc-${key}" data-budget="${r.budget}">
-          <button class="recipe-toggle" onclick="toggleRecipe('${key}')">
+          <div class="recipe-toggle" onclick="toggleRecipe('${key}')">
             <div class="recipe-toggle-left">
               <div class="recipe-name">${r.name}</div>
               <div class="recipe-meta">⏱ ${r.time} · ${r.servings} serving${r.servings!=='1'?'s':''}${r.leftover?'<span class="leftover-tag">♻ leftover-friendly</span>':''}</div>
             </div>
-            <span style="color:var(--accent);font-size:16px;margin-left:8px;">${open?'▾':'▸'}</span>
-          </button>
+            <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+              <button class="recipe-fav-btn${isFav?' faved':''}" onclick="toggleFavorite('${key}',event)" title="${isFav?'Remove from favorites':'Add to favorites'}">${isFav?'❤️':'🤍'}</button>
+              <button class="recipe-plan-btn${adderOpen?' active':''}" onclick="togglePlanAdder('${key}',event)" title="Add to plan">📅</button>
+              <span style="color:var(--accent);font-size:16px;">${open?'▾':'▸'}</span>
+            </div>
+          </div>
+          ${adderHtml}
           ${open?`<div class="recipe-body">
-            <div class="recipe-section-head">Ingredients</div>
-            ${r.ings.map(i=>`<div class="recipe-ing">· ${i}</div>`).join('')}
+            <div class="portion-row">
+              <span class="portion-label">Servings:</span>
+              ${[1,2,3].map(m=>`<button class="portion-btn${mult===m?' active':''}" onclick="setPortionMult('${key}',${m},event)">×${m}</button>`).join('')}
+            </div>
+            <div class="recipe-section-head">Ingredients${mult>1?` <span style="color:var(--accent2);font-size:10px;">(×${mult})</span>`:''}</div>
+            ${r.ings.map(i=>`<div class="recipe-ing">· ${scaleIngredient(i,mult)}</div>`).join('')}
             <div class="recipe-section-head" style="margin-top:10px;">Steps</div>
             ${r.steps.map((s,si)=>`<div class="recipe-step"><span class="recipe-step-num">${si+1}.</span><span>${s}</span></div>`).join('')}
             <div class="recipe-swap">🔄 <strong>Swap:</strong> ${r.swap}</div>
+            <div class="add-to-plan-row">
+              <span class="atp-label">📅 Add to plan:</span>
+              <select class="atp-select" id="atp-day-${key}">
+                ${PLAN_DAYS.map((d,i)=>`<option value="${i}">${d}</option>`).join('')}
+              </select>
+              <select class="atp-select" id="atp-slot-${key}">
+                ${PLAN_SLOTS.map(sl=>`<option value="${sl.key}"${sl.type===type?' selected':''}>${sl.label.replace(/^\S+\s/,'')}</option>`).join('')}
+              </select>
+              <button class="atp-btn" onclick="addRecipeToPlan('${r.name.replace(/'/g,"\\'")}','${key}');event.stopPropagation()">Add</button>
+            </div>
           </div>`:''}
         </div>`;
     }).join('');
@@ -2087,7 +2383,7 @@ function searchRecipes(val){
   recipeSearchQuery = val;
   // Auto-navigate to Recipes tab when searching from global bar
   if(val.trim()){
-    const recipesBtn = document.querySelector('#tabBar .tab-btn:nth-child(4)');
+    const recipesBtn = document.querySelector('#tabBar .tab-btn:nth-child(2)');
     if(recipesBtn && !recipesBtn.classList.contains('active')){
       switchTab('recipes', recipesBtn);
     }
@@ -2130,7 +2426,31 @@ function switchTab(name, btn){
   document.querySelectorAll('.tab-content').forEach(t=>{t.style.display='none';});
   const el = document.getElementById(`tab-${name}`);
   if(el){el.style.display='block';}
+  // Search bar only visible on Recipes tab
+  const sw = document.querySelector('.global-search-wrap');
+  if(sw) sw.style.display = name === 'recipes' ? '' : 'none';
   window.scrollTo({top:0, behavior:'smooth'});
+}
+function goToTab(name){
+  const btn = [...document.querySelectorAll('.tab-btn')].find(b=>b.getAttribute('onclick')&&b.getAttribute('onclick').includes(`'${name}'`));
+  if(btn) switchTab(name, btn);
+}
+
+function toggleHowTo(){
+  const body = document.getElementById('how-to-body');
+  const chev = document.getElementById('how-to-chev');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if(chev) chev.classList.toggle('open', !isOpen);
+}
+
+function toggleSummarySection(id){
+  const body = document.getElementById(`body-${id}`);
+  const chev = document.getElementById(`chev-${id}`);
+  if(!body) return;
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if(chev) chev.classList.toggle('open', !isOpen);
 }
 
 // ─── STORE TOGGLE ────────────────────────────────────────────────
@@ -2223,9 +2543,7 @@ function updateTotal(){
 
   const totalEl = document.getElementById('grandTotal');
   if(count === 0){
-    // No actual prices entered — show estimate from data-est
-    const est = calcEstimatedTotal();
-    totalEl.textContent = '~$'+Math.round(est)+' est.';
+    totalEl.textContent = '$0.00';
     totalEl.style.fontSize = '22px';
   } else {
     totalEl.textContent = '$'+grand.toFixed(2);
@@ -2352,8 +2670,359 @@ function restoreChecks(){
   setTimeout(updateTotal, 100);
 }
 
+// ─── WEEKLY PLAN ─────────────────────────────────────────────────
+const PLAN_DAYS  = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const PLAN_SLOTS = [
+  {key:'b', label:'🌅 Breakfast', type:'Breakfast'},
+  {key:'l', label:'☀️ Lunch',     type:'Lunch'},
+  {key:'d', label:'🌙 Dinner',    type:'Dinner'},
+  {key:'s', label:'🍎 Snack',     type:'Snack'},
+];
+
+function renderPlan(){
+  const el = document.getElementById('planContent');
+  if(!el) return;
+  const totalMeals = Object.values(weekPlan).filter(Boolean).length;
+  const prompt = totalMeals >= 3
+    ? `<div class="plan-grocery-prompt">🛒 <strong>Plan ready!</strong> Head to <strong>Grocery</strong> and tap "Filter by Weekly Plan" to see only what you need to buy.</div>`
+    : '';
+  const days = PLAN_DAYS.map((day, di)=>{
+    const filled = PLAN_SLOTS.filter(sl=>weekPlan[`${di}-${sl.key}`]).length;
+    const isOpen = openPlanDays[di] === true;
+    const slots  = PLAN_SLOTS.map(sl=>{
+      const sk  = `${di}-${sl.key}`;
+      const val = weekPlan[sk] || '';
+      const recipe = val ? RECIPES.find(r=>r.name===val) : null;
+      const opts = RECIPES.filter(r=>r.type===sl.type)
+        .map(r=>`<option value="${r.name.replace(/"/g,'&quot;')}"${r.name===val?' selected':''}>${r.name}</option>`)
+        .join('');
+      const preview = recipe ? `
+        <div class="plan-recipe-preview">
+          <div class="prp-header">
+            <span class="prp-name">${recipe.name}</span>
+            <span class="prp-time">⏱ ${recipe.time}</span>
+            <button class="prp-clear" onclick="setPlanMeal('${sk}','');event.stopPropagation();" title="Remove">✕</button>
+          </div>
+          <div class="prp-ings">
+            ${recipe.ings.slice(0,4).map(i=>`<span class="prp-ing">${i}</span>`).join('')}
+            ${recipe.ings.length>4?`<span class="prp-ing" style="color:var(--dim)">+${recipe.ings.length-4} more</span>`:''}
+          </div>
+        </div>` : '';
+      return `<div class="plan-slot">
+        <div class="plan-slot-top">
+          <div class="plan-slot-label">${sl.label}</div>
+          <select class="plan-select" onchange="setPlanMeal('${sk}',this.value)">
+            <option value="">— choose meal —</option>${opts}
+          </select>
+        </div>
+        ${preview}
+      </div>`;
+    }).join('');
+    const complete = filled === 4;
+    return `<div class="plan-day-card" style="${complete?'border-color:var(--success);':''}">
+      <div class="plan-day-header" onclick="togglePlanDay(${di})" style="${complete?'background:rgba(76,175,80,0.08);':''}">
+        <div>
+          <div class="plan-day-name">${complete?'<span style="color:var(--success);margin-right:5px;">✓</span>':''}${day}</div>
+          <div class="plan-day-summary" style="${complete?'color:var(--success);':''}">
+            ${complete?'All meals planned ✓':(filled?`${filled} of 4 meals planned`:'No meals yet')}
+          </div>
+        </div>
+        <span class="chevron${isOpen?' open':''}">▾</span>
+      </div>
+      <div class="plan-day-body" style="display:${isOpen?'block':'none'};">${slots}</div>
+    </div>`;
+  }).join('');
+  el.innerHTML = prompt + days;
+}
+
+function togglePlanDay(di){
+  openPlanDays[di] = !openPlanDays[di];
+  renderPlan();
+}
+
+function setPlanMeal(sk, val){
+  weekPlan[sk] = val;
+  renderPlan();
+  saveState();
+  updateGroceryNudge();
+  // Refresh grocery filter if it's active
+  if(window._groceryPlanFilter) applyGroceryPlanFilter(true);
+}
+
+function clearPlan(){
+  if(!confirm('Clear all planned meals?')) return;
+  weekPlan = {};
+  openPlanDays = {0:true};
+  // reset grocery filter
+  if(window._groceryPlanFilter){ window._groceryPlanFilter = false; applyGroceryPlanFilter(false); }
+  renderPlan();
+  saveState();
+  updateGroceryNudge();
+}
+
+function addRecipeToPlan(name, rcKey){
+  const dayEl  = document.getElementById(`atp-day-${rcKey}`);
+  const slotEl = document.getElementById(`atp-slot-${rcKey}`);
+  if(!dayEl||!slotEl) return;
+  const di  = dayEl.value;
+  const slk = slotEl.value;
+  const sk  = `${di}-${slk}`;
+  weekPlan[sk] = name;
+  saveState();
+  renderPlan();
+  if(window._groceryPlanFilter) applyGroceryPlanFilter(true);
+  const t = document.getElementById('copyToast');
+  if(t){
+    const prev = t.textContent;
+    t.textContent = `✓ Added to ${PLAN_DAYS[di]}`;
+    t.classList.add('show');
+    setTimeout(()=>{ t.classList.remove('show'); t.textContent = prev; }, 2200);
+  }
+}
+
+// ─── GROCERY PLAN FILTER ─────────────────────────────────────────
+function getPlanKeywords(){
+  const SKIP = new Set(['with','from','into','each','over','until','then','that','this','using','dash','pinch','tbsp','tsp','cups','fresh','dried','more','less','half','just','some','taste','optional','cooked','sliced','diced','chopped','minced']);
+  const planned = new Set(Object.values(weekPlan).filter(Boolean));
+  const keywords = new Set();
+  RECIPES.forEach(r=>{
+    if(!planned.has(r.name)) return;
+    r.ings.forEach(ing=>{
+      ing.toLowerCase()
+         .replace(/[\d\/\(\)\.\,\%\+\-½¼¾⅓⅔⅛]/g,' ')
+         .split(/\s+/)
+         .filter(w=> w.length >= 4 && !SKIP.has(w))
+         .forEach(w=> keywords.add(w));
+    });
+  });
+  return [...keywords];
+}
+
+function updateGroceryNudge(){
+  const el = document.getElementById('groceryPlanNudge');
+  if(!el) return;
+  const hasplan = Object.values(weekPlan).some(Boolean);
+  el.style.display = hasplan ? 'none' : 'block';
+}
+
+function toggleGroceryPlanFilter(){
+  window._groceryPlanFilter = !window._groceryPlanFilter;
+  applyGroceryPlanFilter(window._groceryPlanFilter);
+}
+
+function applyGroceryPlanFilter(active){
+  const btn   = document.getElementById('planFilterBtn');
+  const count = document.getElementById('planFilterCount');
+  if(!btn) return;
+  if(!active){
+    window._groceryPlanFilter = false;
+    btn.classList.remove('active');
+    const lbl = document.getElementById('planFilterLabel');
+    if(lbl) lbl.textContent = '🗓 Filter by Plan';
+    if(count){ count.style.display='none'; }
+    document.querySelectorAll('.grocery-item').forEach(i=>{ i.style.display=''; });
+    return;
+  }
+  const keywords = getPlanKeywords();
+  if(!keywords.length){
+    window._groceryPlanFilter = false;
+    const t = document.getElementById('copyToast');
+    if(t){ const p=t.textContent; t.textContent='No meals planned yet!'; t.classList.add('show'); setTimeout(()=>{ t.classList.remove('show'); t.textContent=p; },2200); }
+    return;
+  }
+  let shown = 0;
+  document.querySelectorAll('.grocery-item').forEach(item=>{
+    const nameEl = item.querySelector('.item-name span');
+    if(!nameEl){ item.style.display=''; return; }
+    const text = nameEl.textContent.toLowerCase();
+    const match = keywords.some(k=> text.includes(k));
+    item.style.display = match ? '' : 'none';
+    if(match) shown++;
+  });
+  btn.classList.add('active');
+  const lbl = document.getElementById('planFilterLabel');
+  if(lbl) lbl.textContent = '✕ Show All';
+  if(count){ count.textContent = shown; count.style.display=''; }
+}
+
+// ─── NEW WEEK RESET ───────────────────────────────────────────────
+function newWeek(){
+  if(!confirm('Start a new week? This clears all grocery checks, prices, prep steps, and protein count.')) return;
+  // Clear grocery checks + prices
+  document.querySelectorAll('.grocery-item').forEach(item=>{
+    item.classList.remove('checked');
+    const cb = item.querySelector('.checkbox');
+    if(cb) cb.classList.remove('checked');
+    const pe = item.querySelector('.price-edit');
+    if(pe) pe.value = '';
+  });
+  // Clear prep
+  prepChecked = {};
+  midWeekChecked = {};
+  // Clear protein
+  proteinToday = 0;
+  // Keep favorites and weekPlan, clear budget status
+  clearBudget();
+  renderPrep();
+  renderProtein();
+  updateTotal();
+  saveState();
+}
+
+// ─── COOK-TIME FILTER ────────────────────────────────────────────
+function parseMinutes(t){
+  const m = t.match(/(\d+)/);
+  return m ? parseInt(m[1]) : 999;
+}
+
+function setTimeFilter(f, btn){
+  timeFilter = f;
+  document.querySelectorAll('.time-filter-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderRecipes();
+}
+
+// ─── GROCERY EXPORT ──────────────────────────────────────────────
+function copyGroceryList(){
+  const lines = [];
+  document.querySelectorAll('.grocery-item:not(.checked)').forEach(item=>{
+    const name = item.querySelector('.item-name span');
+    const meta = item.querySelector('.item-meta');
+    const est  = item.querySelector('.price-est');
+    if(name) lines.push(`☐ ${name.textContent.trim()}${est?' ('+est.textContent.trim()+')':''}`);
+  });
+  if(!lines.length){ lines.push('All items already checked off!'); }
+  const text = 'GROCERY LIST\n' + lines.join('\n');
+  navigator.clipboard.writeText(text).then(()=>{
+    const t = document.getElementById('copyToast');
+    if(t){ t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); }
+  }).catch(()=> alert(text));
+}
+
+// ─── FAVORITES ───────────────────────────────────────────────────
+function toggleFavorite(key, e){
+  e.stopPropagation();
+  favorites[key] = !favorites[key];
+  renderRecipes();
+  saveState();
+}
+
+function togglePlanAdder(key, e){
+  e.stopPropagation();
+  planAdder[key] = !planAdder[key];
+  renderRecipes();
+}
+
+function quickAddToPlan(name, rcKey){
+  const dayEl  = document.getElementById(`qa-day-${rcKey}`);
+  const slotEl = document.getElementById(`qa-slot-${rcKey}`);
+  if(!dayEl||!slotEl) return;
+  const di  = dayEl.value;
+  const slk = slotEl.value;
+  weekPlan[`${di}-${slk}`] = name;
+  planAdder[rcKey] = false;
+  saveState();
+  renderRecipes();
+  renderPlan();
+  if(window._groceryPlanFilter) applyGroceryPlanFilter(true);
+  const t = document.getElementById('copyToast');
+  if(t){
+    const prev = t.textContent;
+    t.textContent = `✓ Added to ${PLAN_DAYS[di]}`;
+    t.classList.add('show');
+    setTimeout(()=>{ t.classList.remove('show'); t.textContent = prev; }, 2200);
+  }
+}
+
+// ─── PROTEIN TRACKER ─────────────────────────────────────────────
+function renderProtein(){
+  const goal = proteinGoal;
+  const pct  = Math.min(100, Math.round((proteinToday / goal) * 100));
+  const amt  = document.getElementById('proteinAmount');
+  const fill = document.getElementById('proteinBarFill');
+  const stat = document.getElementById('proteinStatus');
+  const goalVal = document.getElementById('proteinGoalVal');
+  if(amt)  amt.textContent  = proteinToday + 'g';
+  if(fill) fill.style.width = pct + '%';
+  if(goalVal) goalVal.textContent = goal;
+  if(stat){
+    const rem = goal - proteinToday;
+    if(rem > 0)       stat.textContent = rem + 'g to go';
+    else if(rem === 0) stat.textContent = '🎯 Goal hit!';
+    else              stat.textContent = '+' + Math.abs(rem) + 'g over goal';
+    stat.style.color = rem <= 0 ? 'var(--success)' : 'var(--muted)';
+  }
+}
+
+function editProteinGoal(){
+  const label  = document.getElementById('proteinTargetLabel');
+  const editor = document.getElementById('proteinGoalEditor');
+  const input  = document.getElementById('proteinGoalInput');
+  const hint   = document.getElementById('proteinGoalHint');
+  if(!editor) return;
+  input.value = proteinGoal;
+  label.style.display  = 'none';
+  editor.style.display = 'flex';
+  editor.style.alignItems = 'center';
+  if(hint) hint.style.display = 'none';
+  input.focus();
+  input.select();
+}
+
+function confirmProteinGoal(){
+  const input  = document.getElementById('proteinGoalInput');
+  const parsed = parseInt(input.value);
+  if(!isNaN(parsed) && parsed > 0){
+    proteinGoal = parsed;
+    renderProtein();
+    saveState();
+  }
+  cancelProteinGoal();
+}
+
+function cancelProteinGoal(){
+  const label  = document.getElementById('proteinTargetLabel');
+  const editor = document.getElementById('proteinGoalEditor');
+  const hint   = document.getElementById('proteinGoalHint');
+  if(label)  label.style.display  = '';
+  if(editor) editor.style.display = 'none';
+  if(hint)   hint.style.display   = '';
+}
+
+function addProtein(g){
+  proteinToday += g;
+  renderProtein();
+  saveState();
+}
+
+function resetProtein(){
+  proteinToday = 0;
+  renderProtein();
+  saveState();
+}
+
+// ─── PORTION MULTIPLIER ──────────────────────────────────────────
+function scaleIngredient(ing, mult){
+  if(mult === 1) return ing;
+  const FRACS = {'½':0.5,'¼':0.25,'¾':0.75,'⅓':0.333,'⅔':0.667,'⅛':0.125};
+  let s = ing;
+  Object.entries(FRACS).forEach(([k,v])=>{ s = s.replace(k, String(v)); });
+  s = s.replace(/^(\d+\.?\d*)\s/, (m, n)=>{
+    const sc = parseFloat(n) * mult;
+    return (sc % 1 === 0 ? sc : parseFloat(sc.toFixed(1))) + ' ';
+  });
+  return s;
+}
+
+function setPortionMult(key, mult, e){
+  e.stopPropagation();
+  portionMult[key] = mult;
+  renderRecipes();
+}
+
 // ─── START ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', init);
 </script>
+<div class="copy-toast" id="copyToast">✓ Copied to clipboard!</div>
 </body>
 </html>
