@@ -3237,4 +3237,68 @@ function editProteinGoal(){
   if(!editor) return;
   input.value = proteinGoal;
   label.style.display  = 'none';
-  editor.style.display 
+  editor.style.display = 'flex';
+  editor.style.alignItems = 'center';
+  if(hint) hint.style.display = 'none';
+  input.focus();
+  input.select();
+}
+
+function confirmProteinGoal(){
+  const input  = document.getElementById('proteinGoalInput');
+  const parsed = parseInt(input.value);
+  if(!isNaN(parsed) && parsed > 0){
+    proteinGoal = parsed;
+    renderProtein();
+    saveState();
+  }
+  cancelProteinGoal();
+}
+
+function cancelProteinGoal(){
+  const label  = document.getElementById('proteinTargetLabel');
+  const editor = document.getElementById('proteinGoalEditor');
+  const hint   = document.getElementById('proteinGoalHint');
+  if(label)  label.style.display  = '';
+  if(editor) editor.style.display = 'none';
+  if(hint)   hint.style.display   = '';
+}
+
+function addProtein(g){
+  proteinToday += g;
+  renderProtein();
+  saveState();
+  renderYourWeek();
+}
+
+function resetProtein(){
+  proteinToday = 0;
+  renderProtein();
+  saveState();
+}
+
+// ─── PORTION MULTIPLIER ──────────────────────────────────────────
+function scaleIngredient(ing, mult){
+  if(mult === 1) return ing;
+  const FRACS = {'½':0.5,'¼':0.25,'¾':0.75,'⅓':0.333,'⅔':0.667,'⅛':0.125};
+  let s = ing;
+  Object.entries(FRACS).forEach(([k,v])=>{ s = s.replace(k, String(v)); });
+  s = s.replace(/^(\d+\.?\d*)\s/, (m, n)=>{
+    const sc = parseFloat(n) * mult;
+    return (sc % 1 === 0 ? sc : parseFloat(sc.toFixed(1))) + ' ';
+  });
+  return s;
+}
+
+function setPortionMult(key, mult, e){
+  e.stopPropagation();
+  portionMult[key] = mult;
+  renderRecipes();
+}
+
+// ─── START ───────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', init);
+</script>
+<div class="copy-toast" id="copyToast">✓ Copied to clipboard!</div>
+</body>
+</html>
