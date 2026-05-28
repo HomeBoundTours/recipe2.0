@@ -923,7 +923,7 @@ input[type=number]{-moz-appearance:textfield;}
 
   <!-- MASTER SAUCES — collapsible -->
   <button class="store-toggle" onclick="toggleSummarySection('sauces')" id="btn-sauces" style="margin-top:8px;">
-    <div><div class="store-name" style="color:var(--blue);">🫙 Master Sauces</div><div class="store-sub">Make Sunday · use all week · 3 recipes</div></div>
+    <div><div class="store-name" style="color:var(--blue);">🫙 Master Sauces</div><div class="store-sub">Make Sunday · use all week · 6 recipes</div></div>
     <span class="chevron" id="chev-sauces">▾</span>
   </button>
   <div class="store-body" id="body-sauces" style="display:none;padding:10px 14px 14px;">
@@ -945,6 +945,24 @@ input[type=number]{-moz-appearance:textfield;}
       <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 2 tbsp soy sauce + 1 tbsp sesame oil + 1 tsp honey + ½ tsp ginger powder + 1 tsp lime juice</div>
       <div class="sauce-use"><strong>Use on:</strong> Stir fry glaze, rice bowl drizzle, salmon marinade, cold noodle sauce</div>
       <div class="sauce-makes">~¼ cup · keeps 2 weeks</div>
+    </div>
+    <div class="sauce-card" style="border-left-color:#c084fc;">
+      <div class="sauce-name">🥜 Thai Peanut Sauce</div>
+      <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> ¼ cup peanut butter + 2 tbsp soy sauce + 1 tbsp rice vinegar + 1 tsp sesame oil + 1 tsp honey + ½ tsp sriracha + 2–3 tbsp warm water to thin</div>
+      <div class="sauce-use"><strong>Use on:</strong> Chicken rice bowls, noodle dishes, lettuce wraps, dipping sauce for veggies</div>
+      <div class="sauce-makes">~½ cup · keeps 2 weeks in fridge</div>
+    </div>
+    <div class="sauce-card" style="border-left-color:#4ade80;">
+      <div class="sauce-name">🌱 Chimichurri</div>
+      <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 1 cup fresh parsley (packed) + 3 garlic cloves + 2 tbsp red wine vinegar + ½ tsp red pepper flakes + ½ tsp oregano + ⅓ cup olive oil + salt</div>
+      <div class="sauce-use"><strong>Use on:</strong> Grilled chicken or steak, roasted veggies, egg bowls, spread on wraps</div>
+      <div class="sauce-makes">~¾ cup · keeps 2 weeks in fridge</div>
+    </div>
+    <div class="sauce-card" style="border-left-color:#f59e0b;">
+      <div class="sauce-name">🍜 Miso Ginger Dressing</div>
+      <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 2 tbsp white miso + 1 tbsp rice vinegar + 1 tsp sesame oil + 1 tsp honey + ½ tsp ginger powder + 1 tbsp soy sauce + 2 tbsp water</div>
+      <div class="sauce-use"><strong>Use on:</strong> Grain bowls, roasted broccoli or carrots, cold noodle salads, salmon glaze</div>
+      <div class="sauce-makes">~⅓ cup · keeps 2 weeks in fridge</div>
     </div>
   </div>
 
@@ -3219,68 +3237,4 @@ function editProteinGoal(){
   if(!editor) return;
   input.value = proteinGoal;
   label.style.display  = 'none';
-  editor.style.display = 'flex';
-  editor.style.alignItems = 'center';
-  if(hint) hint.style.display = 'none';
-  input.focus();
-  input.select();
-}
-
-function confirmProteinGoal(){
-  const input  = document.getElementById('proteinGoalInput');
-  const parsed = parseInt(input.value);
-  if(!isNaN(parsed) && parsed > 0){
-    proteinGoal = parsed;
-    renderProtein();
-    saveState();
-  }
-  cancelProteinGoal();
-}
-
-function cancelProteinGoal(){
-  const label  = document.getElementById('proteinTargetLabel');
-  const editor = document.getElementById('proteinGoalEditor');
-  const hint   = document.getElementById('proteinGoalHint');
-  if(label)  label.style.display  = '';
-  if(editor) editor.style.display = 'none';
-  if(hint)   hint.style.display   = '';
-}
-
-function addProtein(g){
-  proteinToday += g;
-  renderProtein();
-  saveState();
-  renderYourWeek();
-}
-
-function resetProtein(){
-  proteinToday = 0;
-  renderProtein();
-  saveState();
-}
-
-// ─── PORTION MULTIPLIER ──────────────────────────────────────────
-function scaleIngredient(ing, mult){
-  if(mult === 1) return ing;
-  const FRACS = {'½':0.5,'¼':0.25,'¾':0.75,'⅓':0.333,'⅔':0.667,'⅛':0.125};
-  let s = ing;
-  Object.entries(FRACS).forEach(([k,v])=>{ s = s.replace(k, String(v)); });
-  s = s.replace(/^(\d+\.?\d*)\s/, (m, n)=>{
-    const sc = parseFloat(n) * mult;
-    return (sc % 1 === 0 ? sc : parseFloat(sc.toFixed(1))) + ' ';
-  });
-  return s;
-}
-
-function setPortionMult(key, mult, e){
-  e.stopPropagation();
-  portionMult[key] = mult;
-  renderRecipes();
-}
-
-// ─── START ───────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', init);
-</script>
-<div class="copy-toast" id="copyToast">✓ Copied to clipboard!</div>
-</body>
-</html>
+  editor.style.display 
