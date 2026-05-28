@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Meal Plan — Chandler AZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── DESIGN TOKENS ─────────────────────────────────────────────── */
+:root {
+  /* Deep navy dark theme — premium feel, clear layer separation */
+  --bg:         #070b12;
+  --card:       #0d1520;
+  --card2:      #121d2e;
+  --border:     #1e2d42;
+  --borderHi:   #2a3f58;
+
+  /* Warm amber accent — energy without the flat-yellow feel */
+  --accent:     #f5a623;
+  --accent2:    #d4891a;
+  --accentDim:  #7a520f;
+  --accentGlow: #ffc04d;
+  --accentBg:   #1c1408;
+
+  /* Type */
+  --text:       #edf2f7;
+  --muted:      #7a8ea8;
+  --dim:        #4a6480;
+
+  /* Semantic */
+  --tag:        #0d1825;
+  --orange:     #e8873a;
+  --blue:       #5ab4d4;
+  --red:        #e05a5a;
+  --success:    #4caf50;
+  --warn:       #ff9800;
+
+  /* Radius scale */
+  --r-sm:  8px;
+  --r-md:  12px;
+  --r-lg:  16px;
+}
+
+/* ── RESET ─────────────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  line-height:1.55;
+  min-height:100vh;
+  max-width:480px;
+  margin:0 auto;
+  position:relative;
+  padding-bottom:76px;
+}
+h1,h2,.display{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;}
+button{font-family:'DM Sans',sans-serif;cursor:pointer;}
+
+/* ── HEADER ────────────────────────────────────────────────────── */
+.header{
+  background:linear-gradient(160deg, #0d1a2e 0%, #070b12 100%);
+  padding:22px 16px 18px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+/* Subtle glow orb — visible now */
+.header::before{
+  content:'';
+  position:absolute;
+  top:-30px; right:-30px;
+  width:180px; height:180px;
+  border-radius:50%;
+  background:radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity:0.08;
+  pointer-events:none;
+}
+.header::after{
+  content:'';
+  position:absolute;
+  bottom:-1px; left:0;
+  width:60%; height:2px;
+  background:linear-gradient(90deg, var(--accent), transparent);
+}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.header-label{
+  font-size:10px;letter-spacing:3px;
+  color:var(--accent2);
+  text-transform:uppercase;
+  margin-bottom:5px;
+  opacity:0.8;
+}
+.header-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px;
+  background:linear-gradient(135deg, var(--accentGlow) 0%, var(--accent) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+  letter-spacing:2px;
+}
+.header-sub{font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:0.2px;}
+.cost-badge{
+  background:var(--card2);
+  border:1px solid var(--borderHi);
+  border-radius:var(--r-md);
+  padding:8px 14px;
+  text-align:center;
+  min-width:84px;
+  box-shadow:0 2px 12px rgba(245,166,35,0.08);
+}
+.cost-badge .amount{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--accent);}
+.cost-badge .label{font-size:10px;color:var(--muted);margin-top:1px;}
+.store-badges{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;}
+.store-badge{
+  background:rgba(30,45,66,0.6);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:4px 12px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* ── BUDGET BANNER ─────────────────────────────────────────────── */
+.budget-banner{
+  background:linear-gradient(135deg, #131a08 0%, #0a0e18 100%);
+  border-bottom:2px solid var(--accent);
+  border-top:1px solid rgba(245,166,35,0.12);
+  padding:8px 14px;
+}
+.budget-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px;
+  color:var(--accent);
+  letter-spacing:1px;
+  margin-bottom:6px;
+}
+.budget-row{display:flex;gap:8px;align-items:center;}
+.budget-input{
+  background:var(--bg);
+  border:1.5px solid var(--border);
+  border-radius:var(--r-sm);
+  padding:9px 12px;
+  color:var(--text);
+  font-size:14px;
+  font-family:'DM Sans',sans-serif;
+  width:130px;
+  transition:border-color 0.2s, box-shadow 0.2s;
+}
+.budget-input:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(245,166,35,0.12);
+}
+.budget-btn{
+  background:linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color:#000;
+  border:none;
+  border-radius:var(--r-sm);
+  padding:9px 16px;
+  font-weight:700;
+  font-size:13px;
+  white-space:nowrap;
+  letter-spacing:0.3px;
+  transition:opacity 0.15s, transform 0.1s;
+}
+.budget-btn:active{opacity:0.85;transform:scale(0.98);}
+.budget-status{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.budget-pill{border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;}
+.budget-ok  {background:rgba(76,175,80,0.12);  color:#80e090; border:1px solid rgba(76,175,80,0.3);}
+.budget-warn{background:rgba(255,152,0,0.12);  color:#f0b040; border:1px solid rgba(255,152,0,0.3);}
+.budget-over{background:rgba(224,90,90,0.12);  color:#e08080; border:1px solid rgba(224,90,90,0.3);}
+.budget-clear-btn{
+  background:transparent;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:4px 12px;
+  font-size:11px;
+  color:var(--muted);
+  transition:border-color 0.15s, color 0.15s;
+}
+.budget-clear-btn:hover{border-color:var(--muted);color:var(--text);}
+
+/* ── TOTAL BAR (hidden — cost now lives in grocery tab) ────────── */
+.total-bar{display:none;}
+
+/* ── BOTTOM NAV TABS ───────────────────────────────────────────── */
+.tabs{
+  position:fixed;bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:100%;max-width:480px;
+  background:rgba(7,11,18,0.97);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--border);
+  z-index:200;
+  display:flex;
+  box-shadow:0 -4px 20px rgba(0,0,0,0.5);
+}
+.tab-btn{
+  flex:1;
+  background:none;border:none;
+  padding:8px 4px 10px;
+  min-height:58px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;
+  font-size:10px;
+  color:var(--dim);
+  border-top:2px solid transparent;
+  font-family:'DM Sans',sans-serif;
+  font-weight:500;
+  letter-spacing:0.3px;
+  transition:color 0.2s, border-color 0.2s;
+  white-space:nowrap;
+}
+.tab-btn:hover{color:var(--muted);}
+.tab-btn.active{
+  color:var(--accentGlow);
+  border-top-color:var(--accent);
+  font-weight:700;
+}
+.tab-icon{font-size:18px;line-height:1;}
+
+/* ── GLOBAL SEARCH ─────────────────────────────────────────────── */
+.global-search-wrap{
+  padding:10px 14px 8px;
+  background:var(--bg);
+}
+
+/* ── GROCERY COST CARD ─────────────────────────────────────────── */
+.grocery-cost-card{
+  background:var(--card2);
+  border:1px solid var(--borderHi);
+  border-left:3px solid var(--accent);
+  border-radius:var(--r-md);
+  padding:14px 16px;
+  margin-bottom:14px;
+  display:flex;flex-direction:column;align-items:stretch;
+}
+.grocery-cost-left .gc-label{font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;}
+.grocery-cost-left .gc-amount{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--accent);line-height:1.1;}
+.grocery-cost-right{text-align:right;}
+.grocery-cost-right .gc-label{font-size:11px;color:var(--muted);}
+.grocery-cost-right .gc-count{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--muted);line-height:1.1;}
+.gc-budget-remaining{font-size:11px;margin-top:4px;}
+
+/* ── GROCERY PROGRESS ──────────────────────────────────────────── */
+.grocery-progress{margin-top:10px;}
+.gp-bar-wrap{
+  height:4px;background:var(--border);border-radius:4px;overflow:hidden;
+}
+.gp-bar-fill{
+  height:100%;background:linear-gradient(90deg,var(--accent2),var(--accentGlow));
+  border-radius:4px;width:0%;
+  transition:width 0.3s ease;
+}
+.gp-label{font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:0.3px;}
+
+/* ── CONTENT ───────────────────────────────────────────────────── */
+.content{padding:14px 14px 0;}
+.section-label{
+  font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--muted);          /* bumped from --dim → readable */
+  margin-bottom:10px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+
+/* ── CARDS ─────────────────────────────────────────────────────── */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  margin-bottom:12px;
+  overflow:hidden;
+}
+.card-header{padding:14px;display:flex;justify-content:space-between;align-items:center;}
+.card-title{font-weight:700;font-size:15px;}
+.card-body{border-top:1px solid var(--border);}
+
+/* ── STORE / FOLDER TOGGLE ─────────────────────────────────────── */
+.store-toggle{
+  width:100%;
+  background:var(--card2);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  padding:15px 16px;
+  display:flex;justify-content:space-between;align-items:center;
+  color:var(--text);
+  margin-bottom:2px;
+  transition:background 0.18s, border-color 0.18s;
+  min-height:56px;
+}
+.store-toggle:hover{background:#172030;border-color:var(--borderHi);}
+.store-toggle.open{border-radius:var(--r-md) var(--r-md) 0 0;}
+.store-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:19px;
+  color:var(--accentGlow);
+  letter-spacing:1px;
+}
+.store-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.store-body{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-top:none;
+  border-radius:0 0 var(--r-md) var(--r-md);
+  margin-bottom:12px;
+  overflow:hidden;
+}
+.section-head{
+  padding:8px 14px 5px;
+  font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);          /* bumped from --dim */
+  background:var(--card2);
+}
+
+/* ── GROCERY ITEM ──────────────────────────────────────────────── */
+.grocery-item{
+  padding:11px 14px;
+  border-bottom:1px solid var(--border);
+  display:flex;gap:10px;align-items:flex-start;
+  transition:opacity 0.2s;
+}
+.grocery-item:last-of-type{border-bottom:none;}
+.grocery-item.checked{opacity:0.3;}
+.grocery-item.budget-hidden{display:none;}
+.checkbox{
+  width:22px;height:22px;
+  border-radius:6px;
+  border:1.5px solid var(--borderHi);
+  background:transparent;
+  flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.checkbox:hover{border-color:var(--accent);}
+.checkbox.checked{background:var(--accent);border-color:var(--accent);}
+.checkbox.checked::after{content:'✓';font-size:11px;color:#000;font-weight:900;}
+.item-info{flex:1;min-width:0;}
+.item-name{
+  font-size:13px;font-weight:600;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:6px;
+}
+.item-name span:first-child{flex:1;}
+.item-meta{font-size:11px;color:var(--muted);margin-top:2px;}
+.item-note{font-size:11px;color:var(--dim);margin-top:1px;font-style:italic;}
+.price-area{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;}
+.price-est{font-size:12px;color:var(--accent);font-weight:600;white-space:nowrap;}
+.price-edit{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:4px 7px;
+  color:var(--accentGlow);
+  font-size:12px;
+  font-family:'DM Sans',sans-serif;
+  width:72px;text-align:right;
+  transition:border-color 0.15s;
+}
+.price-edit:focus{outline:none;border-color:var(--accent);}
+.price-label{font-size:9px;color:var(--dim);text-align:right;}
+.store-subtotal{
+  padding:11px 14px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--card2);
+}
+.store-subtotal-label{font-size:12px;color:var(--muted);}
+.store-subtotal-amount{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--accent);}
+
+/* ── SUMMARY INFO ROWS ─────────────────────────────────────────── */
+.info-row{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:11px 0;
+  border-bottom:1px solid var(--border);
+}
+.info-key{color:var(--muted);font-size:13px;min-width:100px;}
+.info-val{font-size:13px;text-align:right;flex:1;margin-left:10px;}
+
+/* ── STORE PICK CARD ───────────────────────────────────────────── */
+.store-pick{
+  background:var(--card2);
+  border:1px solid var(--border);
+  border-radius:var(--r-sm);
+  padding:11px 13px;
+  margin-bottom:8px;
+  border-left:3px solid var(--accent);
+}
+.store-pick-header{display:flex;justify-content:space-between;}
+.store-pick-name{font-weight:700;color:var(--accent);}
+.store-pick-est{color:var(--accentDim);font-size:13px;}
+.store-pick-note{font-size:12px;color:var(--muted);margin-top:3px;}
+
+/* ── SPICE ITEMS ───────────────────────────────────────────────── */
+.spice-item{padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text);}
+
+/* ── SAUCE CARD ────────────────────────────────────────────────── */
+.sauce-card{
+  background:var(--card2);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  padding:15px;
+  margin-bottom:10px;
+  border-left:3px solid var(--accent);
+}
+.sauce-name{font-weight:700;font-size:15px;margin-bottom:7px;}
+.sauce-ingredients{font-size:12px;color:var(--muted);margin-bottom:9px;line-height:1.65;}
+.sauce-use{font-size:12px;color:var(--accentGlow);margin-bottom:3px;}
+.sauce-makes{font-size:11px;color:var(--dim);}
+
+/* ── PREP ──────────────────────────────────────────────────────── */
+.prep-progress{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;
+}
+.prep-progress-bar-wrap{
+  flex:1;height:4px;background:var(--border);border-radius:4px;overflow:hidden;
+}
+.prep-progress-bar-fill{
+  height:100%;background:linear-gradient(90deg,var(--accent2),var(--accentGlow));
+  border-radius:4px;width:0%;transition:width 0.3s ease;
+}
+.prep-progress-label{font-size:11px;color:var(--muted);white-space:nowrap;}
+.prep-item{
+  display:flex;gap:13px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+}
+.prep-icon{font-size:22px;flex-shrink:0;width:32px;}
+.prep-time{font-size:11px;color:var(--accent2);margin-bottom:2px;}
+.prep-task{font-size:13px;line-height:1.55;}
+.prep-check{
+  width:22px;height:22px;
+  border-radius:6px;
+  border:1.5px solid var(--borderHi);
+  background:transparent;
+  flex-shrink:0;align-self:center;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;
+}
+.prep-check.done{background:var(--accent);border-color:var(--accent);}
+.prep-check.done::after{content:'✓';font-size:12px;color:#000;font-weight:900;}
+
+/* ── RECIPE ────────────────────────────────────────────────────── */
+.recipe-type-header{
+  font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:8px;margin-top:18px;
+  font-weight:700;
+}
+.recipe-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r-sm);
+  margin-bottom:7px;
+  overflow:hidden;
+  transition:border-color 0.15s;
+}
+.recipe-card:hover{border-color:var(--borderHi);}
+.recipe-card.budget-hidden{display:none;}
+.recipe-toggle{
+  width:100%;background:none;border:none;
+  padding:13px 14px;
+  display:flex;justify-content:space-between;align-items:center;
+  color:var(--text);text-align:left;
+  min-height:44px;
+}
+.recipe-toggle-left .recipe-name{
+  font-weight:700;
+  font-size:15px;        /* up from 14px — clear hierarchy */
+  color:var(--text);
+}
+.recipe-toggle-left .recipe-meta{
+  font-size:11px;
+  color:var(--muted);   /* up from --dim → readable */
+  margin-top:3px;
+}
+.recipe-body{border-top:1px solid var(--border);padding:0 14px 14px;}
+.recipe-section-head{
+  font-size:10px;letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:12px 0 6px;
+}
+.recipe-ing{font-size:12px;color:var(--muted);padding:3px 0;line-height:1.5;}
+.recipe-step{display:flex;gap:9px;padding:5px 0;font-size:13px;line-height:1.55;}
+.recipe-step-num{color:var(--accent2);font-weight:700;flex-shrink:0;}
+.recipe-swap{
+  background:var(--card2);
+  border-left:2px solid var(--accentDim);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;
+  padding:9px 12px;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:12px;
+  line-height:1.55;
+}
+
+/* ── LEFTOVER TAG (badge) ──────────────────────────────────────── */
+.leftover-tag{
+  display:inline-block;
+  background:rgba(122,82,15,0.25);
+  color:var(--accentGlow);
+  border:1px solid rgba(245,166,35,0.2);
+  border-radius:20px;
+  padding:1px 7px;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.2px;
+  margin-left:6px;
+  vertical-align:middle;
+}
+
+/* ── MATRIX ────────────────────────────────────────────────────── */
+.matrix-card{
+  background:var(--card2);
+  border:1px solid var(--border);
+  border-radius:var(--r-sm);
+  padding:13px;
+  margin-bottom:10px;
+}
+.matrix-result{font-weight:700;font-size:14px;color:var(--accentGlow);margin-bottom:9px;}
+.matrix-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.matrix-cell{background:var(--card);border-radius:6px;padding:7px 9px;}
+.matrix-cell-label{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:0.3px;}
+.matrix-cell-val{font-size:12px;line-height:1.4;}
+
+/* ── RESCUE ────────────────────────────────────────────────────── */
+.rescue-item{padding:11px 0;border-bottom:1px solid var(--border);}
+.rescue-name{font-weight:700;font-size:13px;color:var(--accent);margin-bottom:4px;}
+.rescue-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+
+/* ── BUDGET FILTER INFO ────────────────────────────────────────── */
+.filter-info{
+  background:rgba(26,20,0,0.5);
+  border:1px solid rgba(122,82,15,0.4);
+  border-radius:var(--r-sm);
+  padding:10px 12px;
+  margin-bottom:14px;
+  font-size:12px;
+  color:#c89020;
+  line-height:1.6;
+}
+
+/* ── CHEVRON ───────────────────────────────────────────────────── */
+.chevron{color:var(--accent);font-size:16px;transition:transform 0.22s;}
+.chevron.open{transform:rotate(180deg);}
+
+/* ── DIVIDER ───────────────────────────────────────────────────── */
+.divider{height:1px;background:var(--border);margin:18px 0;}
+
+/* ── INPUTS ────────────────────────────────────────────────────── */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+input[type=number]{-moz-appearance:textfield;}
+
+/* ── ANIMATION ─────────────────────────────────────────────────── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.tab-content{animation:fadeIn 0.22s ease;}
+
+/* ── REDUCED MOTION ────────────────────────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;}
+}
+
+/* ── RECIPE SEARCH ─────────────────────────────────────────────── */
+.recipe-search-wrap{padding:14px 0 8px;}
+.recipe-search-box{
+  display:flex;align-items:center;
+  background:var(--card2);
+  border:1.5px solid var(--border);
+  border-radius:var(--r-md);
+  padding:0 12px;gap:8px;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.recipe-search-box:focus-within{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(245,166,35,0.1);
+}
+.search-icon{font-size:15px;flex-shrink:0;opacity:0.55;line-height:1;}
+.recipe-search-input{
+  flex:1;background:transparent;border:none;outline:none;
+  padding:13px 0;
+  color:var(--text);font-size:14px;
+  font-family:'DM Sans',sans-serif;
+}
+.recipe-search-input::placeholder{color:var(--dim);font-size:13px;}
+.search-clear{
+  background:transparent;border:none;
+  color:var(--muted);font-size:20px;line-height:1;
+  padding:2px;width:26px;height:26px;
+  display:none;align-items:center;justify-content:center;
+  border-radius:50%;flex-shrink:0;
+  transition:background 0.15s,color 0.15s;
+}
+.search-clear:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.search-keyword-hint{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-top:10px;
+}
+.search-keyword-hint span{
+  background:var(--tag);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:3px 10px;
+  font-size:11px;color:var(--muted);
+  cursor:pointer;
+  transition:background 0.15s,border-color 0.15s,color 0.15s;
+}
+.search-keyword-hint span:hover{
+  background:var(--card2);
+  border-color:var(--accent);
+  color:var(--accentGlow);
+}
+.search-results-label{
+  font-size:12px;color:var(--accent2);
+  margin-top:8px;padding-left:2px;
+  display:none;
+}
+.search-no-results{
+  text-align:center;padding:44px 20px;
+  color:var(--muted);font-size:14px;line-height:1.75;
+}
+.search-no-results .no-results-icon{font-size:38px;margin-bottom:10px;display:block;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header" style="padding:14px 16px 12px;">
+  <div class="header-top">
+    <div>
+      <div class="header-label">Chandler, AZ · 2-Week Plan</div>
+      <div class="header-title" style="font-size:30px;">MEAL PLAN</div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);text-align:right;line-height:1.6;padding-top:6px;">High protein<br>Cook 3×/week</div>
+  </div>
+</div>
+
+<!-- GLOBAL SEARCH -->
+<div class="global-search-wrap">
+  <div class="recipe-search-box">
+    <span class="search-icon">🔍</span>
+    <input
+      type="text" id="recipeSearchInput" class="recipe-search-input"
+      placeholder="Search recipes… fish, spicy, quick, tacos"
+      oninput="searchRecipes(this.value)"
+      autocomplete="off" autocorrect="off" spellcheck="false"
+    />
+    <button class="search-clear" id="searchClearBtn" onclick="clearRecipeSearch()">×</button>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs" id="tabBar">
+  <button class="tab-btn" onclick="switchTab('summary',this)"><span class="tab-icon">📋</span>Summary</button>
+  <button class="tab-btn" onclick="switchTab('grocery',this)"><span class="tab-icon">🛒</span>Grocery</button>
+  <button class="tab-btn active" onclick="switchTab('prep',this)"><span class="tab-icon">🍳</span>Prep</button>
+  <button class="tab-btn" onclick="switchTab('recipes',this)"><span class="tab-icon">📖</span>Recipes</button>
+  <button class="tab-btn" onclick="switchTab('matrix',this)"><span class="tab-icon">🔀</span>Mix</button>
+</div>
+
+<!-- ===== SUMMARY TAB ===== -->
+<div id="tab-summary" class="content tab-content" style="display:none;">
+  <div class="section-label" style="margin-top:6px;">Plan Overview</div>
+  <div class="info-row"><span class="info-key">📅 Duration</span><span class="info-val">2 weeks (14 days)</span></div>
+  <div class="info-row"><span class="info-key">💰 Est. Cost</span><span class="info-val">~$185–$200</span></div>
+  <div class="info-row"><span class="info-key">🍽 Meals/Day</span><span class="info-val">Breakfast + Lunch + Snack + Dinner</span></div>
+  <div class="info-row"><span class="info-key">🎯 Focus</span><span class="info-val">High protein (160–200g/day), minimal heavy cream</span></div>
+  <div class="info-row"><span class="info-key">🍳 Prep</span><span class="info-val">Sunday (main) + Wed/Thu refresh</span></div>
+
+  <div class="divider"></div>
+  <div class="section-label">Why These Stores</div>
+  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Costco for bulk proteins at best $/lb, Walmart for produce & pantry fill-ins, Fry's for weekly deals on fresh veg and spice upgrades.</p>
+  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Costco</span><span class="store-pick-est">~$115</span></div><div class="store-pick-note">Bulk proteins, oats, almonds, olive oil — best $/lb</div></div>
+  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Walmart</span><span class="store-pick-est">~$50</span></div><div class="store-pick-note">Produce, dairy, pantry sauces & canned goods</div></div>
+  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Fry's</span><span class="store-pick-est">~$30</span></div><div class="store-pick-note">Weekly sales on avocados, fresh veg, spice upgrades</div></div>
+
+  <div class="divider"></div>
+  <div class="section-label">🧂 Pantry Upgrades to Buy</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">You have basics — grab these to take flavor from good → great:</p>
+  <div class="spice-item">✦ Everything Bagel Seasoning — eggs, avocado, chicken (Fry's ~$4)</div>
+  <div class="spice-item">✦ Smoked Paprika — transforms chicken, salmon, potatoes (Fry's ~$3)</div>
+  <div class="spice-item">✦ Sesame Oil — 1 tsp elevates any Asian dish (Walmart ~$3)</div>
+  <div class="spice-item">✦ Chipotle in Adobo — smoky heat for sauces & rice (Walmart ~$1.50/can)</div>
+  <div class="spice-item">✦ Coconut Aminos — umami + sweetness, great for marinades (~$5)</div>
+  <div class="spice-item">✦ Fish Sauce — 1 tsp makes stir fry taste like a restaurant (~$3)</div>
+  <div class="spice-item">✦ Dried Thyme + Oregano — herb-crusted proteins (if needed)</div>
+
+  <div class="divider"></div>
+  <div class="section-label">Master Sauces</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Make these Sunday. They turn simple ingredients into craveable meals all week.</p>
+  <div class="sauce-card" style="border-left-color:#e8873a;">
+    <div class="sauce-name">🌶 Chipotle Lime Crema</div>
+    <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 1 chipotle pepper + 2 tbsp adobo sauce + ½ cup cottage cheese (blended smooth) + juice of 1 lime + pinch of salt</div>
+    <div class="sauce-use"><strong>Use on:</strong> Rice bowls, chicken tacos, scrambled eggs, salmon</div>
+    <div class="sauce-makes">~½ cup · keeps 7 days in fridge</div>
+  </div>
+  <div class="sauce-card" style="border-left-color:var(--accent);">
+    <div class="sauce-name">🌿 Lemon Herb Tahini Sauce</div>
+    <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 3 tbsp tahini + juice of 1 lemon + 1 tsp garlic powder + 2 tbsp water + 1 tbsp olive oil + dried dill/parsley + salt</div>
+    <div class="sauce-use"><strong>Use on:</strong> Salmon topping, wrap spread, salad dressing, dipping sauce</div>
+    <div class="sauce-makes">~½ cup · keeps 10 days in fridge</div>
+  </div>
+  <div class="sauce-card" style="border-left-color:#5ab4d4;">
+    <div class="sauce-name">🥢 Sesame Ginger Drizzle</div>
+    <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 2 tbsp soy sauce + 1 tbsp sesame oil + 1 tsp honey + ½ tsp ginger powder + 1 tsp lime juice</div>
+    <div class="sauce-use"><strong>Use on:</strong> Stir fry glaze, rice bowl drizzle, salmon marinade, cold noodle sauce</div>
+    <div class="sauce-makes">~¼ cup · keeps 2 weeks</div>
+  </div>
+</div>
+
+<!-- ===== GROCERY TAB ===== -->
+<div id="tab-grocery" class="content tab-content" style="display:none;">
+
+  <!-- PROJECTED COST CARD -->
+  <div class="grocery-cost-card" style="margin-top:6px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+      <div class="grocery-cost-left">
+        <div class="gc-label">Projected Total (pre-tax)</div>
+        <div class="gc-amount" id="grandTotal">$0.00</div>
+      </div>
+      <div class="grocery-cost-right">
+        <div class="gc-label">items checked</div>
+        <div class="gc-count" id="itemCount">0</div>
+        <div class="gc-budget-remaining" id="budgetRemaining" style="color:var(--muted);display:none;"></div>
+      </div>
+    </div>
+    <div class="grocery-progress">
+      <div class="gp-bar-wrap"><div class="gp-bar-fill" id="groceryProgressFill"></div></div>
+      <div class="gp-label" id="groceryProgressLabel">0 of 0 items ✓</div>
+    </div>
+  </div>
+
+  <!-- BUDGET FILTER -->
+  <div class="budget-banner" style="margin:0 -14px 14px;border-radius:0;">
+    <div class="budget-title">🎯 BUDGET FILTER</div>
+    <div class="budget-row">
+      <span style="color:var(--muted);font-size:13px;">$</span>
+      <input class="budget-input" type="number" id="budgetInput" placeholder="e.g. 150" min="0" step="1" oninput="liveApplyBudget()"/>
+      <button class="budget-clear-btn" onclick="clearBudget()">Clear</button>
+    </div>
+    <div class="budget-status" id="budgetStatus" style="display:none;"></div>
+  </div>
+
+  <div id="groceryFilterInfo" style="display:none;" class="filter-info">
+    💡 Budget filter active — items marked <strong>optional</strong> or above budget are dimmed. Actual prices may vary; update each item's price as you shop for a live total.
+  </div>
+
+  <!-- COSTCO -->
+  <button class="store-toggle" onclick="toggleStore('costco')" id="btn-costco">
+    <div><div class="store-name">COSTCO</div><div class="store-sub">Bulk proteins & staples — best $/lb</div></div>
+    <span class="chevron" id="chev-costco">▾</span>
+  </button>
+  <div class="store-body" id="body-costco">
+    <div class="section-head">Protein</div>
+    <div class="grocery-item" id="gi-c1" data-est="17" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('c1',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Chicken breast (6 lb bag)</span></div>
+        <div class="item-meta">1 bag · Freeze half</div>
+        <div class="item-note">Core protein of the plan</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$17</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()" title="Enter actual price"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="grocery-item" id="gi-c2" data-est="14" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('c2',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>93/7 Ground beef (3 lb)</span></div>
+        <div class="item-meta">1 pack · Swap: ground turkey</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$14</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="grocery-item" id="gi-c3" data-est="22" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('c3',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Salmon fillets (frozen, 3 lb)</span></div>
+        <div class="item-meta">1 bag · Omega-3 powerhouse</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$22</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="grocery-item" id="gi-c4" data-est="18" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('c4',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Eggs (5 dozen)</span></div>
+        <div class="item-meta">1 flat · Breakfast + binding</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$18</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="grocery-item" id="gi-c5" data-est="8" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('c5',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Cottage cheese 2% (24 oz)</span></div>
+        <div class="item-meta">2 containers · High protein snack + sauce base</div>
+        <div class="item-note">Replaces Greek yogurt — blends smooth for sauces</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$8</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="section-head">Pantry</div>
+    <div class="grocery-item" id="gi-c6" data-est="13" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('c6',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Brown rice (25 lb)</span></div>
+        <div class="item-meta">1 bag · Will last months</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$13</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="grocery-item" id="gi-c7" data-est="9" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('c7',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Rolled oats (10 lb)</span></div>
+        <div class="item-meta">1 bag · Breakfast staple</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$9</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="grocery-item" id="gi-c8" data-est="14" data-optional="true">
+      <div class="checkbox" onclick="toggleItem('c8',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Olive oil (2L)</span></div>
+        <div class="item-meta">1 bottle · Optional if you have some</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$14</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="section-head">Snacks</div>
+    <div class="grocery-item" id="gi-c9" data-est="14" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('c9',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Raw almonds (3 lb)</span></div>
+        <div class="item-meta">1 bag · Portion to 1 oz/day</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$14</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="grocery-item" id="gi-c10" data-est="28" data-optional="true">
+      <div class="checkbox" onclick="toggleItem('c10',this)"></div>
+      <div class="item-info">
+        <div class="item-name"><span>Whey protein powder (vanilla)</span></div>
+        <div class="item-meta">1 container · Optional upgrade</div>
+        <div class="item-note">Skip if tight on budget — eggs cover protein</div>
+      </div>
+      <div class="price-area">
+        <div class="price-est">~$28</div>
+        <input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/>
+        <div class="price-label">actual price</div>
+      </div>
+    </div>
+    <div class="store-subtotal">
+      <span class="store-subtotal-label">Costco Running Total</span>
+      <span class="store-subtotal-amount" id="sub-costco">$0.00</span>
+    </div>
+  </div>
+
+  <!-- WALMART -->
+  <button class="store-toggle" onclick="toggleStore('walmart')" id="btn-walmart">
+    <div><div class="store-name">WALMART</div><div class="store-sub">Produce, dairy & pantry sauces</div></div>
+    <span class="chevron" id="chev-walmart">▾</span>
+  </button>
+  <div class="store-body" id="body-walmart" style="display:none;">
+    <div class="section-head">Produce</div>
+    <div class="grocery-item" id="gi-w1" data-est="2" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w1',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Bananas</span></div><div class="item-meta">2 bunches · Pre/post workout carb</div></div>
+      <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w2" data-est="4" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w2',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Broccoli crowns</span></div><div class="item-meta">3 lb · Steam + roast</div></div>
+      <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w3" data-est="6" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w3',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Baby spinach</span></div><div class="item-meta">2 bags (5 oz) · Swap: kale</div></div>
+      <div class="price-area"><div class="price-est">~$6</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w4" data-est="5" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w4',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Bell peppers (mixed)</span></div><div class="item-meta">6 ct · Stir fry + egg scrambles</div></div>
+      <div class="price-area"><div class="price-est">~$5</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w5" data-est="3" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w5',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Roma tomatoes</span></div><div class="item-meta">6 ct</div></div>
+      <div class="price-area"><div class="price-est">~$3</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w6" data-est="5" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w6',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Sweet potatoes</span></div><div class="item-meta">4 lb · Great roasted</div></div>
+      <div class="price-area"><div class="price-est">~$5</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w7" data-est="2" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w7',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Limes</span></div><div class="item-meta">6 ct · For chipotle-lime sauce</div></div>
+      <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w8" data-est="2" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w8',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Garlic (fresh bulbs)</span></div><div class="item-meta">3-pk · Fresh &gt; powder</div></div>
+      <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="section-head">Dairy</div>
+    <div class="grocery-item" id="gi-w9" data-est="8" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w9',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Shredded Mexican blend cheese</span></div><div class="item-meta">2 bags (8 oz) · Light use</div></div>
+      <div class="price-area"><div class="price-est">~$8</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w10" data-est="4" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w10',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Butter (unsalted)</span></div><div class="item-meta">1 lb</div></div>
+      <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="section-head">Pantry</div>
+    <div class="grocery-item" id="gi-w11" data-est="2" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w11',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Low-sodium soy sauce</span></div><div class="item-meta">1 bottle · Sesame ginger sauce</div></div>
+      <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w12" data-est="3" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w12',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Sesame oil</span></div><div class="item-meta">1 small bottle · Flavor bomb</div></div>
+      <div class="price-area"><div class="price-est">~$3</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w13" data-est="4" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w13',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Honey</span></div><div class="item-meta">1 bottle · Sauces + oats</div></div>
+      <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w14" data-est="3" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w14',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Chipotle peppers in adobo</span></div><div class="item-meta">2 cans · Master sauce base</div></div>
+      <div class="price-area"><div class="price-est">~$3</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w15" data-est="4" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w15',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Canned black beans (15 oz)</span></div><div class="item-meta">4 cans · Fiber + protein filler</div></div>
+      <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w16" data-est="4" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w16',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Canned diced tomatoes</span></div><div class="item-meta">4 cans · Pasta + chili base</div></div>
+      <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w17" data-est="6" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('w17',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Whole wheat tortillas (10 ct)</span></div><div class="item-meta">2 packs · Wraps + quesadillas</div></div>
+      <div class="price-area"><div class="price-est">~$6</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-w18" data-est="5" data-optional="true">
+      <div class="checkbox" onclick="toggleItem('w18',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Coconut aminos</span></div><div class="item-meta">1 bottle · Optional: soy sauce swap, sweeter</div></div>
+      <div class="price-area"><div class="price-est">~$5</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="store-subtotal">
+      <span class="store-subtotal-label">Walmart Running Total</span>
+      <span class="store-subtotal-amount" id="sub-walmart">$0.00</span>
+    </div>
+  </div>
+
+  <!-- FRYS -->
+  <button class="store-toggle" onclick="toggleStore('frys')" id="btn-frys">
+    <div><div class="store-name">FRY'S</div><div class="store-sub">Fresh produce, protein & spice upgrades</div></div>
+    <span class="chevron" id="chev-frys">▾</span>
+  </button>
+  <div class="store-body" id="body-frys" style="display:none;">
+    <div class="section-head">Produce</div>
+    <div class="grocery-item" id="gi-f1" data-est="5" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f1',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Avocados</span></div><div class="item-meta">6 ct · Watch weekly ad for deals</div></div>
+      <div class="price-area"><div class="price-est">~$5</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f2" data-est="2" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f2',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Cucumber</span></div><div class="item-meta">2 ct</div></div>
+      <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f3" data-est="2" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f3',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Lemons</span></div><div class="item-meta">4 ct · Herb tahini sauce</div></div>
+      <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f4" data-est="2" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f4',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Green onions</span></div><div class="item-meta">2 bunches</div></div>
+      <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="section-head">Protein</div>
+    <div class="grocery-item" id="gi-f5" data-est="8" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f5',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Canned tuna (5 oz)</span></div><div class="item-meta">6 cans · Quick lunch protein</div></div>
+      <div class="price-area"><div class="price-est">~$8</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f6" data-est="7" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f6',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Deli turkey breast (no nitrate)</span></div><div class="item-meta">1 lb · Wrap filler</div></div>
+      <div class="price-area"><div class="price-est">~$7</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="section-head">Pantry</div>
+    <div class="grocery-item" id="gi-f7" data-est="4" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f7',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Pasta (penne or rotini)</span></div><div class="item-meta">2 boxes (1 lb each) · Wed night easy dinner</div></div>
+      <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f8" data-est="6" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f8',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Chicken/beef broth (32 oz)</span></div><div class="item-meta">2 cartons · Rice cooking + soups</div></div>
+      <div class="price-area"><div class="price-est">~$6</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f9" data-est="5" data-optional="false">
+      <div class="checkbox" onclick="toggleItem('f9',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Tahini (sesame paste)</span></div><div class="item-meta">1 jar · Lemon herb sauce base</div><div class="item-note">Replaces yogurt in sauce — nuttier, richer, dairy-light</div></div>
+      <div class="price-area"><div class="price-est">~$5</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f10" data-est="4" data-optional="true">
+      <div class="checkbox" onclick="toggleItem('f10',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Everything Bagel seasoning</span></div><div class="item-meta">1 jar · Upgrade spice — eggs, avocado, chicken</div></div>
+      <div class="price-area"><div class="price-est">~$4</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f11" data-est="3" data-optional="true">
+      <div class="checkbox" onclick="toggleItem('f11',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Smoked paprika</span></div><div class="item-meta">1 jar · Depth of flavor</div></div>
+      <div class="price-area"><div class="price-est">~$3</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="grocery-item" id="gi-f12" data-est="2" data-optional="true">
+      <div class="checkbox" onclick="toggleItem('f12',this)"></div>
+      <div class="item-info"><div class="item-name"><span>Red pepper flakes</span></div><div class="item-meta">1 jar</div></div>
+      <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
+    </div>
+    <div class="store-subtotal">
+      <span class="store-subtotal-label">Fry's Running Total</span>
+      <span class="store-subtotal-amount" id="sub-frys">$0.00</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PREP TAB ===== -->
+<div id="tab-prep" class="content tab-content">
+  <div class="section-label" style="margin-top:6px;">Sunday Prep — 60–90 min</div>
+  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">Do this once and your whole week is assembled. Wednesday add a quick salmon cook or pasta night (15–20 min).</p>
+  <div class="prep-progress">
+    <div class="prep-progress-bar-wrap"><div class="prep-progress-bar-fill" id="prepProgressFill"></div></div>
+    <div class="prep-progress-label" id="prepProgressLabel">0 of 7 done</div>
+  </div>
+  <div id="prepList"></div>
+  <div class="divider"></div>
+  <div class="section-label">Mid-Week Refresh (Wed/Thu · 20 min)</div>
+  <div id="midWeekList"></div>
+</div>
+
+<!-- ===== RECIPES TAB ===== -->
+<div id="tab-recipes" class="content tab-content" style="display:none;">
+  <div class="recipe-search-wrap" style="padding-top:8px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Quick filters</div>
+    <div class="search-keyword-hint" id="searchHints">
+      <span onclick="searchRecipes('fish');setSearchInput('fish')">🐟 fish</span>
+      <span onclick="searchRecipes('spicy');setSearchInput('spicy')">🌶 spicy</span>
+      <span onclick="searchRecipes('quick');setSearchInput('quick')">⚡ quick</span>
+      <span onclick="searchRecipes('asian');setSearchInput('asian')">🥢 asian</span>
+      <span onclick="searchRecipes('mexican');setSearchInput('mexican')">🌮 mexican</span>
+      <span onclick="searchRecipes('meat');setSearchInput('meat')">🥩 meat</span>
+      <span onclick="searchRecipes('egg');setSearchInput('egg')">🥚 egg</span>
+      <span onclick="searchRecipes('pasta');setSearchInput('pasta')">🍝 pasta</span>
+      <span onclick="searchRecipes('dessert');setSearchInput('dessert')">🍫 dessert</span>
+      <span onclick="searchRecipes('leftover');setSearchInput('leftover')">♻ leftover</span>
+    </div>
+    <div class="search-results-label" id="searchResultsLabel"></div>
+  </div>
+  <div id="recipeList"></div>
+</div>
+
+<!-- ===== MIX & MATCH TAB ===== -->
+<div id="tab-matrix" class="content tab-content" style="display:none;">
+  <div class="section-label" style="margin-top:6px;">Leftover Matrix</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Pick any protein + carb + veg + sauce for a full meal in under 5 minutes.</p>
+  <div id="matrixList"></div>
+  <div class="divider"></div>
+  <div class="section-label">End-of-Week Rescue Meals</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">When the fridge looks thin and you want to reach for DoorDash — try these instead:</p>
+  <div class="rescue-item"><div class="rescue-name">Egg Fried Rice</div><div class="rescue-desc">Leftover rice + 3 eggs + soy sauce + sesame oil + anything in the fridge. 10 min.</div></div>
+  <div class="rescue-item"><div class="rescue-name">Tuna Pasta</div><div class="rescue-desc">Pasta + canned tuna + olive oil + lemon + red pepper flakes. Fancy-tasting, 15 min.</div></div>
+  <div class="rescue-item"><div class="rescue-name">Bean & Cheese Quesadilla</div><div class="rescue-desc">Canned black beans + cheese + tortilla. 8 min. Add chipotle crema.</div></div>
+  <div class="rescue-item"><div class="rescue-name">Protein Scramble Wrap</div><div class="rescue-desc">Eggs + whatever veg remains + cheese + tortilla. The "clean out the fridge" MVP.</div></div>
+  <div class="rescue-item"><div class="rescue-name">Cottage Cheese Power Bowl</div><div class="rescue-desc">½ cup cottage cheese + banana slices + almonds + honey + cinnamon. 3 min, 25g protein.</div></div>
+</div>
+
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────
+const PREP_STEPS = [
+  {icon:'🍚',time:'0:00–0:20',task:'Cook a big batch of brown rice using broth instead of water for extra flavor'},
+  {icon:'🍗',time:'0:20–0:45',task:'Season & bake chicken breasts (smoked paprika, garlic powder, salt) at 400°F — bake 6–8 breasts at once'},
+  {icon:'🥩',time:'0:20–0:35',task:'While chicken bakes: brown 1.5 lb ground beef with onion, garlic, cumin for taco/bowl meat'},
+  {icon:'🥦',time:'0:35–0:50',task:'Roast sweet potatoes + broccoli on a sheet pan with olive oil + smoked paprika'},
+  {icon:'🫙',time:'0:50–1:00',task:'Mix all 3 master sauces and portion into jars'},
+  {icon:'🥚',time:'1:00–1:10',task:'Portion almonds into 1 oz bags, hard-boil 6 eggs'},
+  {icon:'🫑',time:'1:10–1:20',task:'Chop bell peppers, cucumber, green onion — store in containers'},
+];
+const MID_WEEK_STEPS = [
+  {icon:'🐟',task:'Pan-sear 2 salmon fillets (5 min + 12 min oven at 425°F)'},
+  {icon:'🍝',task:'Boil fresh pasta if rice is gone'},
+  {icon:'🥦',task:'Quick-roast any remaining vegetables'},
+  {icon:'🫙',task:'Make a fresh batch of any sauce running low'},
+];
+
+const RECIPES = [
+  {type:'Breakfast',name:'Power Scramble',time:'10 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 eggs','½ cup bell pepper','handful spinach','1 oz shredded cheese','Everything Bagel seasoning'],
+   steps:['Heat olive oil in pan over medium','Sauté peppers 2 min, add spinach until wilted','Add whisked eggs, scramble to preference','Top with cheese + Everything Bagel seasoning'],
+   swap:'No bell pepper? Use onion or skip. No cheese? Add avocado.'},
+  {type:'Breakfast',name:'Protein Oat Bowl',time:'8 min',servings:'1',leftover:true,budget:'low',
+   ings:['½ cup rolled oats','1 scoop protein powder (optional)','1 banana','1 tbsp honey','pinch cinnamon'],
+   steps:['Cook oats with water per package','Stir in protein powder while hot (or skip)','Top with sliced banana, honey, cinnamon'],
+   swap:'No protein powder? Add 2 eggs on the side.'},
+  {type:'Breakfast',name:'Cottage Cheese Egg Scramble',time:'10 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 eggs','¼ cup cottage cheese','green onion','salt + pepper','olive oil'],
+   steps:['Whisk eggs with cottage cheese — creates fluffy curds','Heat oil in pan over medium-low','Pour egg mixture, fold gently until just set','Top with green onion'],
+   swap:'Add diced jalapeño or red pepper flakes for heat.'},
+  {type:'Lunch',name:'Chipotle Chicken Rice Bowl',time:'5 min (using prep)',servings:'1–2',leftover:true,budget:'low',
+   ings:['1 cup brown rice (prepped)','1 chicken breast (prepped)','black beans','roasted broccoli','chipotle lime crema'],
+   steps:['Slice pre-cooked chicken','Layer rice → beans → broccoli → chicken in bowl','Drizzle chipotle lime crema','Top with green onion + squeeze of lime'],
+   swap:'No chicken? Use canned tuna or ground beef.'},
+  {type:'Lunch',name:'Tuna Avocado Smash Wrap',time:'7 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 can tuna (drained)','½ avocado','squeeze of lemon','whole wheat tortilla','spinach','tomato'],
+   steps:['Mash avocado with lemon juice, salt, red pepper flakes','Mix in drained tuna','Spread on tortilla, layer spinach + tomato','Roll tight, slice in half'],
+   swap:'No avocado? Mix tuna with a little olive oil + dijon mustard.'},
+  {type:'Lunch',name:'Turkey & Veggie Wrap',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 oz deli turkey','whole wheat tortilla','spinach','cucumber','tomato','lemon herb tahini sauce'],
+   steps:['Spread lemon herb tahini sauce on tortilla','Layer turkey, spinach, cucumber, tomato','Roll and eat'],
+   swap:'Swap turkey for sliced chicken breast from prep batch.'},
+  {type:'Dinner',name:'Sesame Beef Stir Fry',time:'20 min',servings:'2',leftover:true,budget:'medium',
+   ings:['½ lb ground beef','bell peppers','broccoli','brown rice','sesame ginger drizzle','sesame oil'],
+   steps:['Heat sesame oil in wok/large pan, high heat','Brown beef, drain excess fat','Add peppers + broccoli, stir fry 4–5 min','Pour sesame ginger drizzle over everything','Serve over brown rice'],
+   swap:'No ground beef? Use chicken strips or shrimp.'},
+  {type:'Dinner',name:'Sheet Pan Salmon + Sweet Potato',time:'30 min',servings:'2',leftover:true,budget:'medium',
+   ings:['2 salmon fillets','2 sweet potatoes (cubed)','smoked paprika','olive oil','lemon herb tahini sauce'],
+   steps:['Preheat oven 425°F','Toss sweet potato cubes with olive oil + smoked paprika, roast 15 min','Push to side, add salmon seasoned with salt + paprika','Roast another 12–15 min until salmon flakes','Serve with lemon herb tahini sauce'],
+   swap:'No salmon? Use chicken thighs — add 5 more min.'},
+  {type:'Dinner',name:'Ground Beef Taco Bowls',time:'15 min (using prep meat)',servings:'2',leftover:true,budget:'low',
+   ings:['pre-cooked ground beef','brown rice','black beans','cheese','tomato','avocado','chipotle lime crema'],
+   steps:['Reheat ground beef with splash of water in pan','Build bowl: rice → beans → beef','Top with tomato, avocado, cheese','Drizzle chipotle lime crema'],
+   swap:'Use tortillas instead of rice for actual tacos.'},
+  {type:'Dinner',name:'Easy Pasta with Meat Sauce',time:'25 min',servings:'2–3',leftover:true,budget:'low',
+   ings:['½ lb pasta','½ lb ground beef','2 cans diced tomato','garlic','Italian seasonings','cheese'],
+   steps:['Cook pasta per box directions','Brown beef with minced garlic + red pepper flakes','Add canned tomatoes + dried oregano, simmer 10 min','Toss with pasta, top with cheese'],
+   swap:'No ground beef? Use canned tuna stirred in at the end.'},
+  {type:'Dinner',name:'Chicken Quesadillas',time:'12 min',servings:'1–2',leftover:false,budget:'low',
+   ings:['pre-cooked chicken (shredded)','whole wheat tortillas','shredded cheese','bell pepper','chipotle lime crema'],
+   steps:['Heat skillet medium, butter lightly','Lay tortilla, add chicken + peppers + cheese on half','Fold over, cook 3 min per side until golden','Slice, dip in chipotle lime crema'],
+   swap:'Add black beans inside for extra fiber.'},
+  {type:'Snack',name:'Cottage Cheese & Banana Bowl',time:'3 min',servings:'1',leftover:false,budget:'low',
+   ings:['½ cup cottage cheese','1 banana (sliced)','1 tsp honey','pinch cinnamon'],
+   steps:['Scoop cottage cheese into bowl','Layer banana slices on top','Drizzle honey, sprinkle cinnamon'],
+   swap:'Swap banana for almonds + honey for a lower-carb version.'},
+  {type:'Snack',name:'Cottage Cheese & Cucumber Bowl',time:'3 min',servings:'1',leftover:false,budget:'low',
+   ings:['½ cup cottage cheese','cucumber slices','Everything Bagel seasoning','drizzle olive oil'],
+   steps:['Scoop cottage cheese into bowl','Add cucumber, sprinkle Everything Bagel seasoning, drizzle oil'],
+   swap:'Add sliced tomato and black pepper for a savory twist.'},
+  {type:'Snack',name:'Almond & Banana',time:'1 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 oz raw almonds (pre-portioned)','1 banana'],
+   steps:['Grab and go. That is the whole recipe.'],
+   swap:'Swap banana for an apple or any fruit you have.'},
+
+  // ── NEW BREAKFAST ────────────────────────────────────────────────
+  {type:'Breakfast',name:'Veggie Egg Muffins',time:'25 min (makes 6)',servings:'6',leftover:true,budget:'low',
+   ings:['6 eggs','¼ cup diced bell pepper','¼ cup diced onion','handful spinach (chopped)','2 tbsp shredded cheese','salt + pepper','olive oil spray'],
+   steps:['Preheat oven to 350°F. Spray a 6-cup muffin tin with oil','Sauté bell pepper + onion in a pan 2 min, add spinach until wilted','Whisk eggs with salt + pepper in a bowl','Divide veggies evenly into muffin cups, pour egg mixture over each','Top each with a pinch of shredded cheese','Bake 18–20 min until set. Cool and store in fridge up to 5 days'],
+   swap:'Add crumbled ground turkey or shredded chicken to each cup for extra protein. Use any veg you have.'},
+
+  {type:'Breakfast',name:'Protein Pancakes',time:'15 min',servings:'2',leftover:false,budget:'low',
+   ings:['1 cup rolled oats (blended into flour)','2 eggs','1 ripe banana (mashed)','¼ cup cottage cheese','1 tsp baking powder','½ tsp cinnamon','pinch of salt'],
+   steps:['Blend oats in a blender until fine flour forms','Add all remaining ingredients and blend until smooth batter forms','Heat non-stick pan over medium heat, lightly oil','Pour ¼ cup batter per pancake, cook 2–3 min per side until golden and set','Serve with honey + banana slices'],
+   swap:'No cottage cheese? Use any milk instead. Add a scoop of protein powder for more protein per serving.'},
+
+  {type:'Breakfast',name:'Smoked Salmon Scramble',time:'10 min',servings:'1',leftover:false,budget:'medium',
+   ings:['2 eggs','1–2 oz smoked salmon or leftover baked salmon (flaked)','1 tbsp cottage cheese','green onion (sliced)','black pepper','drizzle olive oil'],
+   steps:['Heat olive oil in pan over medium-low','Whisk eggs, pour into pan','Fold gently as eggs cook — low and slow is the key','When nearly set, fold in salmon + cottage cheese','Remove from heat (carryover heat finishes it)','Top with green onion + black pepper and serve immediately'],
+   swap:'No smoked salmon? Leftover baked salmon or canned salmon both work perfectly. Add a squeeze of lemon.'},
+
+  {type:'Breakfast',name:'Sausage & Sweet Potato Hash',time:'20 min',servings:'2',leftover:true,budget:'medium',
+   ings:['2 breakfast sausage links or ½ lb bulk sausage','1 medium sweet potato (diced small)','½ cup diced bell pepper','¼ cup diced onion','2 eggs','1 tsp smoked paprika','½ tsp garlic powder','salt + olive oil'],
+   steps:['Heat oil in a large skillet over medium-high','Add sweet potato, cook 8 min stirring occasionally until edges are golden','Add sausage (crumbled), peppers + onion — cook 5 min until sausage is cooked through','Season with paprika, garlic powder, and salt','Push hash to the sides, crack eggs in the center, cover with lid','Cook 3–4 min until whites are set but yolks are still runny','Serve straight from the pan'],
+   swap:'No sausage? Use ground beef or ground turkey. Add a splash of hot sauce on top.'},
+
+  {type:'Breakfast',name:'Avocado Egg Toast',time:'10 min',servings:'1',leftover:false,budget:'low',
+   ings:['2 slices whole wheat bread (or tortilla)','½ avocado','2 eggs','Everything Bagel seasoning','red pepper flakes','salt + lemon juice'],
+   steps:['Toast bread until golden and crisp','Mash avocado with lemon juice, salt, and a pinch of red pepper flakes','Spread avocado generously onto toast','Cook eggs your way — fried, poached, or scrambled all work great','Place eggs on top of avocado toast','Finish with Everything Bagel seasoning'],
+   swap:'Use a rice cake base for a lighter version. Add sliced tomato or cucumber under the egg.'},
+
+  // ── NEW LUNCH ────────────────────────────────────────────────────
+  {type:'Lunch',name:'Greek Chicken Salad',time:'8 min (using prep chicken)',servings:'1',leftover:false,budget:'low',
+   ings:['1 prepped chicken breast (sliced)','1 cup baby spinach','½ cucumber (sliced)','1 Roma tomato (diced)','2 tbsp olive oil','juice of ½ lemon','1 tsp dried oregano','salt + pepper','feta or shredded cheese (optional)'],
+   steps:['Slice prepped chicken breast thin','Layer spinach, cucumber, and tomato in a bowl','Top with sliced chicken','Drizzle olive oil + lemon juice over everything','Sprinkle dried oregano, salt, and pepper','Add cheese on top and toss lightly before eating'],
+   swap:'No chicken? Use canned tuna or 2 hard-boiled eggs. Add olives and red onion for a more authentic Greek twist.'},
+
+  {type:'Lunch',name:'Ground Turkey Lettuce Wraps',time:'15 min',servings:'2',leftover:true,budget:'low',
+   ings:['½ lb ground turkey','3 garlic cloves (minced)','2 tbsp soy sauce','1 tsp sesame oil','1 tsp honey','½ cup diced bell pepper','romaine or butter lettuce leaves','green onion (sliced)'],
+   steps:['Brown ground turkey in a skillet over medium-high heat — break it up well','Add garlic + bell pepper, cook 3 min until fragrant','Mix soy sauce + sesame oil + honey in a small bowl, pour over meat','Stir and cook 2 more minutes until sauce is absorbed','Spoon meat mixture into lettuce leaves, top with green onion','Eat like a taco — crispy, fresh, and light'],
+   swap:'No lettuce? Use tortillas or serve over brown rice. Ground chicken or pork also work great here.'},
+
+  {type:'Lunch',name:'Chicken Caesar Wrap',time:'7 min (using prep chicken)',servings:'1',leftover:false,budget:'low',
+   ings:['1 prepped chicken breast (sliced)','1 whole wheat tortilla','1 cup baby spinach or romaine','2 tbsp Caesar dressing or lemon herb tahini sauce','2 tbsp shredded cheese','black pepper'],
+   steps:['Warm the tortilla in a dry pan or microwave for 20 seconds','Lay chicken, greens, and cheese in a strip across the center','Drizzle Caesar dressing or lemon tahini sauce','Season with black pepper','Fold sides in, roll tight from the bottom, slice in half'],
+   swap:'No Caesar dressing? Mix 1 tbsp mayo + lemon juice + garlic powder + a pinch of parmesan. Or use the tahini sauce from prep.'},
+
+  {type:'Lunch',name:'Salmon & Rice Power Bowl',time:'5 min (using prep)',servings:'1',leftover:true,budget:'medium',
+   ings:['1 cup prepped brown rice','1 leftover salmon fillet (or 1 can salmon/tuna)','½ cucumber (sliced)','½ avocado (sliced)','sesame ginger drizzle sauce','green onion','optional: sesame seeds'],
+   steps:['Flake leftover salmon into large chunks (or drain canned)','Layer rice in a bowl, arrange salmon on top','Fan cucumber and avocado slices around the bowl','Drizzle sesame ginger sauce generously over everything','Top with green onion and sesame seeds if using'],
+   swap:'No salmon? Canned tuna or leftover ground beef work too. No sesame sauce? Use soy sauce + a drop of sesame oil.'},
+
+  {type:'Lunch',name:'Black Bean Chicken Burrito Bowl',time:'10 min',servings:'1',leftover:true,budget:'low',
+   ings:['1 cup prepped brown rice','½ cup canned black beans (drained + rinsed)','1 prepped chicken breast (sliced)','1 Roma tomato (diced)','2 tbsp shredded cheese','chipotle lime crema','lime wedge'],
+   steps:['Layer rice in bowl, top with black beans','Add sliced chicken breast on top','Scatter diced tomato + shredded cheese','Drizzle chipotle lime crema over everything','Squeeze lime over the bowl, mix and eat'],
+   swap:'Use ground beef instead of chicken. Roll everything into a tortilla for a hand-held burrito. Add jalapeños for heat.'},
+
+  {type:'Lunch',name:'Shrimp Taco Bowl',time:'15 min',servings:'2',leftover:false,budget:'medium',
+   ings:['½ lb raw shrimp (peeled + deveined)','1 tsp chili powder','½ tsp cumin','½ tsp garlic powder','salt + olive oil','1 cup brown rice (prepped)','black beans','cabbage or spinach','chipotle lime crema','lime'],
+   steps:['Toss shrimp with chili powder, cumin, garlic powder, and salt','Heat oil in pan over medium-high — shrimp cooks fast, 1–2 min per side until pink','Do not overcook — shrimp are done when they curl into a C-shape','Build bowl: rice → beans → greens → shrimp','Drizzle chipotle lime crema, squeeze lime on top'],
+   swap:'Frozen shrimp work great — thaw under cold water 5 min. No shrimp? Use chicken strips seasoned the same way.'},
+
+  // ── NEW DINNER ───────────────────────────────────────────────────
+  {type:'Dinner',name:'Honey Garlic Shrimp & Rice',time:'15 min',servings:'2',leftover:false,budget:'medium',
+   ings:['1 lb raw shrimp (peeled + deveined)','3 garlic cloves (minced)','2 tbsp honey','2 tbsp soy sauce','1 tbsp butter','1 tsp sesame oil','prepped brown rice','green onion'],
+   steps:['Whisk honey + soy sauce + sesame oil in a small bowl and set aside','Heat butter in a large skillet over medium-high heat','Add shrimp in a single layer — cook 1–2 min per side until pink. Do not crowd the pan','Add garlic, stir 30 seconds','Pour sauce over shrimp, toss to coat, cook 1 more minute until slightly reduced','Serve over rice, top with green onion'],
+   swap:'Swap honey for maple syrup or brown sugar. Add red pepper flakes to the sauce for a sweet-heat kick.'},
+
+  {type:'Dinner',name:'Ground Turkey Chili',time:'35 min',servings:'4–5',leftover:true,budget:'low',
+   ings:['1 lb ground turkey','2 cans diced tomatoes','2 cans black beans (drained)','1 onion (diced)','3 garlic cloves (minced)','1 tbsp cumin','1 tbsp chili powder','1 tsp smoked paprika','salt + pepper','shredded cheese for topping'],
+   steps:['Brown ground turkey in a large pot over medium-high, season with salt','Add diced onion + garlic, cook 3 min until soft','Add cumin, chili powder, smoked paprika — stir 1 min until fragrant','Pour in diced tomatoes + black beans, stir well','Simmer uncovered 20 min, stirring occasionally, until thick','Taste and adjust seasoning — top each bowl with cheese'],
+   swap:'Use ground beef for a richer flavor. Serve over rice or with tortilla chips. Freezes perfectly for easy future meals.'},
+
+  {type:'Dinner',name:'Lemon Garlic Chicken Thighs',time:'30 min',servings:'3–4',leftover:true,budget:'low',
+   ings:['4 chicken thighs (bone-in or boneless)','4 garlic cloves (minced)','juice of 1 lemon','2 tbsp olive oil','1 tsp dried thyme or oregano','1 tsp smoked paprika','salt + pepper'],
+   steps:['Preheat oven to 425°F','Mix garlic, lemon juice, olive oil, herbs, and paprika into a marinade','Pat chicken dry, coat generously on all sides with marinade','Place in oven-safe skillet or baking dish skin-side up','Roast 25–30 min until skin is golden and internal temp reaches 165°F','Rest 5 min before serving — the juices redistribute'],
+   swap:'Use chicken breast if preferred — reduce cook time to 22 min. Add sliced potatoes to the pan for a complete one-pan dinner.'},
+
+  {type:'Dinner',name:'Steak Fajita Bowl',time:'20 min',servings:'2',leftover:true,budget:'medium',
+   ings:['½ lb sirloin or flank steak (thinly sliced)','2 bell peppers (sliced)','1 onion (sliced into strips)','prepped brown rice or tortillas','chipotle lime crema','1 tsp each: cumin, garlic powder, smoked paprika','salt + olive oil'],
+   steps:['Season steak slices with cumin, garlic powder, paprika, and salt','Heat oil in a cast iron or heavy skillet over high heat — it needs to be hot','Sear steak strips 1–2 min per side until nicely charred. Set aside','Same pan: sauté peppers + onion 5–6 min until slightly charred','Serve steak + peppers over rice or in warm tortillas','Drizzle generously with chipotle lime crema'],
+   swap:'Tight on budget? Ground beef seasoned with the same spices is just as satisfying. Works great as tacos too.'},
+
+  {type:'Dinner',name:'Sheet Pan Sausage & Veggies',time:'30 min',servings:'3',leftover:true,budget:'low',
+   ings:['1 lb chicken sausage or smoked sausage (sliced into rounds)','2 cups broccoli florets','1 cup diced sweet potato','1 bell pepper (sliced)','2 tbsp olive oil','1 tsp garlic powder','1 tsp smoked paprika','salt + pepper'],
+   steps:['Preheat oven to 425°F. Line a sheet pan with foil','Toss sausage + all veggies with olive oil and seasonings','Spread in a single layer — do not pile or crowd','Roast 25–28 min, tossing halfway through, until edges are caramelized','Optional: drizzle honey + dijon mustard over everything in the last 5 min for a glaze','Serve as-is or over brown rice'],
+   swap:'Any sausage variety works — turkey, kielbasa, Italian. Swap in any vegetables you have on hand.'},
+
+  {type:'Dinner',name:'Teriyaki Salmon Bowl',time:'20 min',servings:'2',leftover:false,budget:'medium',
+   ings:['2 salmon fillets','3 tbsp soy sauce','1 tbsp honey','1 tsp sesame oil','1 tsp garlic powder','prepped brown rice','steamed broccoli','sesame seeds + green onion'],
+   steps:['Preheat oven to 400°F. Line a baking sheet with foil','Mix soy sauce + honey + sesame oil + garlic powder into a teriyaki glaze','Place salmon on sheet, pour half the glaze on top','Bake 12–15 min until salmon flakes easily with a fork','While baking: warm rice and steam broccoli','Serve salmon over rice + broccoli, drizzle remaining glaze, scatter sesame seeds on top'],
+   swap:'No sesame oil? Add a pinch of ginger powder. Use tilapia or cod as a budget-friendly white fish alternative.'},
+
+  {type:'Dinner',name:'Egg Shakshuka',time:'25 min',servings:'2',leftover:false,budget:'low',
+   ings:['4 eggs','2 cans diced tomatoes','½ onion (diced)','3 garlic cloves (minced)','1 tsp cumin','1 tsp smoked paprika','½ tsp chili powder','salt + olive oil','crumbled or shredded cheese','tortilla or bread for dipping'],
+   steps:['Heat olive oil in a wide skillet over medium heat','Sauté onion 4 min until soft, add garlic 1 min','Add spices, stir 30 seconds until fragrant','Pour in diced tomatoes, simmer 10 min until sauce thickens','Use a spoon to create 4 wells in the sauce','Crack an egg into each well, cover the pan with a lid','Cook 5–8 min until whites are set but yolks are still runny','Top with crumbled cheese and serve directly from the pan with tortilla'],
+   swap:'Add crumbled ground beef or turkey into the sauce for extra protein. This works for breakfast, lunch, or dinner.'},
+
+  {type:'Dinner',name:'Pork Tenderloin with Roasted Veggies',time:'35 min',servings:'3–4',leftover:true,budget:'medium',
+   ings:['1 lb pork tenderloin','2 tbsp olive oil','2 garlic cloves (minced)','1 tsp each: garlic powder, smoked paprika, dried thyme','salt + pepper','assorted veggies: broccoli, sweet potato, bell pepper'],
+   steps:['Preheat oven to 425°F','Mix olive oil + garlic + all spices into a rub','Coat pork tenderloin all over with the rub, pressing it in','Toss veggies with olive oil + salt on a sheet pan, push to the sides','Place pork in the center of the sheet pan','Roast 20–25 min until pork hits 145°F internal temp','Rest 5 min, then slice into medallions and serve with veggies'],
+   swap:'Can\'t find tenderloin? Use thick-cut pork chops — reduce cook time to about 18 min. Great with the chipotle crema sauce.'},
+
+  {type:'Dinner',name:'Lemon Garlic Tilapia',time:'15 min',servings:'2',leftover:false,budget:'low',
+   ings:['2 tilapia fillets (or any white fish)','3 garlic cloves (minced)','juice of 1 lemon','2 tbsp butter','1 tsp smoked paprika','salt + pepper','fresh or dried parsley'],
+   steps:['Pat tilapia fillets dry, season both sides with paprika, salt, and pepper','Heat butter in a skillet over medium-high','Cook tilapia 3–4 min per side until golden and fish flakes easily','Remove fish, add garlic to the same pan — sauté 30 seconds','Squeeze lemon juice into pan, swirl to make a quick sauce','Pour garlic-lemon butter over fish and serve with rice or roasted veggies'],
+   swap:'Works with cod, mahi-mahi, or any affordable white fish. Add capers for a more elevated flavor profile.'},
+
+  {type:'Dinner',name:'Teriyaki Ground Beef Bowl',time:'15 min',servings:'2',leftover:true,budget:'low',
+   ings:['½ lb ground beef (or ground turkey)','3 tbsp soy sauce','1 tbsp honey','1 tsp sesame oil','1 tsp garlic powder','½ tsp ginger powder','prepped brown rice','steamed broccoli or spinach','green onion + sesame seeds'],
+   steps:['Brown ground beef in a skillet over medium-high, drain excess fat','Mix soy sauce + honey + sesame oil + garlic + ginger in a bowl','Pour sauce over beef, stir and cook 2–3 min until sauce is absorbed and sticky','Build bowl: rice → greens → sauced beef','Top with green onion and sesame seeds'],
+   swap:'Ground turkey gives a leaner result. Double the sauce and use half for drizzling. Add a fried egg on top for extra richness.'},
+
+  // ── NEW SNACK ────────────────────────────────────────────────────
+  {type:'Snack',name:'Hard Boiled Egg Snack Plate',time:'2 min (using prep eggs)',servings:'1',leftover:false,budget:'low',
+   ings:['2 prepped hard-boiled eggs','Everything Bagel seasoning (or salt + paprika)','1 oz almonds','cucumber slices'],
+   steps:['Slice eggs in half, sprinkle with Everything Bagel seasoning','Plate with almonds on the side and cucumber slices','That is a full snack — 15g+ protein, ready in 2 min'],
+   swap:'No EBS? Salt + smoked paprika is excellent. Add a spoonful of cottage cheese for an extra protein hit.'},
+
+  {type:'Snack',name:'Tuna Cucumber Bites',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 can tuna (drained)','½ avocado or 1 tbsp mayo','squeeze of lemon','salt + pepper','1 cucumber (sliced into thick rounds)','optional: red pepper flakes or hot sauce'],
+   steps:['Mix tuna with mashed avocado (or mayo), lemon juice, salt, and pepper','Slice cucumber into thick rounds to act as "crackers"','Spoon tuna mixture onto each cucumber round','Top with a sprinkle of red pepper flakes or a dot of hot sauce'],
+   swap:'Swap cucumber for celery sticks or rice cakes. Add a small piece of avocado on top for extra healthy fat.'},
+
+  {type:'Snack',name:'Almond Butter Rice Cakes',time:'2 min',servings:'1',leftover:false,budget:'low',
+   ings:['2 rice cakes','2 tbsp almond butter or peanut butter','½ banana (sliced)','drizzle of honey','pinch of cinnamon'],
+   steps:['Spread almond butter generously on rice cakes','Layer banana slices across the top','Drizzle honey and sprinkle cinnamon to finish'],
+   swap:'No banana? Apple slices work great. Add a small sprinkle of granola or crushed almonds for crunch.'},
+
+  // ── DESSERTS ─────────────────────────────────────────────────────
+  {type:'Dessert',name:'2-Ingredient Banana Ice Cream',time:'5 min + freeze overnight',servings:'2',leftover:true,budget:'low',
+   ings:['3 ripe bananas (peeled + frozen overnight)','optional add-ins: 1 tbsp peanut butter, 1 tsp cocoa powder, or ½ tsp cinnamon'],
+   steps:['Peel bananas before freezing — freeze at least 4–6 hours or overnight','Break frozen bananas into chunks, add to a food processor or high-power blender','Blend, scraping down sides every 20 seconds — it looks crumbly at first, keep going','After 2–3 min it turns silky smooth like soft-serve ice cream','Eat immediately for soft serve, or freeze 30 min for a firmer scoop','Add peanut butter or cocoa powder if using and blend one final time'],
+   swap:'Add frozen mango chunks for a tropical twist. A splash of vanilla extract makes it taste like real ice cream.'},
+
+  {type:'Dessert',name:'No-Bake Peanut Butter Oat Balls',time:'15 min + 30 min chill',servings:'12 balls',leftover:true,budget:'low',
+   ings:['1 cup rolled oats','½ cup peanut butter (or almond butter)','3 tbsp honey','1 tsp vanilla extract','optional: mini chocolate chips, cinnamon, or a scoop of protein powder'],
+   steps:['Combine oats, peanut butter, honey, and vanilla in a bowl — mix until fully combined','Refrigerate the dough 30 min so it firms up and is easier to roll','Roll into 1-inch balls with your hands (makes about 12)','Place on a plate or tray, refrigerate until set — about 20 min','Store in the fridge up to 1 week, or freeze up to 2 months'],
+   swap:'Use sunflower butter for a nut-free version. Adding a scoop of chocolate or vanilla protein powder makes these a legitimate snack-meal.'},
+
+  {type:'Dessert',name:'Honey Cinnamon Baked Apples',time:'25 min',servings:'2',leftover:true,budget:'low',
+   ings:['2 large apples (Honeycrisp or Gala work best)','2 tbsp honey','1 tsp cinnamon','½ tsp vanilla extract','pinch of salt','optional topping: cottage cheese, crushed almonds, or banana ice cream'],
+   steps:['Preheat oven to 375°F','Core each apple from the top, leaving the bottom intact — creates a cup','Mix honey + cinnamon + vanilla + salt together','Spoon the honey mixture into the center of each apple','Place apples in a small baking dish with a splash of water in the bottom','Bake 20–25 min until soft and caramelized, basting once halfway through','Serve warm — optionally with a scoop of cottage cheese or banana ice cream on top'],
+   swap:'No oven? Microwave on high 5–6 min until fork-tender. Swap honey for maple syrup. Add crushed almonds for texture contrast.'},
+
+  {type:'Dessert',name:'Cottage Cheese Berry Parfait',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['½ cup cottage cheese','1 banana (sliced) or any fruit on hand','1 tbsp honey','pinch of cinnamon','small handful of crushed almonds or granola'],
+   steps:['Layer half the cottage cheese in a glass or bowl','Add a layer of sliced banana or fruit','Add remaining cottage cheese on top','Drizzle honey over everything, sprinkle cinnamon','Top with crushed almonds or granola for crunch — eat immediately or refrigerate 1 hr for a chilled parfait'],
+   swap:'Swap banana for diced mango, strawberries, or blueberries. Add a layer of nut butter between cottage cheese layers for richness.'},
+
+  {type:'Dessert',name:'Banana Oat Cookies',time:'20 min (makes ~10)',servings:'10 cookies',leftover:true,budget:'low',
+   ings:['2 very ripe bananas (mashed smooth)','1 cup rolled oats','¼ tsp cinnamon','optional mix-ins: mini chocolate chips, peanut butter drizzle, or raisins'],
+   steps:['Preheat oven to 350°F. Line baking sheet with parchment paper','Mash bananas until completely smooth — the riper the better','Mix in oats + cinnamon (and any optional mix-ins)','Drop heaping tablespoons onto parchment, flatten slightly with your fingers','Bake 12–15 min until set and lightly golden on edges','Let cool 5 min — they firm up significantly as they cool. Store up to 5 days in an airtight container'],
+   swap:'100% dairy-free, gluten-free, and no added sugar. Add a scoop of protein powder for a higher-protein cookie that still tastes great.'},
+
+  {type:'Dessert',name:'Chocolate Protein Mug Cake',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 scoop chocolate protein powder','3 tbsp rolled oats (blended into flour, or as-is)','1 egg','3 tbsp milk or water','1 tbsp unsweetened cocoa powder','1 tsp honey','¼ tsp baking powder'],
+   steps:['Combine all ingredients in a large microwave-safe mug — stir until smooth batter with no lumps','Microwave on high 60–90 seconds, watching closely — it rises then settles','Let stand 1 min before eating (it continues cooking)','Top with a swirl of almond butter or banana slices if desired','Eat straight from the mug'],
+   swap:'No protein powder? Use an extra 2 tbsp oat flour + 1 extra egg white. Drop a spoonful of peanut butter into the center before microwaving for a molten PB core.'},
+
+  {type:'Dessert',name:'Cinnamon Sweet Potato Pudding',time:'10 min',servings:'2',leftover:true,budget:'low',
+   ings:['1 cup leftover roasted sweet potato (mashed)','2 tbsp honey','½ tsp cinnamon','¼ tsp vanilla extract','pinch of nutmeg','2 tbsp cottage cheese (for creaminess)'],
+   steps:['Combine roasted sweet potato, honey, cinnamon, vanilla, and nutmeg in a blender','Add cottage cheese and blend until completely silky smooth — 30–45 seconds','Taste and adjust honey to your liking','Serve warm right away or chill for 1 hour for a cold pudding texture','Top with crushed almonds for contrast'],
+   swap:'Add a tablespoon of peanut butter for a nutty depth. Serve with a banana oat cookie on the side for a full dessert plate.'},
+
+  {type:'Dessert',name:'Dark Chocolate Almond Bark',time:'10 min + 45 min chill',servings:'8 pieces',leftover:true,budget:'low',
+   ings:['1 cup dark chocolate chips (70%+ cocoa preferred)','½ cup raw almonds (roughly chopped)','flaky sea salt','optional: drizzle of honey or pinch of cinnamon'],
+   steps:['Melt chocolate chips in the microwave in 30-second bursts — stir between each until fully smooth','Pour melted chocolate onto a parchment-lined sheet pan','Spread to about ¼ inch thick with a spatula','Press chopped almonds firmly into the surface','Sprinkle flaky sea salt on top (and cinnamon/honey if using)','Refrigerate 30–45 min until fully hardened','Break into pieces and store in the fridge in a sealed container'],
+   swap:'Milk chocolate chips work if you prefer sweeter bark. Add dried cranberries or raisins for a fruity-salty combination.'},
+
+  {type:'Dessert',name:'Chia Seed Pudding',time:'5 min + overnight chill',servings:'2',leftover:true,budget:'low',
+   ings:['¼ cup chia seeds','1 cup milk (dairy or almond milk)','1 tbsp honey or maple syrup','½ tsp vanilla extract','sliced banana, almonds, or fruit for topping'],
+   steps:['Whisk chia seeds, milk, honey, and vanilla together in a jar or bowl','Let sit 5 minutes, then whisk again to break up any clumps','Cover and refrigerate at least 2 hours, or overnight for best results','When ready, it should be thick and pudding-like — stir once more','Spoon into glasses, top with sliced banana, crushed almonds, or any fruit'],
+   swap:'Use coconut milk for a tropical flavor. Layer in a clear glass with mango slices for a beautiful presentation. Double the batch — it keeps 5 days in the fridge.'},
+
+  // ══════════════════════════════════════════════════════════════
+  //  EXPANSION PACK — 50 DISHES + 10 DESSERTS
+  // ══════════════════════════════════════════════════════════════
+
+  // ── BREAKFAST ────────────────────────────────────────────────
+  {type:'Breakfast',name:'Overnight Oats',time:'5 min prep + overnight',servings:'1',leftover:true,budget:'low',
+   ings:['½ cup rolled oats','½ cup milk (any kind)','¼ cup cottage cheese or Greek yogurt','1 tbsp honey','½ tsp cinnamon','½ banana or berries for topping'],
+   steps:['Combine oats, milk, cottage cheese, honey, and cinnamon in a jar','Stir well, seal, and refrigerate overnight (at least 6 hours)','In the morning, stir once more — add a splash of milk if too thick','Top with sliced banana or any fruit','No cooking, no excuses — breakfast is already done'],
+   swap:'Add a scoop of protein powder to the milk before mixing. Use almond milk for a dairy-light version. Top with peanut butter + honey for a Snickers-style version.'},
+
+  {type:'Breakfast',name:'Spinach Feta Omelette',time:'10 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 eggs','big handful of baby spinach','2 tbsp crumbled feta or shredded cheese','1 tbsp butter or olive oil','salt + pepper','pinch of garlic powder'],
+   steps:['Whisk eggs with salt, pepper, and garlic powder','Heat butter in a non-stick pan over medium','Pour in eggs — let them set 30 seconds without touching','Once edges are cooked, scatter spinach + cheese over one half','Fold omelette in half over the filling','Cook 1 more min until cheese melts, slide onto plate'],
+   swap:'Add diced tomato, onion, or bell pepper inside. Swap feta for shredded Mexican blend for a different flavor profile.'},
+
+  {type:'Breakfast',name:'French Toast',time:'12 min',servings:'2',leftover:false,budget:'low',
+   ings:['4 slices thick bread (whole wheat or brioche-style)','3 eggs','3 tbsp milk','1 tsp cinnamon','1 tsp vanilla extract','1 tbsp butter','drizzle of honey or maple syrup'],
+   steps:['Whisk eggs, milk, cinnamon, and vanilla in a shallow bowl','Heat butter in a skillet over medium heat','Dip each bread slice in the egg mixture — coat both sides, let it soak 10 seconds','Cook 2–3 min per side until golden brown','Serve with honey drizzle and banana slices'],
+   swap:'Use leftover bread that is starting to go stale — it absorbs better. Add protein powder to the egg mix for a higher-protein version.'},
+
+  {type:'Breakfast',name:'Breakfast Burrito',time:'12 min',servings:'1',leftover:false,budget:'low',
+   ings:['2 eggs (scrambled)','2 oz ground sausage or ground beef (prepped)','2 tbsp black beans','2 tbsp shredded cheese','1 whole wheat tortilla','chipotle lime crema','salt + pepper'],
+   steps:['Scramble eggs in a buttered pan over medium heat, season with salt + pepper','Warm tortilla in the same pan or microwave 20 seconds','Layer eggs, sausage/beef, black beans, and cheese in the center of the tortilla','Drizzle chipotle lime crema over filling','Roll tight — fold sides in first, then roll from the bottom up'],
+   swap:'Add roasted sweet potato cubes or diced bell pepper for a more filling burrito. Wrap in foil for a grab-and-go meal prep option.'},
+
+  {type:'Breakfast',name:'Peanut Butter Banana Smoothie Bowl',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['2 frozen bananas','2 tbsp peanut butter','½ cup milk','1 tsp honey','toppings: sliced banana, almonds, drizzle of honey, pinch of cinnamon'],
+   steps:['Blend frozen bananas + peanut butter + milk until thick and smooth — should be like soft-serve, not drinkable','Pour into a bowl (not a glass — it should be thick enough to eat with a spoon)','Arrange toppings: banana slices, crushed almonds, honey drizzle, cinnamon','Eat immediately'],
+   swap:'Add a scoop of protein powder to the blend. Use almond butter. Top with granola for crunch. Add cocoa powder for a chocolate PB version.'},
+
+  {type:'Breakfast',name:'Turkey Sausage Egg Scramble',time:'12 min',servings:'2',leftover:false,budget:'low',
+   ings:['3 eggs','2 turkey sausage links (sliced) or ¼ lb bulk turkey sausage','½ cup diced bell pepper','¼ cup diced onion','salt + pepper','smoked paprika','olive oil','optional: shredded cheese on top'],
+   steps:['Cook turkey sausage in a skillet over medium-high until browned, set aside','In same pan, sauté bell pepper + onion 3 min in a little olive oil','Whisk eggs with salt, paprika, and pepper — pour into pan','Fold eggs gently until just set, stir sausage back in','Plate and top with shredded cheese if desired'],
+   swap:'Swap turkey sausage for chicken sausage or lean ground beef. Serve wrapped in a tortilla for a breakfast burrito variation.'},
+
+  {type:'Breakfast',name:'Ham & Egg Fried Rice',time:'15 min',servings:'2',leftover:true,budget:'low',
+   ings:['1½ cups prepped brown rice (cold rice works best)','2 eggs','3 oz diced ham (or lunch meat turkey)','2 tbsp soy sauce','1 tsp sesame oil','2 green onions (sliced)','olive oil'],
+   steps:['Heat oil in a large skillet over high heat','Add cold rice — press flat, let it sear 2 min without stirring to get crispy bits','Stir rice, push to the side, crack eggs into the open space','Scramble eggs until just set, mix into rice','Add ham, soy sauce, and sesame oil — stir-fry everything together 2 min','Remove from heat, top with green onion'],
+   swap:'Use leftover chicken or ground beef instead of ham. This is the perfect leftover rice rescue meal. Add sriracha or chili oil for heat.'},
+
+  {type:'Breakfast',name:'Greek Yogurt Power Bowl',time:'4 min',servings:'1',leftover:false,budget:'low',
+   ings:['¾ cup Greek yogurt (plain, full-fat or 2%)','1 tbsp honey','¼ cup granola or crushed almonds','½ banana or any fruit','pinch of cinnamon'],
+   steps:['Spoon Greek yogurt into a bowl','Drizzle honey over top','Add granola or crushed almonds for crunch','Layer fruit on top','Dust with cinnamon and eat immediately'],
+   swap:'Cottage cheese works as a 1:1 substitute for Greek yogurt. Add a tablespoon of peanut butter stirred in for a different flavor direction.'},
+
+  {type:'Breakfast',name:'Egg & Sweet Potato Breakfast Bowl',time:'15 min (using prepped sweet potato)',servings:'1',leftover:true,budget:'low',
+   ings:['½ cup prepped roasted sweet potato','2 eggs (fried or poached)','handful baby spinach','1 tsp olive oil','salt + smoked paprika','chipotle lime crema or hot sauce'],
+   steps:['Warm sweet potato cubes in a skillet with olive oil — 2 min over medium','Add spinach to the pan, stir until just wilted','Plate sweet potato + spinach as the base','Cook eggs to your liking and place on top','Season with smoked paprika and salt','Drizzle chipotle crema or hot sauce over everything'],
+   swap:'Add crumbled ground beef or turkey for a heartier bowl. A fried egg with a runny yolk acts as a natural sauce over everything.'},
+
+  {type:'Breakfast',name:'Cottage Cheese Pancakes',time:'15 min',servings:'2',leftover:false,budget:'low',
+   ings:['½ cup cottage cheese','2 eggs','¼ cup rolled oats (or oat flour)','½ tsp baking powder','½ tsp vanilla extract','pinch of salt','butter for cooking'],
+   steps:['Blend cottage cheese + eggs + oats + baking powder + vanilla until smooth batter','Heat a non-stick pan over medium, melt a small knob of butter','Pour small rounds (about 2 tbsp each — these are thinner than regular pancakes)','Cook 2–3 min until bubbles form and edges look set, flip carefully','Cook 1–2 min more','Serve with honey and sliced banana'],
+   swap:'Add cinnamon or lemon zest to the batter. Top with peanut butter + banana for a filling stack. These are higher protein than regular pancakes.'},
+
+  // ── LUNCH ────────────────────────────────────────────────────
+  {type:'Lunch',name:'Beef & Broccoli Rice Bowl',time:'15 min',servings:'2',leftover:true,budget:'low',
+   ings:['½ lb ground beef (or thinly sliced beef)','2 cups broccoli florets','3 tbsp soy sauce','1 tbsp honey','1 tsp sesame oil','1 tsp garlic powder','½ tsp ginger powder','prepped brown rice'],
+   steps:['Brown beef in a skillet over medium-high, drain excess fat','Add broccoli, stir-fry 3–4 min until bright green and tender-crisp','Mix soy sauce + honey + sesame oil + garlic + ginger — pour into pan','Toss everything together and cook 2 min until sauce coats evenly','Serve over brown rice'],
+   swap:'Use thinly sliced flank steak for a restaurant-quality version. Add red pepper flakes for heat. Leftover friendly — tastes even better the next day.'},
+
+  {type:'Lunch',name:'Egg Salad Wrap',time:'8 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 hard-boiled eggs (prepped)','1 tbsp mayo or mashed avocado','1 tsp dijon mustard','salt + pepper','pinch of smoked paprika','whole wheat tortilla','spinach or lettuce'],
+   steps:['Roughly chop hard-boiled eggs','Mix with mayo (or avocado), mustard, salt, pepper, and paprika','Taste and adjust seasoning','Spread egg salad across the center of a tortilla','Add spinach or lettuce on top','Roll and slice in half'],
+   swap:'Use cottage cheese blended smooth instead of mayo for a higher-protein, lighter version. Add diced cucumber for crunch.'},
+
+  {type:'Lunch',name:'Chicken Shawarma Wrap',time:'10 min (using prep chicken)',servings:'1',leftover:false,budget:'low',
+   ings:['1 prepped chicken breast (sliced thin)','whole wheat tortilla','spinach or romaine','cucumber slices','tomato (diced)','lemon herb tahini sauce','½ tsp cumin + smoked paprika','pinch of turmeric (optional)'],
+   steps:['Toss sliced chicken with cumin, paprika, and turmeric — heat briefly in pan 2 min','Warm tortilla 20 seconds in same pan','Spread tahini sauce down the center of the tortilla','Layer spiced chicken, greens, cucumber, tomato','Roll tight, wrap in foil if taking on the go'],
+   swap:'Add pickled red onion or banana peppers for authentic shawarma flavor. Use the sesame ginger sauce for an Asian-style wrap instead.'},
+
+  {type:'Lunch',name:'Tuna Niçoise Bowl',time:'10 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 can tuna (drained)','1 hard-boiled egg (halved)','½ cup green beans or broccoli (steamed)','handful spinach','1 Roma tomato (quartered)','olive oil + lemon juice dressing','salt + pepper + dried oregano'],
+   steps:['Build a base of spinach in a bowl','Add tuna, halved egg, green beans, and tomato in sections around the bowl','Whisk olive oil + lemon juice + salt + pepper + oregano for dressing','Drizzle dressing over everything','Eat as a composed bowl — mix as you go'],
+   swap:'Use canned salmon instead of tuna. Add olives and capers if available. This is a French-inspired high-protein salad that feels elegant but costs almost nothing.'},
+
+  {type:'Lunch',name:'Caprese Chicken Salad',time:'8 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 prepped chicken breast (sliced)','2 Roma tomatoes (sliced)','2 oz mozzarella or shredded cheese','handful baby spinach','2 tbsp olive oil','1 tbsp balsamic vinegar (optional)','fresh or dried basil','salt + pepper'],
+   steps:['Fan sliced chicken and tomato alternately in a shallow bowl or plate','Add spinach around the edges','Scatter cheese on top','Drizzle olive oil + balsamic generously','Season with basil, salt, and pepper'],
+   swap:'No balsamic? Use lemon juice. This works with any cheese — feta gives a saltier, tangier profile.'},
+
+  {type:'Lunch',name:'Spicy Pork Fried Rice',time:'15 min',servings:'2',leftover:true,budget:'medium',
+   ings:['½ lb ground pork (or leftover pork tenderloin, diced)','1½ cups prepped brown rice','2 eggs','2 tbsp soy sauce','1 tsp sesame oil','1 tsp chili garlic sauce or sriracha','½ cup diced bell pepper','2 green onions','olive oil'],
+   steps:['Heat oil in a large skillet or wok over high heat','Brown pork until cooked through, set aside','Add cold rice to the pan — sear 2 min undisturbed for crispy bits','Push rice aside, scramble eggs in the open space','Combine pork, rice, and eggs — add soy sauce + sesame oil + chili sauce','Stir fry everything 2–3 min, top with green onion'],
+   swap:'Use leftover chicken or ground turkey. Skip the chili sauce for a milder version. Add diced pineapple for sweet-heat fried rice.'},
+
+  {type:'Lunch',name:'Steak & Egg Bowl',time:'15 min',servings:'1',leftover:false,budget:'medium',
+   ings:['4 oz sirloin or leftover steak (sliced)','2 eggs (fried or scrambled)','½ cup prepped brown rice','½ avocado','soy sauce + sesame oil drizzle','green onion','salt + pepper'],
+   steps:['If cooking fresh steak: sear in hot cast iron with salt and pepper, 2–3 min per side for medium. Rest and slice thin','Fry eggs to your preference in same pan','Build bowl: rice → sliced steak → eggs → avocado','Drizzle soy sauce + sesame oil over everything','Top with green onion and eat immediately'],
+   swap:'Leftover steak from fajita night works perfectly here. Ground beef with the same seasoning is a great budget substitute.'},
+
+  {type:'Lunch',name:'Turkey Avocado Stack',time:'7 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 oz deli turkey breast','½ avocado (sliced)','2 slices whole wheat bread (or use a rice cake base)','1 Roma tomato (sliced)','spinach','salt + pepper + red pepper flakes','drizzle of olive oil'],
+   steps:['Toast bread lightly','Layer spinach on toast, then turkey slices','Fan avocado slices over turkey','Add tomato slices on top','Season with salt, pepper, and red pepper flakes','Drizzle a tiny bit of olive oil over the avocado'],
+   swap:'Use leftover sliced chicken breast instead of deli turkey. Add a fried egg on top to turn this into a serious protein stack.'},
+
+  {type:'Lunch',name:'Shrimp Caesar Salad',time:'12 min',servings:'2',leftover:false,budget:'medium',
+   ings:['½ lb shrimp (peeled + deveined)','3 cups romaine or baby spinach','2 tbsp Caesar dressing or lemon herb tahini sauce','shredded parmesan or cheese','lemon wedge','salt + garlic powder + smoked paprika','olive oil'],
+   steps:['Season shrimp with salt, garlic powder, and smoked paprika','Sauté in a hot oiled pan 1–2 min per side until pink and slightly charred','Let shrimp cool 2 min','Toss greens with Caesar or tahini dressing in a large bowl','Top with shrimp, scatter cheese, squeeze lemon over top'],
+   swap:'Swap shrimp for grilled chicken. No Caesar dressing? Use olive oil + lemon + garlic powder — it tastes great.'},
+
+  {type:'Lunch',name:'Ground Beef Stuffed Avocado',time:'10 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 large avocado (halved, pit removed)','¼ cup prepped seasoned ground beef','2 tbsp black beans','2 tbsp diced tomato','1 tbsp shredded cheese','chipotle lime crema','lime juice','salt'],
+   steps:['Scoop a little extra avocado out to make a bigger well in each half','Warm ground beef and black beans briefly in a pan or microwave','Season avocado halves with salt and lime juice','Pile beef + beans into the avocado cavities','Top with diced tomato, cheese, and chipotle crema'],
+   swap:'Use canned tuna instead of beef for a lighter version. Add diced jalapeño or hot sauce for heat.'},
+
+  {type:'Lunch',name:'Chicken & Veggie Soup',time:'25 min',servings:'3–4',leftover:true,budget:'low',
+   ings:['2 prepped chicken breasts (shredded or diced)','4 cups chicken broth','1 cup diced sweet potato','1 cup broccoli or spinach','½ onion (diced)','2 garlic cloves (minced)','1 tsp cumin','salt + pepper','olive oil'],
+   steps:['Heat olive oil in a large pot over medium, sauté onion 3 min, add garlic 1 min','Pour in broth, add sweet potato and cumin — bring to boil','Reduce heat, simmer 10 min until sweet potato is tender','Add chicken + broccoli or spinach, cook 5 more min','Taste and season with salt and pepper','Serve as-is or over a scoop of brown rice'],
+   swap:'Add diced canned tomatoes for a heartier broth. Use ground turkey instead of chicken breast. Freezes well for 3 months.'},
+
+  // ── DINNER ───────────────────────────────────────────────────
+  {type:'Dinner',name:'Chicken Tikka Masala (Simplified)',time:'30 min',servings:'3',leftover:true,budget:'medium',
+   ings:['1 lb chicken breast (cubed)','1 can diced tomatoes','½ cup cottage cheese (blended smooth) or coconut milk','1 onion (diced)','3 garlic cloves (minced)','2 tsp garam masala','1 tsp cumin','1 tsp smoked paprika','½ tsp turmeric','salt + olive oil','brown rice for serving'],
+   steps:['Season chicken with half the spices and salt','Sear chicken in hot oil 3–4 min until golden, set aside','Sauté onion 4 min, add garlic + remaining spices, stir 1 min','Add diced tomatoes, simmer 5 min','Stir in blended cottage cheese (or coconut milk) — creates the creamy orange sauce','Add chicken back, simmer 10 min until cooked through','Serve over brown rice'],
+   swap:'Coconut milk gives a richer, more traditional flavor. Blended cottage cheese works great as a high-protein swap. Use chicken thighs for juicier meat.'},
+
+  {type:'Dinner',name:'Korean-Style Beef Bulgogi Bowl',time:'20 min',servings:'2',leftover:true,budget:'medium',
+   ings:['½ lb ground beef or thinly sliced sirloin','3 tbsp soy sauce','1 tbsp honey or brown sugar','1 tsp sesame oil','3 garlic cloves (minced)','½ tsp ginger powder','green onion','sesame seeds','prepped brown rice','spinach or cucumber for serving'],
+   steps:['Mix soy sauce + honey + sesame oil + garlic + ginger into bulgogi marinade','Brown beef in a hot skillet, drain fat','Pour marinade over beef, toss and cook 3 min until sticky and caramelized','Serve over rice with fresh spinach and cucumber slices on the side','Top with green onion and sesame seeds'],
+   swap:'Marinate sliced sirloin in the sauce for 30 min before cooking for the most authentic result. Add a fried egg on top like the Korean bibimbap style.'},
+
+  {type:'Dinner',name:'Turkey Meatballs & Marinara',time:'30 min',servings:'3–4',leftover:true,budget:'low',
+   ings:['1 lb ground turkey','1 egg','¼ cup rolled oats (or breadcrumbs)','2 garlic cloves (minced)','1 tsp Italian seasoning','salt + pepper','2 cans diced tomatoes','1 tbsp olive oil','shredded cheese for topping','pasta or rice for serving'],
+   steps:['Mix turkey + egg + oats + garlic + Italian seasoning + salt — form into 1.5-inch balls','Heat oil in oven-safe skillet, brown meatballs on all sides (5–6 min)','Add diced tomatoes around meatballs, season with salt and Italian seasoning','Simmer on stovetop 15 min, or transfer to 400°F oven for 15 min','Serve over pasta or rice, top with cheese'],
+   swap:'Use ground beef or a mix of beef and turkey. Add red pepper flakes to the sauce for heat. These freeze perfectly — make a double batch.'},
+
+  {type:'Dinner',name:'Coconut Curry Shrimp',time:'20 min',servings:'2',leftover:false,budget:'medium',
+   ings:['1 lb shrimp (peeled + deveined)','1 can diced tomatoes','½ cup cottage cheese (blended) or coconut milk','1 tbsp curry powder','1 tsp turmeric','3 garlic cloves (minced)','½ onion (diced)','salt + olive oil','brown rice for serving'],
+   steps:['Sauté onion 3 min, add garlic + curry powder + turmeric — stir 1 min','Add diced tomatoes, simmer 5 min','Stir in blended cottage cheese or coconut milk — reduce heat to medium-low','Add shrimp, cook 3–4 min just until pink — do not overcook','Taste and adjust salt','Serve over rice with green onion on top'],
+   swap:'Use chicken instead of shrimp — dice small and cook 8 min. Add spinach in the last 2 min. Full coconut milk makes this restaurant-level rich.'},
+
+  {type:'Dinner',name:'Garlic Butter Steak Bites',time:'12 min',servings:'2',leftover:false,budget:'medium',
+   ings:['¾ lb sirloin steak (cut into 1-inch cubes)','3 tbsp butter','4 garlic cloves (minced)','fresh or dried thyme','salt + black pepper','fresh parsley (optional)','roasted sweet potato or rice for serving'],
+   steps:['Pat steak bites completely dry — this is crucial for a good sear','Season generously with salt and pepper','Heat a cast iron or heavy skillet over HIGH heat until nearly smoking','Add steak bites in a single layer — sear undisturbed 1.5–2 min per side','Reduce heat to medium, add butter + garlic + thyme','Baste steak bites with the melted butter for 1 min','Serve immediately over sweet potato or rice'],
+   swap:'Use ribeye for extra richness, or ground beef cubes (more affordable). The garlic butter sauce is the star — pour every drop over the plate.'},
+
+  {type:'Dinner',name:'Salmon Patties',time:'20 min',servings:'2–3',leftover:true,budget:'low',
+   ings:['1 can salmon (14–15 oz, drained) or 2 leftover salmon fillets (flaked)','1 egg','¼ cup rolled oats or breadcrumbs','2 tbsp mayo or cottage cheese','1 tsp dijon mustard','1 tsp garlic powder','1 tsp smoked paprika','salt + pepper','olive oil for pan'],
+   steps:['Drain salmon thoroughly, flake into a bowl, remove any large bones','Mix in egg, oats, mayo/cottage cheese, mustard, and seasonings','Form into 4–5 patties, pressing firmly so they hold together','Refrigerate 10 min if time allows — they hold better when cold','Cook in oiled skillet over medium, 3–4 min per side until golden crust forms','Serve with lemon herb tahini sauce or chipotle crema'],
+   swap:'Add diced green onion and a pinch of red pepper flakes to the mix. Serve in a lettuce wrap, on a bun, or alongside roasted veggies.'},
+
+  {type:'Dinner',name:'Chicken Fried Rice',time:'15 min',servings:'2',leftover:true,budget:'low',
+   ings:['1 prepped chicken breast (diced)','1½ cups cold prepped brown rice','3 eggs','2 tbsp soy sauce','1 tsp sesame oil','½ cup diced bell pepper or any veggie','2 green onions','olive oil'],
+   steps:['Heat oil in a large pan or wok over high heat — use the highest setting','Add cold rice, press flat, sear undisturbed 2 min for crispy bottom','Stir rice, push to sides, add eggs — scramble quickly','Mix eggs into rice, add diced chicken and peppers','Add soy sauce + sesame oil, toss vigorously 2 min over high heat','Finish with green onion'],
+   swap:'Use any prepped protein — salmon, ground beef, shrimp all work. Cold day-old rice is non-negotiable for the best texture — freshly cooked rice gets mushy.'},
+
+  {type:'Dinner',name:'Pork Carnitas Bowl',time:'35 min',servings:'4',leftover:true,budget:'medium',
+   ings:['1 lb pork shoulder or pork tenderloin','1 tsp each: cumin, garlic powder, smoked paprika, dried oregano','salt + pepper','juice of 1 lime + 1 orange (or use 3 tbsp each OJ + lime juice)','2 tbsp olive oil','brown rice + black beans for serving','chipotle lime crema + avocado for topping'],
+   steps:['Cut pork into 2-inch chunks, season heavily with all spices and salt','Heat oil in a Dutch oven or heavy pot over medium-high — sear pork 4–5 min','Pour citrus juice over pork, reduce heat, cover and braise 20 min','Uncover, increase heat to medium-high — let liquid cook off and pork crisps up','Shred pork with two forks into chunky pieces','Build bowl: rice + beans + carnitas + avocado + chipotle crema'],
+   swap:'Pork tenderloin cooks faster — reduce braise to 15 min. Leftovers make amazing tacos. Use chicken thighs if pork is unavailable.'},
+
+  {type:'Dinner',name:'Ground Lamb Gyro Bowl',time:'20 min',servings:'2',leftover:true,budget:'medium',
+   ings:['½ lb ground lamb (or ground beef)','1 tsp cumin','1 tsp garlic powder','1 tsp dried oregano','½ tsp smoked paprika','salt + pepper','brown rice or pita','cucumber + tomato + onion (diced)','lemon herb tahini sauce'],
+   steps:['Mix lamb with cumin, garlic powder, oregano, paprika, salt','Brown in a skillet over medium-high, breaking into small crumbles — 7–8 min','While meat cooks, dice cucumber, tomato, and a little onion for the fresh topping','Build bowl: rice → spiced lamb → fresh veggies','Drizzle lemon herb tahini generously over everything','Squeeze lemon over the bowl'],
+   swap:'Ground beef is a great substitution and more budget-friendly. Serve in a warm tortilla like a gyro wrap. Add a dollop of cottage cheese seasoned with lemon + garlic as a tzatziki substitute.'},
+
+  {type:'Dinner',name:'Beef-Stuffed Bell Peppers',time:'35 min',servings:'4',leftover:true,budget:'low',
+   ings:['4 bell peppers (any color, tops cut off, seeds removed)','½ lb ground beef','1 cup cooked brown rice','1 can diced tomatoes','1 tsp cumin','1 tsp garlic powder','salt + pepper','shredded cheese for topping'],
+   steps:['Preheat oven to 375°F','Brown ground beef, season with cumin, garlic, salt, and pepper','Stir in rice + half the can of diced tomatoes — mix well','Stuff each pepper generously with the beef-rice mixture','Place stuffed peppers upright in a baking dish, pour remaining tomatoes around them','Top each pepper with shredded cheese','Bake 25–30 min until peppers are tender and cheese is melted'],
+   swap:'Use ground turkey for a lighter version. Add black beans to the filling for more fiber. These reheat perfectly for 3–4 days.'},
+
+  {type:'Dinner',name:'Orange Chicken Stir Fry',time:'20 min',servings:'2',leftover:true,budget:'low',
+   ings:['1 lb chicken breast (cubed)','¼ cup orange juice (fresh or from bottle)','2 tbsp soy sauce','1 tbsp honey','1 tsp garlic powder','1 tsp cornstarch (optional, for thicker sauce)','broccoli or bell pepper','sesame oil','brown rice','green onion + sesame seeds'],
+   steps:['Mix orange juice + soy sauce + honey + garlic + cornstarch into sauce','Sear chicken cubes in hot oiled pan 5–6 min until golden — set aside','Stir-fry broccoli/peppers 3 min in same pan','Add chicken back, pour orange sauce over everything','Toss and cook 2 min until sauce thickens and coats','Serve over rice, top with sesame seeds + green onion'],
+   swap:'Use chicken thighs for juicier results. Add red pepper flakes for heat. The cornstarch makes the sauce thicker and glossier — skip it if unavailable.'},
+
+  {type:'Dinner',name:'Baked BBQ Chicken',time:'35 min',servings:'3–4',leftover:true,budget:'low',
+   ings:['4 chicken thighs or breasts','¼ cup BBQ sauce (any store-bought)','1 tsp smoked paprika','1 tsp garlic powder','salt + pepper','1 tbsp olive oil'],
+   steps:['Preheat oven to 400°F','Mix paprika + garlic powder + salt + pepper + olive oil into a rub','Coat chicken pieces with dry rub all over','Place on a lined baking sheet, roast 20 min','Pull out, brush generously with BBQ sauce on top','Return to oven 10–12 more min until sauce is caramelized and chicken hits 165°F internal','Rest 5 min before serving'],
+   swap:'Double the BBQ sauce layer in the last step for stickier chicken. Use chicken wings for a crowd-pleaser version. Great with roasted sweet potato on the side.'},
+
+  {type:'Dinner',name:'Shrimp Scampi & Pasta',time:'20 min',servings:'2',leftover:false,budget:'medium',
+   ings:['½ lb shrimp (peeled + deveined)','6 oz pasta (linguine or spaghetti)','4 garlic cloves (minced)','3 tbsp butter','2 tbsp olive oil','juice of 1 lemon','¼ tsp red pepper flakes','salt + black pepper','fresh or dried parsley'],
+   steps:['Cook pasta per package directions, save ¼ cup pasta water before draining','Heat olive oil + butter in a wide skillet over medium-high','Add garlic + red pepper flakes, sauté 1 min until fragrant','Add shrimp in a single layer, cook 1–2 min per side until pink','Add lemon juice + a splash of pasta water — swirl to make a light sauce','Toss drained pasta into the pan, mix to coat','Season with salt, pepper, and parsley'],
+   swap:'Add cherry tomatoes or baby spinach when you add the pasta. Use chicken breast (sliced thin) instead of shrimp — increase cook time to 5 min per side.'},
+
+  {type:'Dinner',name:'Garlic Parmesan Chicken',time:'25 min',servings:'2–3',leftover:true,budget:'low',
+   ings:['3 chicken breasts','3 tbsp butter','4 garlic cloves (minced)','3 tbsp grated parmesan or shredded cheese','1 tsp Italian seasoning','salt + pepper','lemon juice'],
+   steps:['Pound chicken to even thickness (about ¾ inch) — ensures even cooking','Season with salt, pepper, and Italian seasoning','Sear in butter over medium-high, 4–5 min per side until golden and cooked through','Remove chicken, add garlic to the butter in the pan — sauté 30 seconds','Squeeze lemon into the pan, swirl together','Pour garlic butter over chicken, top with parmesan'],
+   swap:'Add a splash of chicken broth to the garlic butter for a more saucy result. Serve over pasta or rice to use every drop of that garlic butter.'},
+
+  {type:'Dinner',name:'Beef Barbacoa Bowl',time:'40 min (or 6 hrs slow cooker)',servings:'5–6',leftover:true,budget:'medium',
+   ings:['1.5 lb chuck roast or ground beef','3 garlic cloves (minced)','1 chipotle pepper in adobo (minced) + 1 tbsp adobo sauce','1 tsp cumin','1 tsp smoked paprika','1 tbsp lime juice','salt + pepper','½ cup beef broth','brown rice + black beans + cheese for serving'],
+   steps:['Cut chuck roast into 3-inch chunks, season with all spices and salt','Sear in hot oil 4–5 min per side (skip for slow cooker)','Add broth, garlic, chipotle + adobo, lime juice','Simmer covered on low heat 35 min (or 6 hrs on low in slow cooker)','Shred meat with two forks, toss in the braising liquid','Build bowl: rice + beans + barbacoa + cheese + chipotle crema'],
+   swap:'Ground beef cooked 10 min with the same spices gives a 15-minute "barbacoa-style" bowl — less authentic but incredibly good on weeknights.'},
+
+  {type:'Dinner',name:'Chicken Enchilada Casserole',time:'35 min',servings:'4',leftover:true,budget:'low',
+   ings:['2 prepped chicken breasts (shredded)','4 whole wheat tortillas (torn or cut into strips)','1 can diced tomatoes','1 cup black beans (drained)','1 cup shredded cheese','1 tsp cumin','1 tsp garlic powder','chipotle lime crema or hot sauce'],
+   steps:['Preheat oven to 375°F. Lightly oil a 9x9 baking dish','Mix shredded chicken with diced tomatoes, beans, cumin, garlic powder, and salt','Layer: tortilla strips → chicken mixture → cheese → repeat','Finish with a layer of cheese on top','Bake 20–25 min until bubbly and cheese is golden','Drizzle chipotle crema over the top before serving'],
+   swap:'Add diced green chilis to the chicken mixture for more heat. Use thinly sliced zucchini instead of tortillas for a lower-carb version.'},
+
+  {type:'Dinner',name:'Sausage & Spinach Pasta',time:'20 min',servings:'3',leftover:true,budget:'low',
+   ings:['½ lb Italian sausage (or chicken sausage, sliced)','8 oz pasta','3 garlic cloves (minced)','2 big handfuls baby spinach','1 can diced tomatoes','2 tbsp olive oil','red pepper flakes','salt + shredded cheese'],
+   steps:['Cook pasta per package, save ½ cup pasta water, drain','Brown sausage in a large skillet over medium-high, set aside','In same pan, sauté garlic + red pepper flakes in olive oil 1 min','Add diced tomatoes, simmer 5 min','Add spinach — stir until wilted (1–2 min)','Add pasta + sausage back, splash of pasta water to loosen','Toss everything together, top with cheese'],
+   swap:'Ground turkey seasoned with fennel and garlic powder is a great sausage substitute. This is a 20-minute dinner that tastes like it took an hour.'},
+
+  {type:'Dinner',name:'Miso Glazed Salmon',time:'18 min',servings:'2',leftover:false,budget:'medium',
+   ings:['2 salmon fillets','2 tbsp white or yellow miso paste','1 tbsp honey','1 tbsp soy sauce','1 tsp sesame oil','1 tsp rice vinegar or lime juice','sesame seeds + green onion','brown rice + broccoli for serving'],
+   steps:['Whisk miso paste + honey + soy sauce + sesame oil + rice vinegar into a glaze','Pat salmon dry, brush glaze generously over the flesh side','Let sit 5 min while preheating oven to broil (or 450°F)','Place salmon on a lined baking sheet, glazed-side up','Broil 8–10 min until glaze is caramelized and fish flakes','Top with sesame seeds and green onion, serve over rice + broccoli'],
+   swap:'No miso paste? Mix 1 tbsp soy sauce + 1 tsp peanut butter + honey for a similar umami-sweet result. Works on chicken thighs too — bake at 400°F for 30 min.'},
+
+  {type:'Dinner',name:'Ground Beef Tacos',time:'15 min',servings:'2–3',leftover:true,budget:'low',
+   ings:['¾ lb ground beef','1 tsp cumin','1 tsp chili powder','½ tsp garlic powder','½ tsp smoked paprika','salt + pepper','small flour or corn tortillas','toppings: diced tomato, shredded cheese, avocado, chipotle lime crema, lime'],
+   steps:['Brown ground beef in a skillet over medium-high, break into small crumbles','Drain excess fat','Add all spices + a splash of water — stir and cook 2 min until fragrant and meat is saucy','Warm tortillas in a dry pan or directly over a gas flame 30 seconds per side','Build tacos: beef → tomato → avocado → cheese → crema → lime squeeze'],
+   swap:'Swap ground beef for ground turkey or shredded chicken. Double the meat and use leftovers for taco bowls the next day — just as good reheated.'},
+
+  {type:'Dinner',name:'Honey Sriracha Chicken Wings',time:'35 min',servings:'2–3',leftover:false,budget:'low',
+   ings:['2 lb chicken wings (split at joint)','2 tbsp honey','1 tbsp sriracha or hot sauce','1 tbsp soy sauce','1 tsp garlic powder','1 tsp smoked paprika','salt + olive oil'],
+   steps:['Preheat oven to 425°F. Line a baking sheet with foil and place a rack on top','Pat wings completely dry — this is the key to crispiness','Toss with olive oil, garlic powder, paprika, and salt','Arrange on rack in a single layer','Bake 25 min, flip, bake another 10 min until crispy','Mix honey + sriracha + soy sauce for the glaze','Toss hot wings in the glaze just before serving'],
+   swap:'For extra-crispy wings, pat dry and refrigerate uncovered 2 hours before baking. Use buffalo hot sauce for classic buffalo wings.'},
+
+  {type:'Dinner',name:'Tuna Pasta Bake',time:'30 min',servings:'3–4',leftover:true,budget:'low',
+   ings:['8 oz pasta (penne or rotini)','2 cans tuna (drained)','1 can diced tomatoes','½ cup shredded cheese','2 garlic cloves (minced)','2 tbsp olive oil','1 tsp Italian seasoning','red pepper flakes','salt + pepper'],
+   steps:['Preheat oven to 375°F. Cook pasta until just under done (1 min less than package says)','Sauté garlic in olive oil 1 min, add diced tomatoes + Italian seasoning, simmer 5 min','Combine pasta + tomato sauce + tuna in a baking dish — toss well','Top generously with shredded cheese','Bake 15 min until cheese is melted and bubbly on top'],
+   swap:'Add frozen peas or spinach to the pasta mixture for veggies. Swap tuna for canned salmon. This is a pantry-hero dish — nearly zero fresh ingredients required.'},
+
+  {type:'Dinner',name:'Chicken & Black Bean Skillet',time:'20 min',servings:'3',leftover:true,budget:'low',
+   ings:['1 lb chicken breast (diced)','1 can black beans (drained)','1 can diced tomatoes','1 cup frozen corn (or fresh)','1 tsp cumin','1 tsp chili powder','½ tsp garlic powder','salt + olive oil','shredded cheese + lime for serving'],
+   steps:['Season diced chicken with cumin, chili powder, garlic powder, and salt','Sear in hot oiled skillet 5–6 min until cooked through, set aside','Add beans, tomatoes, and corn to same pan — stir and heat 3 min','Return chicken to pan, toss everything together 2 min','Serve topped with shredded cheese and a squeeze of lime'],
+   swap:'Serve over rice, stuff into tortillas, or eat as-is. Add diced jalapeño or chipotle pepper for smoky heat. This is one of the most versatile one-pan meals in the plan.'},
+
+  // ── SNACK ────────────────────────────────────────────────────
+  {type:'Snack',name:'Deviled Eggs',time:'10 min (using prepped eggs)',servings:'2',leftover:true,budget:'low',
+   ings:['4 hard-boiled eggs (prepped)','1 tbsp mayo or mashed avocado','1 tsp dijon mustard','salt + pepper','smoked paprika for topping','optional: Everything Bagel seasoning'],
+   steps:['Slice hard-boiled eggs in half lengthwise','Pop yolks into a bowl, mash with mayo, mustard, salt, and pepper','Spoon or pipe yolk mixture back into egg white halves','Dust with smoked paprika (and EBS if using)','Refrigerate up to 2 days'],
+   swap:'Replace mayo with cottage cheese blended smooth for higher protein, lower fat deviled eggs. Add sriracha to the yolk mix for a spicy version.'},
+
+  {type:'Snack',name:'Protein Shake',time:'3 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 scoop protein powder (vanilla or chocolate)','1 cup milk or water','1 banana (fresh or frozen)','1 tbsp peanut butter','handful of ice','optional: 1 tsp honey'],
+   steps:['Add all ingredients to a blender','Blend on high 30 seconds until smooth','Pour and drink immediately','Rinse blender right away — protein powder sets like cement if left'],
+   swap:'No protein powder? Use ½ cup cottage cheese instead — similar protein, creamier texture. Add spinach — it turns green but you cannot taste it at all.'},
+
+  {type:'Snack',name:'Turkey Roll-Ups',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['4 slices deli turkey breast','2 tbsp shredded cheese','½ avocado (sliced)','cucumber strips','spinach','optional: drizzle of lemon herb tahini or mustard'],
+   steps:['Lay turkey slices flat on a cutting board','Place a few spinach leaves, a slice of avocado, and a cucumber strip on each','Drizzle tahini sauce or a tiny bit of mustard','Roll each slice up tightly like a mini wrap','Eat as finger food — no utensils needed'],
+   swap:'Use deli ham, chicken slices, or roast beef. Spread cream cheese or cottage cheese on the turkey before rolling for a richer snack.'},
+
+  {type:'Snack',name:'Peanut Butter Celery Boats',time:'3 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 celery stalks','3 tbsp peanut butter or almond butter','optional toppings: banana chips, almonds, raisins, drizzle of honey'],
+   steps:['Cut celery stalks into 3-inch pieces','Fill each groove with peanut butter','Top with any optional additions you have','Arrange on a plate and eat cold'],
+   swap:'Use sunflower butter for nut-free. Cream cheese is a great swap for something less sweet. This is the "ants on a log" concept — add raisins for the classic childhood version.'},
+
+  {type:'Snack',name:'Smoked Salmon Cucumber Bites',time:'8 min',servings:'1',leftover:false,budget:'medium',
+   ings:['2 oz smoked salmon (or leftover baked salmon, flaked)','1 cucumber (sliced into rounds)','2 tbsp cottage cheese or cream cheese','Everything Bagel seasoning','black pepper + lemon juice'],
+   steps:['Spread a thin layer of cottage cheese on each cucumber round','Place a small piece of smoked salmon on top','Sprinkle Everything Bagel seasoning and a squeeze of lemon','Finish with black pepper and serve immediately'],
+   swap:'Use any prepped protein — sliced chicken, tuna mixture, or ground turkey spiced patties. These look fancy enough to serve at a party.'},
+
+  {type:'Snack',name:'Edamame with Sea Salt',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 cup frozen edamame (in shell or shelled)','flaky sea salt or soy sauce','optional: drizzle of sesame oil + chili flakes'],
+   steps:['Microwave frozen edamame per package (usually 3–4 min)','Drain and toss with flaky sea salt','Optional: add a drizzle of sesame oil and a pinch of chili flakes','Eat by popping beans out of the pod or eat shelled'],
+   swap:'Add garlic powder and lime juice for a different profile. Pre-shelled edamame is more convenient — buy frozen in bulk for a cheap, high-protein snack always on hand.'},
+
+  {type:'Snack',name:'Cheese & Almond Plate',time:'2 min',servings:'1',leftover:false,budget:'low',
+   ings:['1.5 oz cheese (sliced or shredded into a pile)','1 oz raw almonds','2 rice cakes or cucumber slices','optional: a few deli turkey slices + drizzle of honey'],
+   steps:['Arrange cheese, almonds, and rice cakes (or cucumbers) on a small plate','Add turkey slices if using','Drizzle a tiny bit of honey over the cheese if you like sweet-salty combos','This is a "charcuterie snack plate" — fancy name for a 2-minute protein plate'],
+   swap:'Any cheese works. Use rice cakes, cucumber slices, or celery as the base. Add olives if you have them.'},
+
+  {type:'Snack',name:'Mango Cottage Cheese Bowl',time:'3 min',servings:'1',leftover:false,budget:'low',
+   ings:['½ cup cottage cheese','½ mango (diced or substitute banana)','1 tsp honey','pinch of cayenne or chili powder (optional)','lime squeeze'],
+   steps:['Spoon cottage cheese into a bowl','Top with diced mango','Drizzle honey and squeeze lime over top','Optional: a tiny pinch of cayenne for a Mexican-style fruit-cup flavor'],
+   swap:'Any tropical fruit works — pineapple, papaya, or peach. The cayenne + lime combo on fruit is surprisingly addictive.'},
+
+  {type:'Snack',name:'Spiced Roasted Chickpeas',time:'30 min',servings:'4 (batch snack)',leftover:true,budget:'low',
+   ings:['1 can chickpeas (15 oz, drained + rinsed)','1 tbsp olive oil','1 tsp smoked paprika','½ tsp garlic powder','½ tsp cumin','salt'],
+   steps:['Preheat oven to 400°F','Drain, rinse, and thoroughly dry chickpeas with a towel — moisture is the enemy of crunch','Toss with olive oil + all spices','Spread in a single layer on a lined baking sheet','Roast 25–30 min, shaking pan halfway, until deeply golden and crispy','Cool completely — they crisp further as they cool. Store in an open container (not airtight)'],
+   swap:'Try a cinnamon-honey version: skip savory spices, use 1 tsp cinnamon + drizzle of honey added in last 5 min of baking. Season with Everything Bagel seasoning instead of individual spices for an easy shortcut.'},
+
+  {type:'Snack',name:'Caprese Skewers',time:'5 min',servings:'2',leftover:false,budget:'low',
+   ings:['6 cherry tomatoes (or diced Roma tomato)','2 oz mozzarella or shredded cheese (small cubes)','6 fresh basil leaves (or pinch of dried basil)','drizzle of olive oil + balsamic vinegar (optional)','salt + black pepper'],
+   steps:['Thread a tomato, basil leaf, and cheese cube onto each toothpick or small skewer','Arrange on a plate','Drizzle olive oil + balsamic over the whole plate','Season with salt and pepper'],
+   swap:'No toothpicks? Just make a little composed salad in a bowl — same flavors. Add a slice of deli turkey or chicken on each skewer for more protein.'},
+
+  // ══════════════════════════════════════════════════════════════
+  //  DESSERTS — EXPANSION PACK (10 MORE)
+  // ══════════════════════════════════════════════════════════════
+  {type:'Dessert',name:'Chocolate Avocado Mousse',time:'10 min + 30 min chill',servings:'2',leftover:true,budget:'low',
+   ings:['2 ripe avocados','3 tbsp unsweetened cocoa powder','3 tbsp honey or maple syrup','1 tsp vanilla extract','pinch of salt','3–4 tbsp milk (to adjust consistency)'],
+   steps:['Scoop avocado flesh into a blender or food processor','Add cocoa powder, honey, vanilla, and salt','Blend until completely smooth — stop and scrape sides as needed','Add milk 1 tbsp at a time until it reaches a thick, mousse-like consistency','Taste and adjust sweetness','Refrigerate 30 min for best texture — it firms up beautifully','Serve in small glasses, top with crushed almonds or banana slices'],
+   swap:'Add a tablespoon of peanut butter for a chocolate-peanut version. Serve topped with dark chocolate chips. Nobody will believe this is made with avocado.'},
+
+  {type:'Dessert',name:'No-Bake Chocolate Peanut Butter Cups',time:'15 min + 1 hr freeze',servings:'8 cups',leftover:true,budget:'low',
+   ings:['1 cup dark chocolate chips','½ cup peanut butter (natural, well-stirred)','2 tbsp honey','pinch of salt','muffin tin + cupcake liners'],
+   steps:['Melt half the chocolate chips in the microwave in 30-sec bursts, stir until smooth','Spoon 1 tsp melted chocolate into each liner, use finger to coat up the sides a bit','Freeze 10 min until chocolate shell sets','Mix peanut butter + honey + salt into a smooth filling','Spoon peanut butter mixture into each chocolate cup, leaving room at top','Melt remaining chocolate, spoon over each cup to seal','Freeze 45–60 min until fully set. Store in freezer.'],
+   swap:'Use almond butter or sunflower butter instead of peanut butter. Add a pinch of flaky sea salt on top before the chocolate sets for a salted chocolate finish.'},
+
+  {type:'Dessert',name:'Honey Almond Granola Bars',time:'25 min',servings:'10 bars',leftover:true,budget:'low',
+   ings:['2 cups rolled oats','1 cup almonds (roughly chopped)','⅓ cup honey','¼ cup peanut butter','1 tbsp coconut oil or butter','1 tsp vanilla extract','pinch of salt','optional: mini chocolate chips, dried fruit'],
+   steps:['Preheat oven to 325°F. Line an 8x8 baking dish with parchment','Spread oats + almonds on a sheet pan, toast 8 min until lightly golden','Heat honey + peanut butter + oil in a saucepan over medium until smooth — remove from heat, add vanilla + salt','Combine toasted oats + almonds with honey mixture, stir well','Add any optional mix-ins','Press firmly into prepared baking dish — press VERY hard or they will crumble','Bake 15 min. Cool completely (1+ hour) before cutting into bars'],
+   swap:'These must cool completely or they fall apart — do not rush. Add protein powder to the mix for a higher-protein bar. Store in fridge for up to 2 weeks.'},
+
+  {type:'Dessert',name:'Mango Sorbet',time:'5 min + freeze',servings:'3',leftover:true,budget:'low',
+   ings:['2 cups frozen mango chunks','1–2 tbsp honey or lime juice','2 tbsp water or coconut milk','pinch of salt'],
+   steps:['Add frozen mango, honey, water/coconut milk, and salt to a blender','Blend until completely smooth — it will be thick like sorbet','Taste and add more honey or lime juice as desired','Eat immediately as soft sorbet, or freeze 1 hour for a firmer scoop','Scoop into glasses, optionally top with a slice of lime or crushed almonds'],
+   swap:'Use frozen peaches, pineapple, or strawberries for different flavors. Add a pinch of chili powder + lime for a Mexican-inspired paleta flavor.'},
+
+  {type:'Dessert',name:'Coconut Snowballs',time:'20 min + 30 min chill',servings:'12 balls',leftover:true,budget:'low',
+   ings:['1 cup unsweetened shredded coconut','½ cup peanut butter or almond butter','3 tbsp honey','½ tsp vanilla extract','pinch of salt','extra shredded coconut for rolling'],
+   steps:['Mix ¾ cup shredded coconut + peanut butter + honey + vanilla + salt until combined','Refrigerate 20 min until firm enough to roll','Roll into 1-inch balls','Roll each ball in remaining shredded coconut to coat','Refrigerate 30 more min until set. Store in fridge.'],
+   swap:'Dip each ball in melted dark chocolate for a Mounds-style treat. Add lime zest to the mix for a coconut-lime ball. These are naturally vegan and gluten-free.'},
+
+  {type:'Dessert',name:'Lemon Mug Cake',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 tbsp rolled oats (blended or whole)','2 tbsp honey','1 egg','2 tbsp milk','1 tbsp lemon juice','½ tsp lemon zest (optional)','¼ tsp baking powder','pinch of salt'],
+   steps:['Blend or mix all ingredients in a large microwave-safe mug until smooth','Microwave on high 60–80 seconds — it puffs up, then settles','Let stand 1 min before eating','Optionally drizzle a tiny bit of honey over the top after cooking'],
+   swap:'Add a tablespoon of vanilla protein powder for extra protein. No lemon? Use orange juice + zest. This is bright, fluffy, and ready faster than any dessert has a right to be.'},
+
+  {type:'Dessert',name:'Almond Butter Fudge Bites',time:'10 min + 2 hr freeze',servings:'12 bites',leftover:true,budget:'low',
+   ings:['1 cup almond butter (or peanut butter)','3 tbsp honey','2 tbsp coconut oil (or butter, melted)','1 tsp vanilla extract','pinch of salt','optional: cocoa powder swirl or mini chocolate chips on top'],
+   steps:['Mix almond butter + honey + melted coconut oil + vanilla + salt until completely smooth','Line a small container or ice cube tray with parchment or use silicone molds','Pour mixture in and smooth the top','Optional: sprinkle chocolate chips on top or drizzle melted dark chocolate','Freeze 2 hours until solid — pop out and store in freezer','Eat straight from the freezer — they soften quickly at room temperature'],
+   swap:'These melt at room temperature so keep them frozen. Use peanut butter for a more affordable version. Add a layer of dark chocolate on the bottom for a reese-style bite.'},
+
+  {type:'Dessert',name:'Strawberry Nice Cream',time:'5 min + freeze overnight',servings:'2',leftover:true,budget:'low',
+   ings:['2 frozen bananas','1 cup frozen strawberries','1 tbsp honey (optional)','1 tsp vanilla extract','2–3 tbsp milk if needed for blending'],
+   steps:['Add frozen bananas + frozen strawberries to a food processor or high-power blender','Blend — it will look crumbly at first, keep going, scraping down sides','Add honey and vanilla, blend until completely smooth and creamy pink','Serve immediately for soft-serve texture, or freeze 45 min for firmer scoops','Scoop into bowls and top with sliced almonds or banana slices'],
+   swap:'Use frozen mango, blueberries, or cherries instead of strawberries for different flavor combinations. Each one makes a completely different color and flavor.'},
+
+  {type:'Dessert',name:'Cinnamon Roll Oat Parfait',time:'8 min',servings:'1',leftover:false,budget:'low',
+   ings:['½ cup rolled oats (cooked or overnight-style)','½ cup cottage cheese','1 tbsp honey','1 tsp cinnamon','½ tsp vanilla extract','pinch of brown sugar or extra honey on top','optional: crushed almonds'],
+   steps:['Cook oats with water or milk until creamy','Stir in vanilla + half the cinnamon while hot','Layer in a glass: oats on bottom, then cottage cheese in the middle','Drizzle honey over cottage cheese layer','Top with a pinch of cinnamon + brown sugar + crushed almonds','The warm oats and cool cottage cheese together taste remarkably like cinnamon roll filling'],
+   swap:'Use overnight oats (cold) for a different texture experience. Add a swirl of peanut butter between layers. The cottage cheese layer tastes like cream cheese frosting.'},
+
+  {type:'Dessert',name:'Baked Pears with Honey & Almonds',time:'25 min',servings:'2',leftover:true,budget:'low',
+   ings:['2 ripe pears (halved, cored)','2 tbsp honey','¼ tsp cinnamon','¼ cup roughly chopped almonds','1 tsp butter (optional)','pinch of nutmeg'],
+   steps:['Preheat oven to 375°F','Place pear halves cut-side up in a small baking dish','Drizzle honey into the hollow of each pear half','Sprinkle cinnamon + nutmeg over all four halves','Scatter chopped almonds over top, add a tiny dot of butter on each pear if using','Add a splash of water to the baking dish','Bake 20–25 min until pears are golden and tender','Serve warm, optionally with a spoonful of cottage cheese on the side'],
+   swap:'Use apples if pears aren\'t available. Add a crumble topping: mix oats + almond butter + cinnamon + honey and pile it on the pears before baking.'},
+
+  // ── BREAKFAST × 2 (to reach 20) ─────────────────────────────
+  {type:'Breakfast',name:'Chorizo & Egg Scramble',time:'12 min',servings:'2',leftover:false,budget:'low',
+   ings:['3 oz Mexican chorizo (or ground beef with extra spices)','3 eggs','¼ cup diced onion','¼ cup diced bell pepper','salt + smoked paprika','olive oil','optional: shredded cheese + warm tortillas on the side'],
+   steps:['Brown chorizo in a skillet over medium-high, breaking it up as it cooks — about 4 min','Add onion + bell pepper, cook 3 min until soft','Whisk eggs with a pinch of salt, pour over the chorizo mixture','Fold gently until eggs are just set — the chorizo fat flavors everything','Top with shredded cheese if using, serve with warm tortillas'],
+   swap:'No chorizo? Use ground beef + 1 tsp smoked paprika + ½ tsp cumin + pinch of cayenne. Serve the scramble in a tortilla for an instant breakfast taco.'},
+
+  {type:'Breakfast',name:'Breakfast Quesadilla',time:'10 min',servings:'1',leftover:false,budget:'low',
+   ings:['2 eggs (scrambled)','1 whole wheat tortilla','¼ cup shredded cheese','2 tbsp black beans','2 tbsp diced bell pepper','1 tbsp butter','salt + pepper','chipotle lime crema for dipping'],
+   steps:['Scramble eggs in butter over medium heat, season with salt and pepper, set aside','Wipe pan, heat over medium','Lay tortilla flat in pan','Spread cheese over one half, then eggs, beans, and peppers on top of the cheese','Fold the bare half over the filled half to create a half-moon','Cook 2 min per side until golden and crispy outside, melty inside','Slice in half, serve with chipotle crema for dipping'],
+   swap:'Add leftover shredded chicken or ground beef inside. Use two smaller tortillas to make two full-circle quesadillas instead of one folded one.'},
+
+  // ── DINNER × 3 (to reach 40) ─────────────────────────────────
+  {type:'Dinner',name:'Beef & Sweet Potato Stew',time:'40 min',servings:'4',leftover:true,budget:'medium',
+   ings:['1 lb beef stew meat or chuck (cut into 1.5-inch cubes)','2 medium sweet potatoes (peeled + cubed)','1 can diced tomatoes','2 cups beef broth','1 onion (diced)','3 garlic cloves (minced)','1 tsp cumin','1 tsp smoked paprika','salt + pepper + olive oil','optional: spinach stirred in at the end'],
+   steps:['Season beef with salt, pepper, paprika, and cumin','Sear beef in oil over high heat in a heavy pot — 4 min, browned on all sides, set aside','Sauté onion 3 min, add garlic 1 min','Add diced tomatoes + broth, scrape any brown bits off the bottom','Return beef to pot, bring to a boil, reduce to a simmer','Cook covered 20 min, add sweet potato cubes','Continue simmering uncovered 15 min until sweet potato is tender and broth thickens','Stir in spinach if using — wilts in 2 min'],
+   swap:'Use ground beef (skip searing step) for a 20-minute weeknight version. Serve over brown rice to stretch it further. Freezes perfectly.'},
+
+  {type:'Dinner',name:'Chicken Marsala (Simplified)',time:'25 min',servings:'2',leftover:false,budget:'medium',
+   ings:['2 chicken breasts (pounded thin or butterflied)','1 cup sliced mushrooms','3 garlic cloves (minced)','½ cup chicken broth','2 tbsp butter','2 tbsp olive oil','1 tsp Italian seasoning','salt + pepper','fresh or dried parsley','pasta or rice for serving'],
+   steps:['Season chicken with salt, pepper, and Italian seasoning','Sear in olive oil + butter over medium-high, 4–5 min per side until golden. Set aside','In same pan, sauté mushrooms 4 min until golden — do not stir too often','Add garlic 1 min, then pour in chicken broth, scraping up all browned bits','Simmer 3 min until sauce reduces slightly','Return chicken to pan, simmer 5 min, baste with sauce','Finish with a small knob of butter swirled in, top with parsley'],
+   swap:'No mushrooms? Use diced bell pepper or skip entirely — the garlic butter sauce is the star. Add a splash of cream or blended cottage cheese to make the sauce richer.'},
+
+  {type:'Dinner',name:'Spicy Honey Glazed Salmon',time:'18 min',servings:'2',leftover:false,budget:'medium',
+   ings:['2 salmon fillets','2 tbsp honey','1 tbsp soy sauce','1 tsp sriracha or chili garlic sauce','1 tsp garlic powder','salt + pepper','olive oil','sesame seeds + green onion for topping','rice + steamed veg for serving'],
+   steps:['Preheat oven to 425°F or heat a skillet over medium-high','Mix honey + soy sauce + sriracha + garlic powder into a spicy glaze','Pat salmon dry, season with salt and pepper','Brush glaze generously over the flesh side of each fillet','Bake 12–14 min until salmon flakes easily, or pan-sear 4 min flesh-side down, flip, 3 min skin-side down','Brush any remaining glaze on top the last 2 min of cooking','Serve over rice with steamed broccoli, top with sesame seeds + green onion'],
+   swap:'Adjust sriracha to taste — use more for extra heat, skip it entirely for a pure honey-soy glaze. Works equally well on chicken breast or thighs.'},
+
+  // ── SNACK × 4 (to reach 20) ──────────────────────────────────
+  {type:'Snack',name:'Banana Peanut Butter Protein Bites',time:'10 min + 20 min freeze',servings:'8 bites',leftover:true,budget:'low',
+   ings:['1 ripe banana (mashed)','2 tbsp peanut butter','½ cup rolled oats','1 tbsp honey','pinch of cinnamon','optional: mini chocolate chips or crushed almonds for rolling'],
+   steps:['Mix mashed banana + peanut butter + oats + honey + cinnamon until well combined','Roll into 8 bite-sized balls with your hands','Optional: roll each ball in mini chocolate chips or crushed almonds','Place on a plate or baking sheet and freeze 20 min to firm up','Store in the fridge up to 5 days or freeze up to 1 month'],
+   swap:'Add a scoop of protein powder to the mix. Use almond butter. These are 3 ingredients at minimum and still taste incredible.'},
+
+  {type:'Snack',name:'Hummus & Veggie Plate',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['¼ cup hummus (store-bought or blend chickpeas + tahini + lemon + garlic yourself)','1 cucumber (sliced)','4 celery stalks (cut into sticks)','1 bell pepper (sliced into strips)','optional: rice cakes or pita strips for dipping','drizzle of olive oil + smoked paprika on the hummus'],
+   steps:['Spoon hummus onto a plate or into a small bowl','Drizzle olive oil + a pinch of smoked paprika over the hummus','Arrange cucumber, celery, and bell pepper around the bowl','Dip and eat — no prep, no cooking, just crunch and protein'],
+   swap:'Make quick hummus by blending 1 can drained chickpeas + 1 tbsp tahini + lemon juice + garlic + salt + olive oil. Add Everything Bagel seasoning on top instead of paprika.'},
+
+  {type:'Snack',name:'DIY Trail Mix',time:'2 min',servings:'1',leftover:true,budget:'low',
+   ings:['1 oz raw almonds','1 tbsp dark chocolate chips or raisins','1 tbsp sunflower seeds or pumpkin seeds','1 tbsp dried cranberries or chopped dates','optional: 1 tsp coconut flakes'],
+   steps:['Combine all ingredients in a small bag or container','Shake to mix — done','Pre-portion into 10–12 small bags on Sunday for grab-and-go snacks all week'],
+   swap:'Swap any component freely. Use cashews, walnuts, or peanuts. Add spiced roasted chickpeas (from the recipe list) to bulk it up. Keep the chocolate chips to ½ tbsp max to keep it from becoming candy.'},
+
+  {type:'Snack',name:'Tuna Lettuce Cups',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['1 can tuna (drained)','1 tbsp mayo or mashed avocado','1 tsp dijon mustard','salt + pepper + red pepper flakes','4 large romaine or butter lettuce leaves','diced tomato + green onion for topping','squeeze of lemon'],
+   steps:['Mix tuna with mayo or avocado, mustard, salt, pepper, and red pepper flakes','Squeeze lemon juice over the tuna mixture and stir','Spoon tuna into lettuce leaf "cups"','Top with diced tomato and green onion','Fold and eat like a taco'],
+   swap:'Add diced avocado directly into the tuna mix instead of using it as a binder. Use cucumber slices as a base if lettuce isn\'t available. Add hot sauce for heat.'},
+
+  // ── DESSERT × 1 (to reach 20) ────────────────────────────────
+  {type:'Dessert',name:'Oat & Honey Peach Crumble',time:'30 min',servings:'3',leftover:true,budget:'low',
+   ings:['2 cups sliced peaches (fresh, frozen, or canned in juice — not syrup)','1 tbsp honey','½ tsp cinnamon','1 tsp vanilla extract','Crumble topping: ¾ cup rolled oats + 3 tbsp almond butter + 2 tbsp honey + ½ tsp cinnamon + pinch of salt'],
+   steps:['Preheat oven to 350°F','Toss sliced peaches with honey, cinnamon, and vanilla in a baking dish','Mix crumble: combine oats + almond butter + honey + cinnamon + salt until clumpy','Spread crumble evenly over peaches, pressing gently to cover','Bake 25–28 min until peaches are bubbling and crumble is golden brown','Cool 5 min before serving — top with a spoonful of cottage cheese if desired'],
+   swap:'Use apples, pears, or mixed berries instead of peaches. Frozen fruit works perfectly — no need to thaw. A scoop of banana ice cream on top turns this into a full dessert moment.'},
+];
+
+const MATRIX = [
+  {protein:'🍗 Baked Chicken',carb:'🍚 Brown Rice',veg:'🥦 Roasted Broccoli',sauce:'🌶 Chipotle Lime',result:'Classic Muscle Bowl'},
+  {protein:'🍗 Baked Chicken',carb:'🌯 Tortilla',veg:'🥬 Spinach',sauce:'🌿 Lemon Tahini',result:'Herb Chicken Wrap'},
+  {protein:'🥩 Ground Beef',carb:'🍚 Brown Rice',veg:'🫑 Bell Pepper',sauce:'🥢 Sesame Ginger',result:'Asian-style Beef Bowl'},
+  {protein:'🥩 Ground Beef',carb:'🌯 Tortilla',veg:'🍅 Tomato + Avocado',sauce:'🌶 Chipotle Lime',result:'Taco Wrap'},
+  {protein:'🐟 Salmon',carb:'🍠 Sweet Potato',veg:'🥦 Broccoli',sauce:'🌿 Lemon Tahini',result:'Omega Power Plate'},
+  {protein:'🐟 Salmon',carb:'🌯 Tortilla',veg:'🥬 Spinach',sauce:'🥢 Sesame Ginger',result:'Salmon Sesame Wrap'},
+  {protein:'🥚 Hard Boiled Eggs',carb:'🍚 Brown Rice',veg:'🫑 Bell Pepper + Cucumber',sauce:'🌶 Chipotle Lime',result:'Quick Egg Bowl'},
+  {protein:'🐟 Canned Tuna',carb:'🌯 Tortilla',veg:'🥬 Spinach + 🥑 Avocado',sauce:'Lemon + Salt',result:'Tuna Smash Wrap'},
+];
+
+const TYPE_COLORS = {
+  Breakfast:{text:'#f5a623'},
+  Lunch:{text:'#5ab4d4'},
+  Dinner:{text:'#c07ae8'},
+  Snack:{text:'#f5c800'},
+  Dessert:{text:'#e06090'},
+};
+
+// ─── STATE ──────────────────────────────────────────────────────
+let budget = null;
+let openStore = 'costco';
+let openRecipes = {};
+let prepChecked = {};
+let midWeekChecked = {};
+let openRecipeFolders = {Breakfast:true};
+let recipeSearchQuery = '';
+
+// ─── INIT ───────────────────────────────────────────────────────
+function init(){
+  loadState();
+  renderPrep();
+  renderRecipes();
+  renderMatrix();
+  updateTotal();
+  restoreChecks();
+}
+
+function loadState(){
+  try{
+    const s = localStorage.getItem('mealplan_state');
+    if(s){
+      const d = JSON.parse(s);
+      if(d.budget) budget = d.budget;
+      if(d.prepChecked) prepChecked = d.prepChecked;
+      if(d.midWeekChecked) midWeekChecked = d.midWeekChecked;
+      if(d.openStore) openStore = d.openStore;
+      if(d.openRecipeFolders) openRecipeFolders = d.openRecipeFolders;
+      // restore price inputs
+      if(d.prices){
+        Object.entries(d.prices).forEach(([id,val])=>{
+          const el = document.querySelector(`#gi-${id} .price-edit`);
+          if(el) el.value = val;
+        });
+      }
+      if(d.checkedItems){
+        Object.entries(d.checkedItems).forEach(([id,checked])=>{
+          if(checked){
+            const item = document.getElementById(`gi-${id}`);
+            const cb = item && item.querySelector('.checkbox');
+            if(item && cb){
+              item.classList.add('checked');
+              cb.classList.add('checked');
+            }
+          }
+        });
+      }
+      if(budget){
+        document.getElementById('budgetInput').value = budget;
+        applyBudget(true);
+      }
+    }
+  }catch(e){}
+}
+
+function saveState(){
+  try{
+    const prices = {};
+    document.querySelectorAll('.grocery-item').forEach(item=>{
+      const id = item.id.replace('gi-','');
+      const val = item.querySelector('.price-edit').value;
+      if(val) prices[id] = val;
+    });
+    const checkedItems = {};
+    document.querySelectorAll('.grocery-item').forEach(item=>{
+      const id = item.id.replace('gi-','');
+      checkedItems[id] = item.classList.contains('checked');
+    });
+    localStorage.setItem('mealplan_state', JSON.stringify({budget, prepChecked, midWeekChecked, openStore, openRecipeFolders, prices, checkedItems}));
+  }catch(e){}
+}
+
+// ─── RENDER ─────────────────────────────────────────────────────
+function renderPrep(){
+  const el = document.getElementById('prepList');
+  el.innerHTML = PREP_STEPS.map((s,i)=>`
+    <div class="prep-item" onclick="togglePrep(${i})">
+      <div class="prep-icon">${s.icon}</div>
+      <div style="flex:1;opacity:${prepChecked[i]?'0.4':'1'}">
+        <div class="prep-time">${s.time}</div>
+        <div class="prep-task" style="${prepChecked[i]?'text-decoration:line-through':''}">${s.task}</div>
+      </div>
+      <div class="prep-check ${prepChecked[i]?'done':''}" id="prepck-${i}"></div>
+    </div>
+  `).join('');
+
+  // Update Sunday progress bar
+  const done = PREP_STEPS.filter((_,i)=>prepChecked[i]).length;
+  const total = PREP_STEPS.length;
+  const pct = Math.round((done/total)*100);
+  const fill = document.getElementById('prepProgressFill');
+  const label = document.getElementById('prepProgressLabel');
+  if(fill) fill.style.width = pct+'%';
+  if(label) label.textContent = `${done} of ${total} done`;
+
+  // Render mid-week items
+  const mwEl = document.getElementById('midWeekList');
+  if(mwEl){
+    mwEl.innerHTML = MID_WEEK_STEPS.map((s,i)=>`
+      <div class="prep-item" onclick="toggleMidWeek(${i})">
+        <div class="prep-icon">${s.icon}</div>
+        <div style="flex:1;opacity:${midWeekChecked[i]?'0.4':'1'}">
+          <div class="prep-task" style="${midWeekChecked[i]?'text-decoration:line-through':''}">${s.task}</div>
+        </div>
+        <div class="prep-check ${midWeekChecked[i]?'done':''}"></div>
+      </div>
+    `).join('');
+  }
+}
+
+function togglePrep(i){
+  prepChecked[i] = !prepChecked[i];
+  renderPrep();
+  saveState();
+}
+
+function toggleMidWeek(i){
+  midWeekChecked[i] = !midWeekChecked[i];
+  renderPrep();
+  saveState();
+}
+
+// ─── SEARCH KEYWORD MAP ──────────────────────────────────────────
+// Typing any KEY expands to its VALUES for matching against recipes
+const SEARCH_KEYWORDS = {
+  // Protein type
+  fish:      ['salmon','tuna','tilapia','shrimp','scampi','cod','smoked salmon','seafood'],
+  seafood:   ['salmon','tuna','tilapia','shrimp','scampi','cod','crab'],
+  meat:      ['chicken','beef','pork','turkey','lamb','sausage','steak','ground','carnitas','bulgogi','barbacoa'],
+  poultry:   ['chicken','turkey','sausage'],
+  chicken:   ['chicken','tikka','shawarma','fajita','enchilada','parmesan','marsala','wings','teriyaki'],
+  beef:      ['beef','steak','bulgogi','barbacoa','fajita','taco','carnitas','meatball'],
+  pork:      ['pork','carnitas','sausage','ham','bacon'],
+  lamb:      ['lamb','gyro'],
+  steak:     ['steak','sirloin','flank','fajita','bulgogi','garlic butter'],
+  shrimp:    ['shrimp','scampi','prawn','seafood'],
+  egg:       ['egg','scramble','omelette','shakshuka','muffin','frittata','deviled','quiche'],
+  eggs:      ['egg','scramble','omelette','shakshuka','deviled'],
+  turkey:    ['turkey','meatball','chili','lettuce wrap','ground turkey'],
+  // Cuisine
+  asian:     ['sesame','soy sauce','ginger','teriyaki','bulgogi','stir fry','fried rice','sesame ginger','miso','gochujang'],
+  mexican:   ['chipotle','taco','burrito','carnitas','fajita','quesadilla','enchilada','barbacoa','lime'],
+  italian:   ['pasta','marinara','meatball','scampi','marsala','parmesan','penne','rotini','spaghetti','linguine'],
+  greek:     ['greek','feta','gyro','tahini','lemon herb','oregano','tzatziki','shawarma'],
+  indian:    ['tikka','masala','curry','turmeric','garam masala','coconut curry'],
+  korean:    ['bulgogi','sesame','ginger','soy'],
+  // Flavor
+  spicy:     ['sriracha','chipotle','chili','jalapeño','hot sauce','red pepper','cayenne','adobo','sriracha','honey sriracha'],
+  sweet:     ['honey','maple','chocolate','cookie','cake','bar','banana','dessert','brown sugar'],
+  smoky:     ['smoked paprika','chipotle','bbq','adobo','sausage'],
+  // Speed / effort
+  quick:     ['5 min','3 min','2 min','1 min','8 min','7 min','10 min','15 min','grab and go'],
+  easy:      ['5 min','3 min','simple','grab','no-bake','no bake','2-ingredient'],
+  mealprep:  ['leftover','batch','freeze','make ahead'],
+  leftover:  ['leftover','leftover-friendly'],
+  // Format
+  bowl:      ['bowl','rice bowl','grain'],
+  wrap:      ['wrap','tortilla','burrito','roll'],
+  salad:     ['salad','spinach','greens','lettuce','arugula'],
+  soup:      ['soup','stew','chili','broth','simmer'],
+  pasta:     ['pasta','penne','rotini','spaghetti','noodle','linguine','scampi'],
+  rice:      ['rice','fried rice','bowl','brown rice'],
+  tacos:     ['taco','tortilla','carnitas','fajita'],
+  dessert:   ['dessert','chocolate','banana','cookie','cake','bark','pudding','parfait','ice cream','sorbet','fudge','pear','apple','crumble'],
+  // Ingredients
+  avocado:   ['avocado'],
+  banana:    ['banana','nice cream','smoothie','oat'],
+  chocolate: ['chocolate','cocoa','dark chocolate'],
+  peanut:    ['peanut butter','peanut','pb'],
+  oats:      ['oats','oatmeal','overnight','granola','rolled oats'],
+  cheese:    ['cheese','feta','parmesan','mozzarella','shredded'],
+  garlic:    ['garlic','garlic butter','garlic parmesan'],
+  // Goal
+  protein:   ['chicken','beef','eggs','salmon','tuna','turkey','shrimp','pork','lamb','cottage cheese','protein powder'],
+  highprotein:['chicken','beef','eggs','salmon','tuna','turkey','shrimp','pork','cottage cheese'],
+  lowcarb:   ['lettuce','cucumber','avocado','egg','salad','zucchini'],
+};
+
+function expandSearchTerms(q){
+  const base = q.toLowerCase().trim().split(/\s+/);
+  const expanded = new Set(base);
+  base.forEach(word=>{
+    // exact key
+    if(SEARCH_KEYWORDS[word]){
+      SEARCH_KEYWORDS[word].forEach(s=>expanded.add(s.toLowerCase()));
+    }
+    // partial key match (e.g. "chick" → chicken entries)
+    Object.keys(SEARCH_KEYWORDS).forEach(key=>{
+      if(key!==word && (key.startsWith(word) || word.startsWith(key))){
+        SEARCH_KEYWORDS[key].forEach(s=>expanded.add(s.toLowerCase()));
+      }
+    });
+  });
+  return Array.from(expanded);
+}
+
+function recipeMatchesQuery(r, terms){
+  const haystack = [r.name, r.type, r.swap, r.time, ...r.ings, ...r.steps]
+    .join(' ').toLowerCase();
+  return terms.some(t=>haystack.includes(t));
+}
+
+// ─────────────────────────────────────────────────────────────────
+const FOLDER_META = {
+  Breakfast:{emoji:'🌅', sub:'Morning fuel'},
+  Lunch:    {emoji:'☀️',  sub:'Midday meals'},
+  Dinner:   {emoji:'🌙', sub:'Evening feasts'},
+  Snack:    {emoji:'⚡',  sub:'Quick bites'},
+  Dessert:  {emoji:'🍫', sub:'Sweet treats'},
+};
+
+function renderRecipes(){
+  const types = ['Breakfast','Lunch','Dinner','Snack','Dessert'];
+  const el = document.getElementById('recipeList');
+  const q = recipeSearchQuery.trim();
+  const terms = q ? expandSearchTerms(q) : [];
+  const isSearching = terms.length > 0;
+
+  // Pre-index: stable ri per type so recipe keys never change
+  const typeIndex = {};
+  types.forEach(type=>{
+    typeIndex[type] = RECIPES
+      .filter(r=>r.type===type)
+      .map((r,ri)=>({r,ri}));
+  });
+
+  // Filter
+  const filtered = {};
+  let totalMatches = 0;
+  types.forEach(type=>{
+    filtered[type] = isSearching
+      ? typeIndex[type].filter(({r})=>recipeMatchesQuery(r,terms))
+      : typeIndex[type];
+    totalMatches += filtered[type].length;
+  });
+
+  // Search feedback
+  const label  = document.getElementById('searchResultsLabel');
+  const clearBtn = document.getElementById('searchClearBtn');
+  const hints  = document.getElementById('searchHints');
+  if(label){
+    label.style.display = isSearching ? 'block' : 'none';
+    label.textContent   = isSearching
+      ? `${totalMatches} recipe${totalMatches!==1?'s':''} found for "${q}"`
+      : '';
+  }
+  if(clearBtn) clearBtn.style.display = isSearching ? 'flex' : 'none';
+  if(hints)    hints.style.display    = isSearching ? 'none' : 'flex';
+
+  // Build HTML
+  const folderHtml = types.map(type=>{
+    const recs  = filtered[type];
+    if(isSearching && recs.length===0) return ''; // hide empty folders
+
+    const isOpen  = isSearching || !!openRecipeFolders[type];
+    const color   = TYPE_COLORS[type].text;
+    const meta    = FOLDER_META[type];
+    const subLine = isSearching
+      ? `${recs.length} match${recs.length!==1?'es':''} · ${meta.sub}`
+      : `${recs.length} recipes · ${meta.sub}`;
+
+    const cards = recs.map(({r,ri})=>{
+      const key  = `${type}-${ri}`;
+      const open = openRecipes[key];
+      return `
+        <div class="recipe-card" id="rc-${key}" data-budget="${r.budget}">
+          <button class="recipe-toggle" onclick="toggleRecipe('${key}')">
+            <div class="recipe-toggle-left">
+              <div class="recipe-name">${r.name}</div>
+              <div class="recipe-meta">⏱ ${r.time} · ${r.servings} serving${r.servings!=='1'?'s':''}${r.leftover?'<span class="leftover-tag">♻ leftover-friendly</span>':''}</div>
+            </div>
+            <span style="color:var(--accent);font-size:16px;margin-left:8px;">${open?'▾':'▸'}</span>
+          </button>
+          ${open?`<div class="recipe-body">
+            <div class="recipe-section-head">Ingredients</div>
+            ${r.ings.map(i=>`<div class="recipe-ing">· ${i}</div>`).join('')}
+            <div class="recipe-section-head" style="margin-top:10px;">Steps</div>
+            ${r.steps.map((s,si)=>`<div class="recipe-step"><span class="recipe-step-num">${si+1}.</span><span>${s}</span></div>`).join('')}
+            <div class="recipe-swap">🔄 <strong>Swap:</strong> ${r.swap}</div>
+          </div>`:''}
+        </div>`;
+    }).join('');
+
+    return `
+      <button class="store-toggle ${isOpen?'open':''}" onclick="toggleRecipeFolder('${type}')" id="rfbtn-${type}" style="border-left:3px solid ${color};margin-top:8px;">
+        <div>
+          <div class="store-name" style="color:${color};">${meta.emoji} ${type.toUpperCase()}</div>
+          <div class="store-sub">${subLine}</div>
+        </div>
+        <span class="chevron ${isOpen?'open':''}" id="rfchev-${type}">▾</span>
+      </button>
+      <div class="store-body" id="rfbody-${type}" style="display:${isOpen?'block':'none'};padding:10px 10px 4px;">
+        ${cards}
+      </div>`;
+  }).join('');
+
+  el.innerHTML = (isSearching && totalMatches===0)
+    ? `<div class="search-no-results">
+         <span class="no-results-icon">🔍</span>
+         No recipes found for <strong>"${q}"</strong><br>
+         <span style="font-size:12px;color:var(--dim)">Try: fish · meat · spicy · asian · quick · pasta</span>
+       </div>`
+    : folderHtml;
+}
+
+function toggleRecipe(key){
+  openRecipes[key] = !openRecipes[key];
+  renderRecipes();
+  if(budget) filterByBudget();
+}
+
+// ─── RECIPE SEARCH ───────────────────────────────────────────────
+function searchRecipes(val){
+  recipeSearchQuery = val;
+  // Auto-navigate to Recipes tab when searching from global bar
+  if(val.trim()){
+    const recipesBtn = document.querySelector('#tabBar .tab-btn:nth-child(4)');
+    if(recipesBtn && !recipesBtn.classList.contains('active')){
+      switchTab('recipes', recipesBtn);
+    }
+  }
+  renderRecipes();
+  if(budget) filterByBudget();
+}
+
+function clearRecipeSearch(){
+  recipeSearchQuery = '';
+  const input = document.getElementById('recipeSearchInput');
+  if(input) input.value = '';
+  renderRecipes();
+  if(budget) filterByBudget();
+}
+
+function setSearchInput(val){
+  const input = document.getElementById('recipeSearchInput');
+  if(input){ input.value = val; input.focus(); }
+}
+
+function renderMatrix(){
+  const el = document.getElementById('matrixList');
+  el.innerHTML = MATRIX.map(row=>`
+    <div class="matrix-card">
+      <div class="matrix-result">${row.result}</div>
+      <div class="matrix-grid">
+        ${[['Protein',row.protein],['Carb',row.carb],['Veg',row.veg],['Sauce',row.sauce]].map(([l,v])=>`
+          <div class="matrix-cell"><div class="matrix-cell-label">${l}</div><div class="matrix-cell-val">${v}</div></div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── TABS ────────────────────────────────────────────────────────
+function switchTab(name, btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(t=>{t.style.display='none';});
+  const el = document.getElementById(`tab-${name}`);
+  if(el){el.style.display='block';}
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ─── STORE TOGGLE ────────────────────────────────────────────────
+function toggleStore(name){
+  const body = document.getElementById(`body-${name}`);
+  const btn = document.getElementById(`btn-${name}`);
+  const chev = document.getElementById(`chev-${name}`);
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  btn.classList.toggle('open', !isOpen);
+  chev.classList.toggle('open', !isOpen);
+  openStore = name;
+  saveState();
+}
+
+// ─── RECIPE FOLDER TOGGLE ────────────────────────────────────────
+function toggleRecipeFolder(type){
+  openRecipeFolders[type] = !openRecipeFolders[type];
+  const body = document.getElementById(`rfbody-${type}`);
+  const chev = document.getElementById(`rfchev-${type}`);
+  if(body) body.style.display = openRecipeFolders[type] ? 'block' : 'none';
+  if(chev) chev.classList.toggle('open', openRecipeFolders[type]);
+  saveState();
+}
+
+// ─── ITEM CHECK ──────────────────────────────────────────────────
+function toggleItem(id, cbEl){
+  const item = document.getElementById(`gi-${id}`);
+  const checked = item.classList.toggle('checked');
+  cbEl.classList.toggle('checked', checked);
+  updateTotal();
+  saveState();
+}
+
+// ─── PRICE TOTAL ─────────────────────────────────────────────────
+function getStoreItems(prefix){
+  return document.querySelectorAll(`[id^="gi-${prefix}"]`);
+}
+
+function calcStoreTotal(prefix){
+  let total = 0;
+  getStoreItems(prefix).forEach(item=>{
+    const input = item.querySelector('.price-edit');
+    const val = parseFloat(input.value);
+    if(!isNaN(val)) total += val;
+  });
+  return total;
+}
+
+function calcEstimatedTotal(){
+  let est = 0;
+  document.querySelectorAll('.grocery-item').forEach(item=>{
+    est += parseFloat(item.getAttribute('data-est')) || 0;
+  });
+  return est;
+}
+
+function updateGroceryProgress(){
+  const all = document.querySelectorAll('.grocery-item');
+  const checked = document.querySelectorAll('.grocery-item.checked');
+  const total = all.length;
+  const done = checked.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  const fill = document.getElementById('groceryProgressFill');
+  const label = document.getElementById('groceryProgressLabel');
+  if(fill) fill.style.width = pct + '%';
+  if(label) label.textContent = `${done} of ${total} items checked ✓`;
+  // Update count display to show checked items
+  const countEl = document.getElementById('itemCount');
+  if(countEl) countEl.textContent = done;
+}
+
+function updateTotal(){
+  const stores = ['c','w','f'];
+  const storeNames = {c:'costco',w:'walmart',f:'frys'};
+  let grand = 0;
+  let count = 0;
+
+  stores.forEach(prefix=>{
+    const total = calcStoreTotal(prefix);
+    grand += total;
+    const subEl = document.getElementById(`sub-${storeNames[prefix]}`);
+    if(subEl) subEl.textContent = '$'+total.toFixed(2);
+
+    getStoreItems(prefix).forEach(item=>{
+      const input = item.querySelector('.price-edit');
+      if(input.value && !isNaN(parseFloat(input.value))) count++;
+    });
+  });
+
+  const totalEl = document.getElementById('grandTotal');
+  if(count === 0){
+    // No actual prices entered — show estimate from data-est
+    const est = calcEstimatedTotal();
+    totalEl.textContent = '~$'+Math.round(est)+' est.';
+    totalEl.style.fontSize = '22px';
+  } else {
+    totalEl.textContent = '$'+grand.toFixed(2);
+    totalEl.style.fontSize = '';
+  }
+
+  updateGroceryProgress();
+
+  const remEl = document.getElementById('budgetRemaining');
+  const displayAmt = count > 0 ? grand : calcEstimatedTotal();
+  if(budget && budget > 0){
+    remEl.style.display = 'block';
+    const rem = budget - displayAmt;
+    if(rem >= 0){
+      remEl.style.color = '#a8e060';
+      remEl.textContent = '$'+rem.toFixed(0)+' left';
+    } else {
+      remEl.style.color = '#e06060';
+      remEl.textContent = '$'+Math.abs(rem).toFixed(0)+' over';
+    }
+    updateBudgetStatus(displayAmt);
+  } else {
+    remEl.style.display = 'none';
+  }
+  saveState();
+}
+
+// ─── BUDGET FILTER ───────────────────────────────────────────────
+function liveApplyBudget(){
+  const val = parseFloat(document.getElementById('budgetInput').value);
+  if(isNaN(val) || val <= 0){
+    if(budget) clearBudget();
+    return;
+  }
+  budget = val;
+  filterByBudget();
+  updateTotal();
+  saveState();
+}
+
+function applyBudget(silent){
+  const val = parseFloat(document.getElementById('budgetInput').value);
+  if(isNaN(val) || val <= 0){
+    if(!silent) alert('Please enter a valid budget amount.');
+    return;
+  }
+  budget = val;
+  filterByBudget();
+  updateTotal();
+  saveState();
+}
+
+function filterByBudget(){
+  if(!budget) return;
+  const infoEl = document.getElementById('groceryFilterInfo');
+  infoEl.style.display = 'block';
+
+  // Dim optional items when budget is tight
+  const isTight = budget < 150;
+  document.querySelectorAll('.grocery-item').forEach(item=>{
+    const isOptional = item.getAttribute('data-optional') === 'true';
+    const est = parseFloat(item.getAttribute('data-est')) || 0;
+    if(isTight && isOptional){
+      item.style.opacity = '0.4';
+      item.style.border = '1px dashed #333';
+    } else {
+      item.style.opacity = '';
+      item.style.border = '';
+    }
+  });
+
+  // Filter recipes
+  document.querySelectorAll('.recipe-card').forEach(card=>{
+    const bLevel = card.getAttribute('data-budget');
+    if(budget < 80 && bLevel === 'high'){
+      card.classList.add('budget-hidden');
+    } else {
+      card.classList.remove('budget-hidden');
+    }
+  });
+
+  updateBudgetStatus(parseFloat(document.getElementById('grandTotal').textContent.replace('$',''))||0);
+}
+
+function updateBudgetStatus(spent){
+  if(!budget) return;
+  const statusEl = document.getElementById('budgetStatus');
+  statusEl.style.display = 'flex';
+  const rem = budget - spent;
+  const pct = Math.round((spent/budget)*100);
+
+  let pill = '';
+  if(rem >= 0){
+    const cls = rem > budget*0.2 ? 'budget-ok' : 'budget-warn';
+    pill = `<span class="budget-pill ${cls}">$${rem.toFixed(2)} remaining (${pct}% used)</span>`;
+  } else {
+    pill = `<span class="budget-pill budget-over">$${Math.abs(rem).toFixed(2)} over budget</span>`;
+  }
+
+  if(budget < 150){
+    pill += `<span class="budget-pill budget-warn" style="margin-left:4px;">Optional items dimmed</span>`;
+  }
+
+  statusEl.innerHTML = `${pill}<button class="budget-clear-btn" onclick="clearBudget()">Clear</button>`;
+}
+
+function clearBudget(){
+  budget = null;
+  document.getElementById('budgetInput').value = '';
+  document.getElementById('budgetStatus').style.display = 'none';
+  document.getElementById('groceryFilterInfo').style.display = 'none';
+  document.getElementById('budgetRemaining').style.display = 'none';
+  document.querySelectorAll('.grocery-item').forEach(item=>{
+    item.style.opacity = '';
+    item.style.border = '';
+    item.classList.remove('budget-hidden');
+  });
+  document.querySelectorAll('.recipe-card').forEach(c=>c.classList.remove('budget-hidden'));
+  saveState();
+}
+
+function restoreChecks(){
+  // re-run updateTotal after DOM settle
+  setTimeout(updateTotal, 100);
+}
+
+// ─── START ───────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
