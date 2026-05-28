@@ -898,6 +898,7 @@ input[type=number]{-moz-appearance:textfield;}
       <span id="planFilterLabel">🗓 Filter by Plan</span>
       <span class="plan-filter-count" id="planFilterCount" style="display:none;"></span>
     </button>
+    <button class="plan-filter-btn" id="hideCheckedBtn" style="margin-bottom:0;padding:9px 10px;white-space:nowrap;" onclick="toggleHideChecked()">👁 Hide done</button>
   </div>
 
   <!-- EMPTY PLAN NUDGE -->
@@ -1248,7 +1249,7 @@ input[type=number]{-moz-appearance:textfield;}
   <div class="protein-tracker" style="margin-top:6px;">
     <div class="protein-tracker-top">
       <div>
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;">Today's Protein</div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;">Today's Protein <span id="proteinDate" style="letter-spacing:0;text-transform:none;font-size:10px;color:var(--dim);"></span></div>
         <div class="protein-amount" id="proteinAmount">0g</div>
       </div>
       <div style="text-align:right;">
@@ -1329,7 +1330,15 @@ input[type=number]{-moz-appearance:textfield;}
 <!-- ===== MIX & MATCH TAB ===== -->
 <div id="tab-matrix" class="content tab-content" style="display:none;">
   <div class="section-label" style="margin-top:6px;">Leftover Matrix</div>
-  <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Pick any protein + carb + veg + sauce for a full meal in under 5 minutes.</p>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6;">Tap what you have prepped — see only the meals you can actually make.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;" id="matrixFilters">
+    <button class="time-filter-btn active" onclick="setMatrixFilter('all',this)">All</button>
+    <button class="time-filter-btn" onclick="setMatrixFilter('chicken',this)">🍗 Chicken</button>
+    <button class="time-filter-btn" onclick="setMatrixFilter('beef',this)">🥩 Beef</button>
+    <button class="time-filter-btn" onclick="setMatrixFilter('salmon',this)">🐟 Salmon</button>
+    <button class="time-filter-btn" onclick="setMatrixFilter('eggs',this)">🥚 Eggs</button>
+    <button class="time-filter-btn" onclick="setMatrixFilter('tuna',this)">🐟 Tuna</button>
+  </div>
   <div id="matrixList"></div>
   <div class="divider"></div>
   <div class="section-label">End-of-Week Rescue Meals</div>
@@ -2005,6 +2014,8 @@ let portionMult = {};
 let proteinGoal = 175;
 let planAdder = {};
 window._groceryPlanFilter = false;
+window._hideChecked = false;
+window._matrixFilter = 'all';
 
 // ─── INIT ───────────────────────────────────────────────────────
 function init(){
@@ -2018,6 +2029,9 @@ function init(){
   restoreChecks();
   updateGroceryProgress();
   updateGroceryNudge();
+  // Date label on protein tracker
+  const dateEl = document.getElementById('proteinDate');
+  if(dateEl){ const now = new Date(); dateEl.textContent = '· ' + now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); }
   // How-to: open on first visit, collapsed after
   const body = document.getElementById('how-to-body');
   const chev = document.getElementById('how-to-chev');
@@ -2408,7 +2422,13 @@ function setSearchInput(val){
 
 function renderMatrix(){
   const el = document.getElementById('matrixList');
-  el.innerHTML = MATRIX.map(row=>`
+  const f = window._matrixFilter;
+  const filtered = f === 'all' ? MATRIX : MATRIX.filter(row => row.protein.toLowerCase().includes(f));
+  if(filtered.length === 0){
+    el.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:13px;padding:20px 0;">No combos found for that ingredient.</div>`;
+    return;
+  }
+  el.innerHTML = filtered.map(row=>`
     <div class="matrix-card">
       <div class="matrix-result">${row.result}</div>
       <div class="matrix-grid">
@@ -2418,6 +2438,13 @@ function renderMatrix(){
       </div>
     </div>
   `).join('');
+}
+
+function setMatrixFilter(val, btn){
+  window._matrixFilter = val;
+  document.querySelectorAll('#matrixFilters .time-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMatrix();
 }
 
 // ─── TABS ────────────────────────────────────────────────────────
@@ -2477,11 +2504,27 @@ function toggleRecipeFolder(type){
   saveState();
 }
 
+// ─── HIDE CHECKED TOGGLE ─────────────────────────────────────────
+function toggleHideChecked(){
+  window._hideChecked = !window._hideChecked;
+  const btn = document.getElementById('hideCheckedBtn');
+  if(btn){ btn.classList.toggle('active', window._hideChecked); btn.textContent = window._hideChecked ? '👁 Show done' : '👁 Hide done'; }
+  applyHideChecked();
+}
+
+function applyHideChecked(){
+  document.querySelectorAll('.grocery-item.checked').forEach(item=>{
+    item.style.display = window._hideChecked ? 'none' : '';
+  });
+}
+
 // ─── ITEM CHECK ──────────────────────────────────────────────────
 function toggleItem(id, cbEl){
   const item = document.getElementById(`gi-${id}`);
   const checked = item.classList.toggle('checked');
   cbEl.classList.toggle('checked', checked);
+  if(window._hideChecked && checked) item.style.display = 'none';
+  if(!checked) item.style.display = '';
   updateTotal();
   saveState();
 }
@@ -2748,6 +2791,11 @@ function setPlanMeal(sk, val){
   updateGroceryNudge();
   // Refresh grocery filter if it's active
   if(window._groceryPlanFilter) applyGroceryPlanFilter(true);
+  // Toast nudge toward Grocery tab
+  if(val){
+    const t = document.getElementById('copyToast');
+    if(t){ const p=t.textContent; t.style.background='var(--accentBg)'; t.style.color='var(--accentGlow)'; t.style.border='1px solid var(--accentDim)'; t.textContent='🛒 Grocery list updated — tap Grocery → Filter by Plan'; t.classList.add('show'); setTimeout(()=>{ t.classList.remove('show'); t.textContent=p; t.style.background=''; t.style.color=''; t.style.border=''; },3000); }
+  }
 }
 
 function clearPlan(){
