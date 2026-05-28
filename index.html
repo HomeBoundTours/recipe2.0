@@ -1381,6 +1381,7 @@ input[type=number]{-moz-appearance:textfield;}
     </div>
     <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Quick filters</div>
     <div class="search-keyword-hint" id="searchHints">
+      <span id="planRecipeFilterBtn" onclick="togglePlanRecipeFilter()" style="color:var(--accentGlow);border-color:rgba(245,166,35,0.3);">📅 in my plan</span>
       <span onclick="searchRecipes('__fav__');setSearchInput('')" style="color:#e05a5a;border-color:rgba(224,90,90,0.3);">❤️ favorites</span>
       <span onclick="searchRecipes('fish');setSearchInput('fish')">🐟 fish</span>
       <span onclick="searchRecipes('spicy');setSearchInput('spicy')">🌶 spicy</span>
@@ -2091,6 +2092,7 @@ let midWeekChecked = {};
 let openRecipeFolders = {Breakfast:true};
 let recipeSearchQuery = '';
 let timeFilter = 'all';
+let planRecipeFilter = false;
 let favorites = {};
 let weekPlan = {};
 let openPlanDays = {};
@@ -2428,6 +2430,8 @@ function renderRecipes(){
 
   // Filter
   const isFavFilter = q === '__fav__';
+  // Build set of planned recipe names for plan filter
+  const plannedNames = new Set(Object.values(weekPlan).filter(Boolean).map(v=>v.toLowerCase()));
   const filtered = {};
   let totalMatches = 0;
   types.forEach(type=>{
@@ -2436,6 +2440,9 @@ function renderRecipes(){
       pool = pool.filter(({r,ri})=>favorites[`${type}-${ri}`]);
     } else if(isSearching){
       pool = pool.filter(({r})=>recipeMatchesQuery(r,terms));
+    }
+    if(planRecipeFilter){
+      pool = pool.filter(({r})=>plannedNames.has(r.name.toLowerCase()));
     }
     if(timeFilter !== 'all'){
       pool = pool.filter(({r})=>{
@@ -2454,15 +2461,19 @@ function renderRecipes(){
   const label    = document.getElementById('searchResultsLabel');
   const clearBtn = document.getElementById('searchClearBtn');
   const hints    = document.getElementById('searchHints');
-  const isActive = isSearching || isFavFilter || timeFilter !== 'all';
+  const isActive = isSearching || isFavFilter || timeFilter !== 'all' || planRecipeFilter;
   if(label){
     label.style.display = isActive ? 'block' : 'none';
-    if(isFavFilter)    label.textContent = `${totalMatches} favorite recipe${totalMatches!==1?'s':''}`;
-    else if(isSearching) label.textContent = `${totalMatches} recipe${totalMatches!==1?'s':''} found for "${q}"`;
-    else               label.textContent = `${totalMatches} recipe${totalMatches!==1?'s':''} (filtered)`;
+    if(isFavFilter)        label.textContent = `${totalMatches} favorite recipe${totalMatches!==1?'s':''}`;
+    else if(planRecipeFilter) label.textContent = `${totalMatches} recipe${totalMatches!==1?'s':''} in your plan`;
+    else if(isSearching)   label.textContent = `${totalMatches} recipe${totalMatches!==1?'s':''} found for "${q}"`;
+    else                   label.textContent = `${totalMatches} recipe${totalMatches!==1?'s':''} (filtered)`;
   }
   if(clearBtn) clearBtn.style.display = (isSearching||isFavFilter) ? 'flex' : 'none';
   if(hints)    hints.style.display    = (isSearching||isFavFilter) ? 'none' : 'flex';
+  // Sync plan filter pill active state
+  const planBtn = document.getElementById('planRecipeFilterBtn');
+  if(planBtn) planBtn.style.background = planRecipeFilter ? 'var(--accentBg)' : '';
 
   // Build HTML
   const folderHtml = types.map(type=>{
@@ -3119,6 +3130,11 @@ function setTimeFilter(f, btn){
   timeFilter = f;
   document.querySelectorAll('.time-filter-btn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
+  renderRecipes();
+}
+
+function togglePlanRecipeFilter(){
+  planRecipeFilter = !planRecipeFilter;
   renderRecipes();
 }
 
