@@ -813,13 +813,14 @@ input[type=number]{-moz-appearance:textfield;}
   <div class="info-row"><span class="info-key">🎯 Nutrition Focus</span><span class="info-val">High protein (160–200g/day), whole foods</span></div>
   <div class="info-row"><span class="info-key">🍳 Prep Style</span><span class="info-val">Sunday batch (60–90 min) + Wed refresh (20 min)</span></div>
   <div class="info-row"><span class="info-key">📖 Recipes</span><span class="info-val">75+ recipes, 5 categories, searchable & filterable</span></div>
+  <div class="info-row"><span class="info-key">✏️ Customizable</span><span class="info-val">Swap any recipe, store, or meal slot to fit your schedule, budget, or taste</span></div>
 
   <div class="divider"></div>
   <div class="section-label">Grocery Strategy</div>
-  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Split across 3 stores to maximize value — Costco for bulk proteins, Walmart for produce & pantry, Fry's for weekly deals on fresh veg.</p>
-  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Costco</span><span class="store-pick-est">~$115</span></div><div class="store-pick-note">Bulk proteins, oats, almonds, olive oil — best $/lb</div></div>
-  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Walmart</span><span class="store-pick-est">~$50</span></div><div class="store-pick-note">Produce, dairy, pantry sauces & canned goods</div></div>
-  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Fry's</span><span class="store-pick-est">~$30</span></div><div class="store-pick-note">Weekly sales on avocados, fresh veg, spice upgrades</div></div>
+  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Split across 3 stores to maximize value — Costco for bulk proteins, Sprouts for produce & pantry, Safeway for weekly deals on fresh veg.</p>
+  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Costco <span style="font-size:10px;color:var(--dim);font-weight:400;">· Sam's Club</span></span><span class="store-pick-est">~$115</span></div><div class="store-pick-note">Bulk proteins, oats, almonds, olive oil — best $/lb</div></div>
+  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Sprouts <span style="font-size:10px;color:var(--dim);font-weight:400;">· Walmart, Trader Joe's, Whole Foods</span></span><span class="store-pick-est">~$50</span></div><div class="store-pick-note">Produce, dairy, pantry sauces & canned goods</div></div>
+  <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Safeway <span style="font-size:10px;color:var(--dim);font-weight:400;">· Fry's, Kroger, HEB, Publix</span></span><span class="store-pick-est">~$30</span></div><div class="store-pick-note">Weekly sales on avocados, fresh veg, spice upgrades</div></div>
 
   <div class="divider"></div>
 
@@ -923,7 +924,7 @@ input[type=number]{-moz-appearance:textfield;}
 
   <!-- COSTCO -->
   <button class="store-toggle" onclick="toggleStore('costco')" id="btn-costco">
-    <div><div class="store-name">COSTCO</div><div class="store-sub">Bulk proteins & staples — best $/lb</div></div>
+    <div><div class="store-name">COSTCO <span style="font-size:10px;color:var(--dim);font-weight:400;letter-spacing:0;">· Sam's Club</span></div><div class="store-sub">Bulk proteins & staples — best $/lb</div></div>
     <span class="chevron" id="chev-costco">▾</span>
   </button>
   <div class="store-body" id="body-costco">
@@ -1061,7 +1062,7 @@ input[type=number]{-moz-appearance:textfield;}
 
   <!-- WALMART -->
   <button class="store-toggle" onclick="toggleStore('walmart')" id="btn-walmart">
-    <div><div class="store-name">WALMART</div><div class="store-sub">Produce, dairy & pantry sauces</div></div>
+    <div><div class="store-name">SPROUTS <span style="font-size:10px;color:var(--dim);font-weight:400;letter-spacing:0;">· Walmart · Trader Joe's · Whole Foods</span></div><div class="store-sub">Produce, dairy & pantry sauces</div></div>
     <span class="chevron" id="chev-walmart">▾</span>
   </button>
   <div class="store-body" id="body-walmart" style="display:none;">
@@ -1159,14 +1160,14 @@ input[type=number]{-moz-appearance:textfield;}
       <div class="price-area"><div class="price-est">~$5</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="store-subtotal">
-      <span class="store-subtotal-label">Walmart Running Total</span>
+      <span class="store-subtotal-label">Sprouts Running Total</span>
       <span class="store-subtotal-amount" id="sub-walmart">$0.00</span>
     </div>
   </div>
 
   <!-- FRYS -->
   <button class="store-toggle" onclick="toggleStore('frys')" id="btn-frys">
-    <div><div class="store-name">FRY'S</div><div class="store-sub">Fresh produce, protein & spice upgrades</div></div>
+    <div><div class="store-name">SAFEWAY <span style="font-size:10px;color:var(--dim);font-weight:400;letter-spacing:0;">· Fry's · Kroger · HEB · Publix</span></div><div class="store-sub">Fresh produce, protein & spice upgrades</div></div>
     <span class="chevron" id="chev-frys">▾</span>
   </button>
   <div class="store-body" id="body-frys" style="display:none;">
@@ -1234,7 +1235,7 @@ input[type=number]{-moz-appearance:textfield;}
       <div class="price-area"><div class="price-est">~$2</div><input class="price-edit" type="number" placeholder="actual $" min="0" step="0.01" oninput="updateTotal()"/><div class="price-label">actual price</div></div>
     </div>
     <div class="store-subtotal">
-      <span class="store-subtotal-label">Fry's Running Total</span>
+      <span class="store-subtotal-label">Safeway Running Total</span>
       <span class="store-subtotal-amount" id="sub-frys">$0.00</span>
     </div>
   </div>
