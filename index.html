@@ -930,7 +930,7 @@ input[type=number]{-moz-appearance:textfield;}
     <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Batch these on Sunday — they unlock flavor across every meal without extra cooking time.</p>
     <div class="sauce-card" style="border-left-color:#e8873a;">
       <div class="sauce-name">🌶 Chipotle Lime Crema</div>
-      <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 1 chipotle pepper + 2 tbsp adobo sauce + ½ cup cottage cheese (blended smooth) + juice of 1 lime + pinch of salt</div>
+      <div class="sauce-ingredients"><strong style="color:var(--text);">Ingredients:</strong> 1 chipotle pepper + 2 tbsp adobo sauce + ½ cup Greek yogurt (plain) + juice of 1 lime + pinch of salt</div>
       <div class="sauce-use"><strong>Use on:</strong> Rice bowls, chicken tacos, scrambled eggs, salmon</div>
       <div class="sauce-makes">~½ cup · keeps 7 days in fridge</div>
     </div>
@@ -1063,7 +1063,7 @@ input[type=number]{-moz-appearance:textfield;}
     <div class="grocery-item" id="gi-c5" data-est="8" data-optional="false">
       <div class="checkbox" onclick="toggleItem('c5',this)"></div>
       <div class="item-info">
-        <div class="item-name"><span>Cottage cheese 2% (24 oz)</span></div>
+        <div class="item-name"><span>Greek yogurt plain 2% (32 oz)</span></div>
         <div class="item-meta">2 containers · High protein snack + sauce base</div>
         <div class="item-note">Replaces Greek yogurt — blends smooth for sauces</div>
       </div>
@@ -1433,7 +1433,7 @@ input[type=number]{-moz-appearance:textfield;}
   <div class="rescue-item"><div class="rescue-name">Tuna Pasta</div><div class="rescue-desc">Pasta + canned tuna + olive oil + lemon + red pepper flakes. Fancy-tasting, 15 min.</div></div>
   <div class="rescue-item"><div class="rescue-name">Bean & Cheese Quesadilla</div><div class="rescue-desc">Canned black beans + cheese + tortilla. 8 min. Add chipotle crema.</div></div>
   <div class="rescue-item"><div class="rescue-name">Protein Scramble Wrap</div><div class="rescue-desc">Eggs + whatever veg remains + cheese + tortilla. The "clean out the fridge" MVP.</div></div>
-  <div class="rescue-item"><div class="rescue-name">Cottage Cheese Power Bowl</div><div class="rescue-desc">½ cup cottage cheese + banana slices + almonds + honey + cinnamon. 3 min, 25g protein.</div></div>
+  <div class="rescue-item"><div class="rescue-name">Greek Yogurt Power Bowl</div><div class="rescue-desc">¾ cup Greek yogurt + banana slices + almonds + honey + cinnamon. 3 min, 20g protein.</div></div>
 </div>
 
 
@@ -1464,10 +1464,10 @@ const RECIPES = [
    ings:['½ cup rolled oats','1 scoop protein powder (optional)','1 banana','1 tbsp honey','pinch cinnamon'],
    steps:['Cook oats with water per package','Stir in protein powder while hot (or skip)','Top with sliced banana, honey, cinnamon'],
    swap:'No protein powder? Add 2 eggs on the side.'},
-  {type:'Breakfast',name:'Cottage Cheese Egg Scramble',time:'10 min',servings:'1',leftover:false,budget:'low',
-   ings:['3 eggs','¼ cup cottage cheese','green onion','salt + pepper','olive oil'],
-   steps:['Whisk eggs with cottage cheese — creates fluffy curds','Heat oil in pan over medium-low','Pour egg mixture, fold gently until just set','Top with green onion'],
-   swap:'Add diced jalapeño or red pepper flakes for heat.'},
+  {type:'Breakfast',name:'Chorizo & Egg Scramble',time:'10 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 eggs','2 oz Mexican chorizo (casings removed)','¼ cup diced onion','1 jalapeño (diced, optional)','salt + pepper','fresh cilantro'],
+   steps:['Cook chorizo in a pan over medium, breaking it up — 3 min until rendered and crispy','Add onion + jalapeño, cook 2 min more','Whisk eggs, pour over chorizo mixture','Fold gently over medium-low until just set — the chorizo fat flavors everything','Top with fresh cilantro and serve with warm tortillas or on its own'],
+   swap:'No chorizo? Use ground beef + ½ tsp smoked paprika + ½ tsp cumin for the same vibe. Add a spoonful of salsa on top.'},
   {type:'Lunch',name:'Chipotle Chicken Rice Bowl',time:'5 min (using prep)',servings:'1–2',leftover:true,budget:'low',
    ings:['1 cup brown rice (prepped)','1 chicken breast (prepped)','black beans','roasted broccoli','chipotle lime crema'],
    steps:['Slice pre-cooked chicken','Layer rice → beans → broccoli → chicken in bowl','Drizzle chipotle lime crema','Top with green onion + squeeze of lime'],
@@ -1500,14 +1500,14 @@ const RECIPES = [
    ings:['pre-cooked chicken (shredded)','whole wheat tortillas','shredded cheese','bell pepper','chipotle lime crema'],
    steps:['Heat skillet medium, butter lightly','Lay tortilla, add chicken + peppers + cheese on half','Fold over, cook 3 min per side until golden','Slice, dip in chipotle lime crema'],
    swap:'Add black beans inside for extra fiber.'},
-  {type:'Snack',name:'Cottage Cheese & Banana Bowl',time:'3 min',servings:'1',leftover:false,budget:'low',
-   ings:['½ cup cottage cheese','1 banana (sliced)','1 tsp honey','pinch cinnamon'],
-   steps:['Scoop cottage cheese into bowl','Layer banana slices on top','Drizzle honey, sprinkle cinnamon'],
-   swap:'Swap banana for almonds + honey for a lower-carb version.'},
-  {type:'Snack',name:'Cottage Cheese & Cucumber Bowl',time:'3 min',servings:'1',leftover:false,budget:'low',
-   ings:['½ cup cottage cheese','cucumber slices','Everything Bagel seasoning','drizzle olive oil'],
-   steps:['Scoop cottage cheese into bowl','Add cucumber, sprinkle Everything Bagel seasoning, drizzle oil'],
-   swap:'Add sliced tomato and black pepper for a savory twist.'},
+  {type:'Snack',name:'Peanut Butter Banana Protein Bowl',time:'3 min',servings:'1',leftover:false,budget:'low',
+   ings:['¾ cup Greek yogurt (plain, 2%)','1 banana (sliced)','1 tbsp peanut butter','1 tsp honey','small handful of granola or crushed almonds'],
+   steps:['Spoon Greek yogurt into a bowl','Swirl in peanut butter','Layer banana slices over top','Drizzle honey, scatter granola or almonds for crunch'],
+   swap:'Use almond butter or sunflower butter instead of peanut butter. Add a few chocolate chips if you have them. Frozen banana works in a pinch — microwave 20 sec.'},
+  {type:'Snack',name:'Hummus & Veggie Plate',time:'3 min',servings:'1',leftover:false,budget:'low',
+   ings:['3 tbsp hummus','cucumber (sliced)','bell pepper strips (any color)','4–5 baby carrots','drizzle olive oil','Everything Bagel seasoning'],
+   steps:['Scoop hummus onto a small plate — drag a spoon through to make a well','Arrange veggies around it','Drizzle olive oil into the hummus well, dust with Everything Bagel seasoning','Dip and eat — this is the easiest snack on the plan'],
+   swap:'Add a few olives or a couple of deli turkey slices for more protein. Swap hummus for guacamole if avocados are ripe. Any crunchy veg works.'},
   {type:'Snack',name:'Almond & Banana',time:'1 min',servings:'1',leftover:false,budget:'low',
    ings:['1 oz raw almonds (pre-portioned)','1 banana'],
    steps:['Grab and go. That is the whole recipe.'],
@@ -1520,13 +1520,13 @@ const RECIPES = [
    swap:'Add crumbled ground turkey or shredded chicken to each cup for extra protein. Use any veg you have.'},
 
   {type:'Breakfast',name:'Protein Pancakes',time:'15 min',servings:'2',leftover:false,budget:'low',
-   ings:['1 cup rolled oats (blended into flour)','2 eggs','1 ripe banana (mashed)','¼ cup cottage cheese','1 tsp baking powder','½ tsp cinnamon','pinch of salt'],
+   ings:['1 cup rolled oats (blended into flour)','2 eggs','1 ripe banana (mashed)','¼ cup Greek yogurt','1 tsp baking powder','½ tsp cinnamon','pinch of salt'],
    steps:['Blend oats in a blender until fine flour forms','Add all remaining ingredients and blend until smooth batter forms','Heat non-stick pan over medium heat, lightly oil','Pour ¼ cup batter per pancake, cook 2–3 min per side until golden and set','Serve with honey + banana slices'],
-   swap:'No cottage cheese? Use any milk instead. Add a scoop of protein powder for more protein per serving.'},
+   swap:'No Greek yogurt? Use any milk instead. Add a scoop of protein powder for more protein per serving.'},
 
   {type:'Breakfast',name:'Smoked Salmon Scramble',time:'10 min',servings:'1',leftover:false,budget:'medium',
-   ings:['2 eggs','1–2 oz smoked salmon or leftover baked salmon (flaked)','1 tbsp cottage cheese','green onion (sliced)','black pepper','drizzle olive oil'],
-   steps:['Heat olive oil in pan over medium-low','Whisk eggs, pour into pan','Fold gently as eggs cook — low and slow is the key','When nearly set, fold in salmon + cottage cheese','Remove from heat (carryover heat finishes it)','Top with green onion + black pepper and serve immediately'],
+   ings:['2 eggs','1–2 oz smoked salmon or leftover baked salmon (flaked)','1 tbsp cream cheese (softened)','green onion (sliced)','black pepper','drizzle olive oil'],
+   steps:['Heat olive oil in pan over medium-low','Whisk eggs, pour into pan','Fold gently as eggs cook — low and slow is the key','When nearly set, fold in salmon + small dollops of cream cheese — it melts into creamy ribbons','Remove from heat (carryover heat finishes it)','Top with green onion + black pepper and serve immediately'],
    swap:'No smoked salmon? Leftover baked salmon or canned salmon both work perfectly. Add a squeeze of lemon.'},
 
   {type:'Breakfast',name:'Sausage & Sweet Potato Hash',time:'20 min',servings:'2',leftover:true,budget:'medium',
@@ -1625,7 +1625,7 @@ const RECIPES = [
   {type:'Snack',name:'Hard Boiled Egg Snack Plate',time:'2 min (using prep eggs)',servings:'1',leftover:false,budget:'low',
    ings:['2 prepped hard-boiled eggs','Everything Bagel seasoning (or salt + paprika)','1 oz almonds','cucumber slices'],
    steps:['Slice eggs in half, sprinkle with Everything Bagel seasoning','Plate with almonds on the side and cucumber slices','That is a full snack — 15g+ protein, ready in 2 min'],
-   swap:'No EBS? Salt + smoked paprika is excellent. Add a spoonful of cottage cheese for an extra protein hit.'},
+   swap:'No EBS? Salt + smoked paprika is excellent. Add a spoonful of Greek yogurt on the side for an extra protein hit.'},
 
   {type:'Snack',name:'Tuna Cucumber Bites',time:'5 min',servings:'1',leftover:false,budget:'low',
    ings:['1 can tuna (drained)','½ avocado or 1 tbsp mayo','squeeze of lemon','salt + pepper','1 cucumber (sliced into thick rounds)','optional: red pepper flakes or hot sauce'],
@@ -1649,14 +1649,14 @@ const RECIPES = [
    swap:'Use sunflower butter for a nut-free version. Adding a scoop of chocolate or vanilla protein powder makes these a legitimate snack-meal.'},
 
   {type:'Dessert',name:'Honey Cinnamon Baked Apples',time:'25 min',servings:'2',leftover:true,budget:'low',
-   ings:['2 large apples (Honeycrisp or Gala work best)','2 tbsp honey','1 tsp cinnamon','½ tsp vanilla extract','pinch of salt','optional topping: cottage cheese, crushed almonds, or banana ice cream'],
-   steps:['Preheat oven to 375°F','Core each apple from the top, leaving the bottom intact — creates a cup','Mix honey + cinnamon + vanilla + salt together','Spoon the honey mixture into the center of each apple','Place apples in a small baking dish with a splash of water in the bottom','Bake 20–25 min until soft and caramelized, basting once halfway through','Serve warm — optionally with a scoop of cottage cheese or banana ice cream on top'],
+   ings:['2 large apples (Honeycrisp or Gala work best)','2 tbsp honey','1 tsp cinnamon','½ tsp vanilla extract','pinch of salt','optional topping: Greek yogurt, crushed almonds, or banana ice cream'],
+   steps:['Preheat oven to 375°F','Core each apple from the top, leaving the bottom intact — creates a cup','Mix honey + cinnamon + vanilla + salt together','Spoon the honey mixture into the center of each apple','Place apples in a small baking dish with a splash of water in the bottom','Bake 20–25 min until soft and caramelized, basting once halfway through','Serve warm — optionally with a spoonful of Greek yogurt or banana ice cream on top'],
    swap:'No oven? Microwave on high 5–6 min until fork-tender. Swap honey for maple syrup. Add crushed almonds for texture contrast.'},
 
-  {type:'Dessert',name:'Cottage Cheese Berry Parfait',time:'5 min',servings:'1',leftover:false,budget:'low',
-   ings:['½ cup cottage cheese','1 banana (sliced) or any fruit on hand','1 tbsp honey','pinch of cinnamon','small handful of crushed almonds or granola'],
-   steps:['Layer half the cottage cheese in a glass or bowl','Add a layer of sliced banana or fruit','Add remaining cottage cheese on top','Drizzle honey over everything, sprinkle cinnamon','Top with crushed almonds or granola for crunch — eat immediately or refrigerate 1 hr for a chilled parfait'],
-   swap:'Swap banana for diced mango, strawberries, or blueberries. Add a layer of nut butter between cottage cheese layers for richness.'},
+  {type:'Dessert',name:'Greek Yogurt Berry Parfait',time:'5 min',servings:'1',leftover:false,budget:'low',
+   ings:['¾ cup Greek yogurt (plain or vanilla)','½ cup mixed berries (fresh or thawed frozen)','2 tbsp granola or crushed almonds','1 tbsp honey','½ tsp vanilla extract'],
+   steps:['Stir vanilla into yogurt','Layer half the yogurt into a tall glass or bowl','Add a layer of berries','Spoon remaining yogurt over berries','Top with more berries, granola, and a generous drizzle of honey','Refrigerate 30 min for a firmer, chilled parfait — or eat immediately'],
+   swap:'Use any fruit you have — banana, mango, peach all work great. Add a spoonful of peanut butter between layers for a Snickers-vibe parfait. Swap granola for crushed almonds to keep it lower carb.'},
 
   {type:'Dessert',name:'Banana Oat Cookies',time:'20 min (makes ~10)',servings:'10 cookies',leftover:true,budget:'low',
    ings:['2 very ripe bananas (mashed smooth)','1 cup rolled oats','¼ tsp cinnamon','optional mix-ins: mini chocolate chips, peanut butter drizzle, or raisins'],
@@ -1669,8 +1669,8 @@ const RECIPES = [
    swap:'No protein powder? Use an extra 2 tbsp oat flour + 1 extra egg white. Drop a spoonful of peanut butter into the center before microwaving for a molten PB core.'},
 
   {type:'Dessert',name:'Cinnamon Sweet Potato Pudding',time:'10 min',servings:'2',leftover:true,budget:'low',
-   ings:['1 cup leftover roasted sweet potato (mashed)','2 tbsp honey','½ tsp cinnamon','¼ tsp vanilla extract','pinch of nutmeg','2 tbsp cottage cheese (for creaminess)'],
-   steps:['Combine roasted sweet potato, honey, cinnamon, vanilla, and nutmeg in a blender','Add cottage cheese and blend until completely silky smooth — 30–45 seconds','Taste and adjust honey to your liking','Serve warm right away or chill for 1 hour for a cold pudding texture','Top with crushed almonds for contrast'],
+   ings:['1 cup leftover roasted sweet potato (mashed)','2 tbsp honey','½ tsp cinnamon','¼ tsp vanilla extract','pinch of nutmeg','2 tbsp full-fat coconut milk (for creaminess)'],
+   steps:['Combine roasted sweet potato, honey, cinnamon, vanilla, nutmeg, and coconut milk in a blender','Blend until completely silky smooth — 30–45 seconds','Taste and adjust honey to your liking','Serve warm right away or chill for 1 hour for a cold pudding texture','Top with crushed almonds for contrast'],
    swap:'Add a tablespoon of peanut butter for a nutty depth. Serve with a banana oat cookie on the side for a full dessert plate.'},
 
   {type:'Dessert',name:'Dark Chocolate Almond Bark',time:'10 min + 45 min chill',servings:'8 pieces',leftover:true,budget:'low',
@@ -1689,8 +1689,8 @@ const RECIPES = [
 
   // ── BREAKFAST ────────────────────────────────────────────────
   {type:'Breakfast',name:'Overnight Oats',time:'5 min prep + overnight',servings:'1',leftover:true,budget:'low',
-   ings:['½ cup rolled oats','½ cup milk (any kind)','¼ cup cottage cheese or Greek yogurt','1 tbsp honey','½ tsp cinnamon','½ banana or berries for topping'],
-   steps:['Combine oats, milk, cottage cheese, honey, and cinnamon in a jar','Stir well, seal, and refrigerate overnight (at least 6 hours)','In the morning, stir once more — add a splash of milk if too thick','Top with sliced banana or any fruit','No cooking, no excuses — breakfast is already done'],
+   ings:['½ cup rolled oats','½ cup milk (any kind)','¼ cup Greek yogurt (plain)','1 tbsp honey','½ tsp cinnamon','½ banana or berries for topping'],
+   steps:['Combine oats, milk, Greek yogurt, honey, and cinnamon in a jar','Stir well, seal, and refrigerate overnight (at least 6 hours)','In the morning, stir once more — add a splash of milk if too thick','Top with sliced banana or any fruit','No cooking, no excuses — breakfast is already done'],
    swap:'Add a scoop of protein powder to the milk before mixing. Use almond milk for a dairy-light version. Top with peanut butter + honey for a Snickers-style version.'},
 
   {type:'Breakfast',name:'Spinach Feta Omelette',time:'10 min',servings:'1',leftover:false,budget:'low',
@@ -1726,17 +1726,17 @@ const RECIPES = [
   {type:'Breakfast',name:'Greek Yogurt Power Bowl',time:'4 min',servings:'1',leftover:false,budget:'low',
    ings:['¾ cup Greek yogurt (plain, full-fat or 2%)','1 tbsp honey','¼ cup granola or crushed almonds','½ banana or any fruit','pinch of cinnamon'],
    steps:['Spoon Greek yogurt into a bowl','Drizzle honey over top','Add granola or crushed almonds for crunch','Layer fruit on top','Dust with cinnamon and eat immediately'],
-   swap:'Cottage cheese works as a 1:1 substitute for Greek yogurt. Add a tablespoon of peanut butter stirred in for a different flavor direction.'},
+   swap:'Add a tablespoon of peanut butter stirred in for a different flavor direction.'},
 
   {type:'Breakfast',name:'Egg & Sweet Potato Breakfast Bowl',time:'15 min (using prepped sweet potato)',servings:'1',leftover:true,budget:'low',
    ings:['½ cup prepped roasted sweet potato','2 eggs (fried or poached)','handful baby spinach','1 tsp olive oil','salt + smoked paprika','chipotle lime crema or hot sauce'],
    steps:['Warm sweet potato cubes in a skillet with olive oil — 2 min over medium','Add spinach to the pan, stir until just wilted','Plate sweet potato + spinach as the base','Cook eggs to your liking and place on top','Season with smoked paprika and salt','Drizzle chipotle crema or hot sauce over everything'],
    swap:'Add crumbled ground beef or turkey for a heartier bowl. A fried egg with a runny yolk acts as a natural sauce over everything.'},
 
-  {type:'Breakfast',name:'Cottage Cheese Pancakes',time:'15 min',servings:'2',leftover:false,budget:'low',
-   ings:['½ cup cottage cheese','2 eggs','¼ cup rolled oats (or oat flour)','½ tsp baking powder','½ tsp vanilla extract','pinch of salt','butter for cooking'],
-   steps:['Blend cottage cheese + eggs + oats + baking powder + vanilla until smooth batter','Heat a non-stick pan over medium, melt a small knob of butter','Pour small rounds (about 2 tbsp each — these are thinner than regular pancakes)','Cook 2–3 min until bubbles form and edges look set, flip carefully','Cook 1–2 min more','Serve with honey and sliced banana'],
-   swap:'Add cinnamon or lemon zest to the batter. Top with peanut butter + banana for a filling stack. These are higher protein than regular pancakes.'},
+  {type:'Breakfast',name:'Sweet Potato Protein Pancakes',time:'15 min',servings:'2',leftover:false,budget:'low',
+   ings:['½ cup roasted sweet potato (mashed, or canned puree)','2 eggs','¼ cup oat flour (blend rolled oats)','½ tsp baking powder','½ tsp cinnamon','¼ tsp vanilla extract','pinch of salt','butter or coconut oil for cooking'],
+   steps:['Blend sweet potato + eggs + oat flour + baking powder + cinnamon + vanilla until smooth','Heat a non-stick pan over medium, add a little butter','Pour small rounds (~3 tbsp each) — these are thick, fluffy pancakes','Cook 2–3 min until edges look set and bubbles form on top, flip carefully','Cook 1–2 min more until cooked through','Serve with honey, banana slices, or a swirl of peanut butter'],
+   swap:'Add a pinch of nutmeg or cardamom to the batter. Top with almond butter + maple syrup for a fall-flavored stack. Batch and refrigerate — reheat in a pan or toaster.'},
 
   // ── LUNCH ────────────────────────────────────────────────────
   {type:'Lunch',name:'Beef & Broccoli Rice Bowl',time:'15 min',servings:'2',leftover:true,budget:'low',
@@ -1747,7 +1747,7 @@ const RECIPES = [
   {type:'Lunch',name:'Egg Salad Wrap',time:'8 min',servings:'1',leftover:false,budget:'low',
    ings:['3 hard-boiled eggs (prepped)','1 tbsp mayo or mashed avocado','1 tsp dijon mustard','salt + pepper','pinch of smoked paprika','whole wheat tortilla','spinach or lettuce'],
    steps:['Roughly chop hard-boiled eggs','Mix with mayo (or avocado), mustard, salt, pepper, and paprika','Taste and adjust seasoning','Spread egg salad across the center of a tortilla','Add spinach or lettuce on top','Roll and slice in half'],
-   swap:'Use cottage cheese blended smooth instead of mayo for a higher-protein, lighter version. Add diced cucumber for crunch.'},
+   swap:'Use Greek yogurt instead of mayo for a higher-protein, lighter version. Add diced cucumber for crunch.'},
 
   {type:'Lunch',name:'Chicken Shawarma Wrap',time:'10 min (using prep chicken)',servings:'1',leftover:false,budget:'low',
    ings:['1 prepped chicken breast (sliced thin)','whole wheat tortilla','spinach or romaine','cucumber slices','tomato (diced)','lemon herb tahini sauce','½ tsp cumin + smoked paprika','pinch of turmeric (optional)'],
@@ -1796,9 +1796,9 @@ const RECIPES = [
 
   // ── DINNER ───────────────────────────────────────────────────
   {type:'Dinner',name:'Chicken Tikka Masala (Simplified)',time:'30 min',servings:'3',leftover:true,budget:'medium',
-   ings:['1 lb chicken breast (cubed)','1 can diced tomatoes','½ cup cottage cheese (blended smooth) or coconut milk','1 onion (diced)','3 garlic cloves (minced)','2 tsp garam masala','1 tsp cumin','1 tsp smoked paprika','½ tsp turmeric','salt + olive oil','brown rice for serving'],
-   steps:['Season chicken with half the spices and salt','Sear chicken in hot oil 3–4 min until golden, set aside','Sauté onion 4 min, add garlic + remaining spices, stir 1 min','Add diced tomatoes, simmer 5 min','Stir in blended cottage cheese (or coconut milk) — creates the creamy orange sauce','Add chicken back, simmer 10 min until cooked through','Serve over brown rice'],
-   swap:'Coconut milk gives a richer, more traditional flavor. Blended cottage cheese works great as a high-protein swap. Use chicken thighs for juicier meat.'},
+   ings:['1 lb chicken breast (cubed)','1 can diced tomatoes','½ cup coconut milk or heavy cream','1 onion (diced)','3 garlic cloves (minced)','2 tsp garam masala','1 tsp cumin','1 tsp smoked paprika','½ tsp turmeric','salt + olive oil','brown rice for serving'],
+   steps:['Season chicken with half the spices and salt','Sear chicken in hot oil 3–4 min until golden, set aside','Sauté onion 4 min, add garlic + remaining spices, stir 1 min','Add diced tomatoes, simmer 5 min','Stir in coconut milk — creates the creamy orange sauce','Add chicken back, simmer 10 min until cooked through','Serve over brown rice'],
+   swap:'Heavy cream gives a richer, buttery sauce. Use chicken thighs for juicier meat. Add a can of tomato paste for a deeper, more intense flavor.'},
 
   {type:'Dinner',name:'Korean-Style Beef Bulgogi Bowl',time:'20 min',servings:'2',leftover:true,budget:'medium',
    ings:['½ lb ground beef or thinly sliced sirloin','3 tbsp soy sauce','1 tbsp honey or brown sugar','1 tsp sesame oil','3 garlic cloves (minced)','½ tsp ginger powder','green onion','sesame seeds','prepped brown rice','spinach or cucumber for serving'],
@@ -1811,8 +1811,8 @@ const RECIPES = [
    swap:'Use ground beef or a mix of beef and turkey. Add red pepper flakes to the sauce for heat. These freeze perfectly — make a double batch.'},
 
   {type:'Dinner',name:'Coconut Curry Shrimp',time:'20 min',servings:'2',leftover:false,budget:'medium',
-   ings:['1 lb shrimp (peeled + deveined)','1 can diced tomatoes','½ cup cottage cheese (blended) or coconut milk','1 tbsp curry powder','1 tsp turmeric','3 garlic cloves (minced)','½ onion (diced)','salt + olive oil','brown rice for serving'],
-   steps:['Sauté onion 3 min, add garlic + curry powder + turmeric — stir 1 min','Add diced tomatoes, simmer 5 min','Stir in blended cottage cheese or coconut milk — reduce heat to medium-low','Add shrimp, cook 3–4 min just until pink — do not overcook','Taste and adjust salt','Serve over rice with green onion on top'],
+   ings:['1 lb shrimp (peeled + deveined)','1 can diced tomatoes','½ cup coconut milk','1 tbsp curry powder','1 tsp turmeric','3 garlic cloves (minced)','½ onion (diced)','salt + olive oil','brown rice for serving'],
+   steps:['Sauté onion 3 min, add garlic + curry powder + turmeric — stir 1 min','Add diced tomatoes, simmer 5 min','Stir in coconut milk — reduce heat to medium-low','Add shrimp, cook 3–4 min just until pink — do not overcook','Taste and adjust salt','Serve over rice with green onion on top'],
    swap:'Use chicken instead of shrimp — dice small and cook 8 min. Add spinach in the last 2 min. Full coconut milk makes this restaurant-level rich.'},
 
   {type:'Dinner',name:'Garlic Butter Steak Bites',time:'12 min',servings:'2',leftover:false,budget:'medium',
@@ -1821,8 +1821,8 @@ const RECIPES = [
    swap:'Use ribeye for extra richness, or ground beef cubes (more affordable). The garlic butter sauce is the star — pour every drop over the plate.'},
 
   {type:'Dinner',name:'Salmon Patties',time:'20 min',servings:'2–3',leftover:true,budget:'low',
-   ings:['1 can salmon (14–15 oz, drained) or 2 leftover salmon fillets (flaked)','1 egg','¼ cup rolled oats or breadcrumbs','2 tbsp mayo or cottage cheese','1 tsp dijon mustard','1 tsp garlic powder','1 tsp smoked paprika','salt + pepper','olive oil for pan'],
-   steps:['Drain salmon thoroughly, flake into a bowl, remove any large bones','Mix in egg, oats, mayo/cottage cheese, mustard, and seasonings','Form into 4–5 patties, pressing firmly so they hold together','Refrigerate 10 min if time allows — they hold better when cold','Cook in oiled skillet over medium, 3–4 min per side until golden crust forms','Serve with lemon herb tahini sauce or chipotle crema'],
+   ings:['1 can salmon (14–15 oz, drained) or 2 leftover salmon fillets (flaked)','1 egg','¼ cup rolled oats or breadcrumbs','2 tbsp mayo','1 tsp dijon mustard','1 tsp garlic powder','1 tsp smoked paprika','salt + pepper','olive oil for pan'],
+   steps:['Drain salmon thoroughly, flake into a bowl, remove any large bones','Mix in egg, oats, mayo, mustard, and seasonings','Form into 4–5 patties, pressing firmly so they hold together','Refrigerate 10 min if time allows — they hold better when cold','Cook in oiled skillet over medium, 3–4 min per side until golden crust forms','Serve with lemon herb tahini sauce or chipotle crema'],
    swap:'Add diced green onion and a pinch of red pepper flakes to the mix. Serve in a lettuce wrap, on a bun, or alongside roasted veggies.'},
 
   {type:'Dinner',name:'Chicken Fried Rice',time:'15 min',servings:'2',leftover:true,budget:'low',
@@ -1838,7 +1838,7 @@ const RECIPES = [
   {type:'Dinner',name:'Ground Lamb Gyro Bowl',time:'20 min',servings:'2',leftover:true,budget:'medium',
    ings:['½ lb ground lamb (or ground beef)','1 tsp cumin','1 tsp garlic powder','1 tsp dried oregano','½ tsp smoked paprika','salt + pepper','brown rice or pita','cucumber + tomato + onion (diced)','lemon herb tahini sauce'],
    steps:['Mix lamb with cumin, garlic powder, oregano, paprika, salt','Brown in a skillet over medium-high, breaking into small crumbles — 7–8 min','While meat cooks, dice cucumber, tomato, and a little onion for the fresh topping','Build bowl: rice → spiced lamb → fresh veggies','Drizzle lemon herb tahini generously over everything','Squeeze lemon over the bowl'],
-   swap:'Ground beef is a great substitution and more budget-friendly. Serve in a warm tortilla like a gyro wrap. Add a dollop of cottage cheese seasoned with lemon + garlic as a tzatziki substitute.'},
+   swap:'Ground beef is a great substitution and more budget-friendly. Serve in a warm tortilla like a gyro wrap. Make a quick tzatziki: Greek yogurt + lemon + garlic + grated cucumber.'},
 
   {type:'Dinner',name:'Beef-Stuffed Bell Peppers',time:'35 min',servings:'4',leftover:true,budget:'low',
    ings:['4 bell peppers (any color, tops cut off, seeds removed)','½ lb ground beef','1 cup cooked brown rice','1 can diced tomatoes','1 tsp cumin','1 tsp garlic powder','salt + pepper','shredded cheese for topping'],
@@ -1909,17 +1909,17 @@ const RECIPES = [
   {type:'Snack',name:'Deviled Eggs',time:'10 min (using prepped eggs)',servings:'2',leftover:true,budget:'low',
    ings:['4 hard-boiled eggs (prepped)','1 tbsp mayo or mashed avocado','1 tsp dijon mustard','salt + pepper','smoked paprika for topping','optional: Everything Bagel seasoning'],
    steps:['Slice hard-boiled eggs in half lengthwise','Pop yolks into a bowl, mash with mayo, mustard, salt, and pepper','Spoon or pipe yolk mixture back into egg white halves','Dust with smoked paprika (and EBS if using)','Refrigerate up to 2 days'],
-   swap:'Replace mayo with cottage cheese blended smooth for higher protein, lower fat deviled eggs. Add sriracha to the yolk mix for a spicy version.'},
+   swap:'Add sriracha to the yolk mix for a spicy version. Mix in a little dijon + sweet relish for a classic deviled egg flavor.'},
 
   {type:'Snack',name:'Protein Shake',time:'3 min',servings:'1',leftover:false,budget:'low',
    ings:['1 scoop protein powder (vanilla or chocolate)','1 cup milk or water','1 banana (fresh or frozen)','1 tbsp peanut butter','handful of ice','optional: 1 tsp honey'],
    steps:['Add all ingredients to a blender','Blend on high 30 seconds until smooth','Pour and drink immediately','Rinse blender right away — protein powder sets like cement if left'],
-   swap:'No protein powder? Use ½ cup cottage cheese instead — similar protein, creamier texture. Add spinach — it turns green but you cannot taste it at all.'},
+   swap:'No protein powder? Use ½ cup Greek yogurt instead — similar protein, creamier texture. Add spinach — it turns green but you cannot taste it at all.'},
 
   {type:'Snack',name:'Turkey Roll-Ups',time:'5 min',servings:'1',leftover:false,budget:'low',
    ings:['4 slices deli turkey breast','2 tbsp shredded cheese','½ avocado (sliced)','cucumber strips','spinach','optional: drizzle of lemon herb tahini or mustard'],
    steps:['Lay turkey slices flat on a cutting board','Place a few spinach leaves, a slice of avocado, and a cucumber strip on each','Drizzle tahini sauce or a tiny bit of mustard','Roll each slice up tightly like a mini wrap','Eat as finger food — no utensils needed'],
-   swap:'Use deli ham, chicken slices, or roast beef. Spread cream cheese or cottage cheese on the turkey before rolling for a richer snack.'},
+   swap:'Use deli ham, chicken slices, or roast beef. Spread cream cheese on the turkey before rolling for a richer snack.'},
 
   {type:'Snack',name:'Peanut Butter Celery Boats',time:'3 min',servings:'1',leftover:false,budget:'low',
    ings:['3 celery stalks','3 tbsp peanut butter or almond butter','optional toppings: banana chips, almonds, raisins, drizzle of honey'],
@@ -1927,8 +1927,8 @@ const RECIPES = [
    swap:'Use sunflower butter for nut-free. Cream cheese is a great swap for something less sweet. This is the "ants on a log" concept — add raisins for the classic childhood version.'},
 
   {type:'Snack',name:'Smoked Salmon Cucumber Bites',time:'8 min',servings:'1',leftover:false,budget:'medium',
-   ings:['2 oz smoked salmon (or leftover baked salmon, flaked)','1 cucumber (sliced into rounds)','2 tbsp cottage cheese or cream cheese','Everything Bagel seasoning','black pepper + lemon juice'],
-   steps:['Spread a thin layer of cottage cheese on each cucumber round','Place a small piece of smoked salmon on top','Sprinkle Everything Bagel seasoning and a squeeze of lemon','Finish with black pepper and serve immediately'],
+   ings:['2 oz smoked salmon (or leftover baked salmon, flaked)','1 cucumber (sliced into rounds)','2 tbsp cream cheese (softened)','Everything Bagel seasoning','black pepper + lemon juice'],
+   steps:['Spread a thin layer of cream cheese on each cucumber round','Place a small piece of smoked salmon on top','Sprinkle Everything Bagel seasoning and a squeeze of lemon','Finish with black pepper and serve immediately'],
    swap:'Use any prepped protein — sliced chicken, tuna mixture, or ground turkey spiced patties. These look fancy enough to serve at a party.'},
 
   {type:'Snack',name:'Edamame with Sea Salt',time:'5 min',servings:'1',leftover:false,budget:'low',
@@ -1941,10 +1941,10 @@ const RECIPES = [
    steps:['Arrange cheese, almonds, and rice cakes (or cucumbers) on a small plate','Add turkey slices if using','Drizzle a tiny bit of honey over the cheese if you like sweet-salty combos','This is a "charcuterie snack plate" — fancy name for a 2-minute protein plate'],
    swap:'Any cheese works. Use rice cakes, cucumber slices, or celery as the base. Add olives if you have them.'},
 
-  {type:'Snack',name:'Mango Cottage Cheese Bowl',time:'3 min',servings:'1',leftover:false,budget:'low',
-   ings:['½ cup cottage cheese','½ mango (diced or substitute banana)','1 tsp honey','pinch of cayenne or chili powder (optional)','lime squeeze'],
-   steps:['Spoon cottage cheese into a bowl','Top with diced mango','Drizzle honey and squeeze lime over top','Optional: a tiny pinch of cayenne for a Mexican-style fruit-cup flavor'],
-   swap:'Any tropical fruit works — pineapple, papaya, or peach. The cayenne + lime combo on fruit is surprisingly addictive.'},
+  {type:'Snack',name:'Mango Chili Yogurt Bowl',time:'3 min',servings:'1',leftover:false,budget:'low',
+   ings:['¾ cup Greek yogurt (plain)','½ mango (diced) or substitute pineapple','1 tsp honey','pinch of Tajín or chili-lime seasoning','squeeze of lime'],
+   steps:['Spoon Greek yogurt into a bowl','Top with diced mango','Drizzle honey, squeeze lime over everything','Finish with a pinch of Tajín — the chili-lime heat on cold yogurt + sweet mango is next level'],
+   swap:'Any tropical fruit works — pineapple, papaya, or peach. Swap Tajín for plain chili powder + extra lime zest if you do not have it. Add crushed almonds for crunch.'},
 
   {type:'Snack',name:'Spiced Roasted Chickpeas',time:'30 min',servings:'4 (batch snack)',leftover:true,budget:'low',
    ings:['1 can chickpeas (15 oz, drained + rinsed)','1 tbsp olive oil','1 tsp smoked paprika','½ tsp garlic powder','½ tsp cumin','salt'],
@@ -2000,13 +2000,13 @@ const RECIPES = [
    swap:'Use frozen mango, blueberries, or cherries instead of strawberries for different flavor combinations. Each one makes a completely different color and flavor.'},
 
   {type:'Dessert',name:'Cinnamon Roll Oat Parfait',time:'8 min',servings:'1',leftover:false,budget:'low',
-   ings:['½ cup rolled oats (cooked or overnight-style)','½ cup cottage cheese','1 tbsp honey','1 tsp cinnamon','½ tsp vanilla extract','pinch of brown sugar or extra honey on top','optional: crushed almonds'],
-   steps:['Cook oats with water or milk until creamy','Stir in vanilla + half the cinnamon while hot','Layer in a glass: oats on bottom, then cottage cheese in the middle','Drizzle honey over cottage cheese layer','Top with a pinch of cinnamon + brown sugar + crushed almonds','The warm oats and cool cottage cheese together taste remarkably like cinnamon roll filling'],
-   swap:'Use overnight oats (cold) for a different texture experience. Add a swirl of peanut butter between layers. The cottage cheese layer tastes like cream cheese frosting.'},
+   ings:['½ cup rolled oats (cooked or overnight-style)','¼ cup Greek yogurt (plain)','2 tbsp cream cheese (softened)','1 tbsp honey','1 tsp cinnamon','½ tsp vanilla extract','pinch of brown sugar or extra honey on top','optional: crushed almonds'],
+   steps:['Cook oats with water or milk until creamy','Stir in vanilla + half the cinnamon while hot','Mix Greek yogurt + cream cheese + honey until smooth — this is your "frosting"','Layer in a glass: oats on bottom, then the yogurt-cream cheese layer in the middle','Top with a pinch of cinnamon + brown sugar + crushed almonds','The warm oats and cool creamy layer together taste remarkably like cinnamon roll filling'],
+   swap:'Use overnight oats (cold) for a chilled version. Add a swirl of peanut butter between layers. Mix in a little maple syrup instead of honey for a deeper caramel note.'},
 
   {type:'Dessert',name:'Baked Pears with Honey & Almonds',time:'25 min',servings:'2',leftover:true,budget:'low',
    ings:['2 ripe pears (halved, cored)','2 tbsp honey','¼ tsp cinnamon','¼ cup roughly chopped almonds','1 tsp butter (optional)','pinch of nutmeg'],
-   steps:['Preheat oven to 375°F','Place pear halves cut-side up in a small baking dish','Drizzle honey into the hollow of each pear half','Sprinkle cinnamon + nutmeg over all four halves','Scatter chopped almonds over top, add a tiny dot of butter on each pear if using','Add a splash of water to the baking dish','Bake 20–25 min until pears are golden and tender','Serve warm, optionally with a spoonful of cottage cheese on the side'],
+   steps:['Preheat oven to 375°F','Place pear halves cut-side up in a small baking dish','Drizzle honey into the hollow of each pear half','Sprinkle cinnamon + nutmeg over all four halves','Scatter chopped almonds over top, add a tiny dot of butter on each pear if using','Add a splash of water to the baking dish','Bake 20–25 min until pears are golden and tender','Serve warm, optionally with a dollop of Greek yogurt on the side'],
    swap:'Use apples if pears aren\'t available. Add a crumble topping: mix oats + almond butter + cinnamon + honey and pile it on the pears before baking.'},
 
   // ── BREAKFAST × 2 (to reach 20) ─────────────────────────────
@@ -2029,7 +2029,7 @@ const RECIPES = [
   {type:'Dinner',name:'Chicken Marsala (Simplified)',time:'25 min',servings:'2',leftover:false,budget:'medium',
    ings:['2 chicken breasts (pounded thin or butterflied)','1 cup sliced mushrooms','3 garlic cloves (minced)','½ cup chicken broth','2 tbsp butter','2 tbsp olive oil','1 tsp Italian seasoning','salt + pepper','fresh or dried parsley','pasta or rice for serving'],
    steps:['Season chicken with salt, pepper, and Italian seasoning','Sear in olive oil + butter over medium-high, 4–5 min per side until golden. Set aside','In same pan, sauté mushrooms 4 min until golden — do not stir too often','Add garlic 1 min, then pour in chicken broth, scraping up all browned bits','Simmer 3 min until sauce reduces slightly','Return chicken to pan, simmer 5 min, baste with sauce','Finish with a small knob of butter swirled in, top with parsley'],
-   swap:'No mushrooms? Use diced bell pepper or skip entirely — the garlic butter sauce is the star. Add a splash of cream or blended cottage cheese to make the sauce richer.'},
+   swap:'No mushrooms? Use diced bell pepper or skip entirely — the garlic butter sauce is the star. Add a splash of cream or a knob of extra butter to make the sauce richer.'},
 
   {type:'Dinner',name:'Spicy Honey Glazed Salmon',time:'18 min',servings:'2',leftover:false,budget:'medium',
    ings:['2 salmon fillets','2 tbsp honey','1 tbsp soy sauce','1 tsp sriracha or chili garlic sauce','1 tsp garlic powder','salt + pepper','olive oil','sesame seeds + green onion for topping','rice + steamed veg for serving'],
@@ -2060,7 +2060,7 @@ const RECIPES = [
   // ── DESSERT × 1 (to reach 20) ────────────────────────────────
   {type:'Dessert',name:'Oat & Honey Peach Crumble',time:'30 min',servings:'3',leftover:true,budget:'low',
    ings:['2 cups sliced peaches (fresh, frozen, or canned in juice — not syrup)','1 tbsp honey','½ tsp cinnamon','1 tsp vanilla extract','Crumble topping: ¾ cup rolled oats + 3 tbsp almond butter + 2 tbsp honey + ½ tsp cinnamon + pinch of salt'],
-   steps:['Preheat oven to 350°F','Toss sliced peaches with honey, cinnamon, and vanilla in a baking dish','Mix crumble: combine oats + almond butter + honey + cinnamon + salt until clumpy','Spread crumble evenly over peaches, pressing gently to cover','Bake 25–28 min until peaches are bubbling and crumble is golden brown','Cool 5 min before serving — top with a spoonful of cottage cheese if desired'],
+   steps:['Preheat oven to 350°F','Toss sliced peaches with honey, cinnamon, and vanilla in a baking dish','Mix crumble: combine oats + almond butter + honey + cinnamon + salt until clumpy','Spread crumble evenly over peaches, pressing gently to cover','Bake 25–28 min until peaches are bubbling and crumble is golden brown','Cool 5 min before serving — top with a spoonful of Greek yogurt if desired'],
    swap:'Use apples, pears, or mixed berries instead of peaches. Frozen fruit works perfectly — no need to thaw. A scoop of banana ice cream on top turns this into a full dessert moment.'},
 ];
 
@@ -2375,8 +2375,8 @@ const SEARCH_KEYWORDS = {
   cheese:    ['cheese','feta','parmesan','mozzarella','shredded'],
   garlic:    ['garlic','garlic butter','garlic parmesan'],
   // Goal
-  protein:   ['chicken','beef','eggs','salmon','tuna','turkey','shrimp','pork','lamb','cottage cheese','protein powder'],
-  highprotein:['chicken','beef','eggs','salmon','tuna','turkey','shrimp','pork','cottage cheese'],
+  protein:   ['chicken','beef','eggs','salmon','tuna','turkey','shrimp','pork','lamb','greek yogurt','protein powder'],
+  highprotein:['chicken','beef','eggs','salmon','tuna','turkey','shrimp','pork','greek yogurt'],
   lowcarb:   ['lettuce','cucumber','avocado','egg','salad','zucchini'],
 };
 
