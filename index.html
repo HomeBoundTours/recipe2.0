@@ -351,6 +351,7 @@ button{font-family:'DM Sans',sans-serif;cursor:pointer;}
 .item-name span:first-child{flex:1;}
 .item-meta{font-size:11px;color:var(--muted);margin-top:2px;}
 .item-note{font-size:11px;color:var(--dim);margin-top:1px;font-style:italic;}
+.plan-qty-hint{font-size:11px;color:var(--accentGlow);font-weight:600;margin-top:3px;letter-spacing:0.1px;}
 .price-area{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;}
 .price-est{font-size:12px;color:var(--accent);font-weight:600;white-space:nowrap;}
 .price-edit{
@@ -3055,6 +3056,28 @@ function addRecipeToPlan(name, rcKey){
 }
 
 // ─── GROCERY PLAN FILTER ─────────────────────────────────────────
+function parseIngredientQty(ing){
+  const FRACS = {'½':0.5,'¼':0.25,'¾':0.75,'⅓':1/3,'⅔':2/3,'⅛':0.125};
+  const UNITS = ['cup','cups','tbsp','tsp','oz','lb','lbs','can','cans','scoop','scoops','slice','slices','clove','cloves','piece','pieces','fillet','fillets','handful','bunch','bunches','sprig','sprigs'];
+  let s = ing.trim();
+  let qty = 0;
+  let unit = '';
+  // Leading integer + optional unicode fraction e.g. "1½", "2 ½"
+  const numFrac = s.match(/^(\d+)\s*([½¼¾⅓⅔⅛])?/);
+  if(numFrac){
+    qty = parseInt(numFrac[1]) + (numFrac[2] ? FRACS[numFrac[2]] : 0);
+    s = s.slice(numFrac[0].length).trim();
+  } else {
+    // Leading unicode fraction only e.g. "½ cup"
+    const fracOnly = s.match(/^([½¼¾⅓⅔⅛])/);
+    if(fracOnly){ qty = FRACS[fracOnly[1]]; s = s.slice(fracOnly[0].length).trim(); }
+  }
+  // Extract unit if next word is a known unit
+  const firstWord = s.split(/\s+/)[0]?.toLowerCase().replace(/[^a-z]/g,'');
+  if(UNITS.includes(firstWord)) unit = firstWord;
+  return {qty, unit};
+}
+
 function getPlanKeywords(){
   const SKIP = new Set(['with','from','into','each','over','until','then','that','this','using','dash','pinch','tbsp','tsp','cups','fresh','dried','more','less','half','just','some','taste','optional','cooked','sliced','diced','chopped','minced']);
   const planned = new Set(Object.values(weekPlan).filter(Boolean));
@@ -3088,6 +3111,8 @@ function applyGroceryPlanFilter(active){
   const btn   = document.getElementById('planFilterBtn');
   const count = document.getElementById('planFilterCount');
   if(!btn) return;
+  // Always clear old hints first
+  document.querySelectorAll('.plan-qty-hint').forEach(e=>e.remove());
   if(!active){
     window._groceryPlanFilter = false;
     btn.classList.remove('active');
@@ -3104,6 +3129,11 @@ function applyGroceryPlanFilter(active){
     if(t){ const p=t.textContent; t.textContent='No meals planned yet!'; t.classList.add('show'); setTimeout(()=>{ t.classList.remove('show'); t.textContent=p; },2200); }
     return;
   }
+  // Build plan recipe counts (recipe name → how many slots it fills)
+  const planCounts = {};
+  Object.values(weekPlan).filter(Boolean).forEach(name=>{
+    planCounts[name] = (planCounts[name]||0) + 1;
+  });
   let shown = 0;
   document.querySelectorAll('.grocery-item').forEach(item=>{
     const nameEl = item.querySelector('.item-name span');
@@ -3111,7 +3141,42 @@ function applyGroceryPlanFilter(active){
     const text = nameEl.textContent.toLowerCase();
     const match = keywords.some(k=> text.includes(k));
     item.style.display = match ? '' : 'none';
-    if(match) shown++;
+    if(!match) return;
+    shown++;
+    // Build quantity hint for this item
+    // Extract meaningful keywords from the grocery item name (skip noise)
+    const itemWords = text.replace(/\(.*?\)/g,'').split(/\s+/)
+      .map(w=>w.replace(/[^a-z]/g,''))
+      .filter(w=> w.length >= 3 && !['the','and','for','per','pkg','bag','box','jar','can'].includes(w));
+    let totalQty = 0;
+    let bestUnit = '';
+    const breakdown = []; // [{label, qty, unit}]
+    RECIPES.forEach(r=>{
+      const rCount = planCounts[r.name];
+      if(!rCount) return;
+      r.ings.forEach(ing=>{
+        const ingLower = ing.toLowerCase();
+        if(!itemWords.some(w=> ingLower.includes(w))) return;
+        const {qty, unit} = parseIngredientQty(ing);
+        if(qty > 0){
+          totalQty += qty * rCount;
+          if(!bestUnit && unit) bestUnit = unit;
+          // Short label: strip leading quantity/unit, take first meaningful words
+          const label = ing.replace(/^[\d½¼¾⅓⅔⅛\s\/\.]+/,'').replace(/\([^)]*\)/g,'').split(/[,+]/)[0].trim();
+          const existing = breakdown.find(b=> b.label === label);
+          if(existing) existing.qty += qty * rCount;
+          else breakdown.push({label, qty: qty * rCount});
+        }
+      });
+    });
+    if(totalQty > 0 && item.querySelector('.item-info')){
+      const hint = document.createElement('div');
+      hint.className = 'plan-qty-hint';
+      const displayQty = Number.isInteger(totalQty) ? totalQty : parseFloat(totalQty.toFixed(1));
+      const unitStr = bestUnit ? ' '+bestUnit : '';
+      hint.textContent = `📋 Plan needs: ~${displayQty}${unitStr}`;
+      item.querySelector('.item-info').appendChild(hint);
+    }
   });
   btn.classList.add('active');
   const lbl = document.getElementById('planFilterLabel');
