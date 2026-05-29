@@ -239,6 +239,7 @@ button{font-family:'DM Sans',sans-serif;cursor:pointer;}
   padding:14px 16px;
   margin-bottom:14px;
   display:flex;flex-direction:column;align-items:stretch;
+  transition:border-color 0.2s,background 0.2s;
 }
 .grocery-cost-left .gc-label{font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;}
 .grocery-cost-left .gc-amount{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--accent);line-height:1.1;}
@@ -857,7 +858,7 @@ input[type=number]{-moz-appearance:textfield;}
   <div class="how-to-card">
     <div class="how-to-header" onclick="toggleHowTo()">
       <span class="how-to-title">🚀 How to Use This App</span>
-      <span class="chevron open" id="how-to-chev">▾</span>
+      <span class="chevron" id="how-to-chev">▾</span>
     </div>
     <div class="how-to-body" id="how-to-body">
       <div class="how-to-step">
@@ -883,19 +884,28 @@ input[type=number]{-moz-appearance:textfield;}
     </div>
   </div>
 
-  <!-- APP OVERVIEW -->
-  <div class="section-label">App Overview</div>
-  <div class="info-row"><span class="info-key">📅 Plan Length</span><span class="info-val">7-day plan — run it every week, same shop</span></div>
-  <div class="info-row"><span class="info-key">💰 Est. Weekly Cost</span><span class="info-val">~$185–$200 first shop · ~$70–$90 ongoing</span></div>
-  <div class="info-row"><span class="info-key">🍽 Meals Covered</span><span class="info-val">Breakfast · Lunch · Snack · Dinner</span></div>
-  <div class="info-row"><span class="info-key">🎯 Nutrition Focus</span><span class="info-val">High protein (100–200g/day), adaptable to your goal</span></div>
-  <div class="info-row"><span class="info-key">🍳 Prep Style</span><span class="info-val">Sunday batch (60–90 min) + Wed refresh (20 min)</span></div>
-  <div class="info-row"><span class="info-key">📖 Recipes</span><span class="info-val">75+ recipes, 5 categories, searchable & filterable</span></div>
-  <div class="info-row"><span class="info-key">✏️ Customizable</span><span class="info-val">Swap any recipe, store, or meal slot to fit your schedule, budget, or taste</span></div>
+  <!-- APP OVERVIEW — collapsible -->
+  <button class="store-toggle" onclick="toggleSummarySection('overview')" id="btn-overview" style="margin-top:0;">
+    <div><div class="store-name" style="color:var(--text);font-size:13px;">📋 App Overview</div><div class="store-sub">Plan, cost, recipes & nutrition at a glance</div></div>
+    <span class="chevron" id="chev-overview">▾</span>
+  </button>
+  <div class="store-body" id="body-overview" style="display:none;padding:4px 0 8px;">
+    <div class="info-row"><span class="info-key">📅 Plan Length</span><span class="info-val">7-day plan — run it every week, same shop</span></div>
+    <div class="info-row"><span class="info-key">💰 Est. Weekly Cost</span><span class="info-val">~$185–$200 first shop · ~$70–$90 ongoing</span></div>
+    <div class="info-row"><span class="info-key">🍽 Meals Covered</span><span class="info-val">Breakfast · Lunch · Snack · Dinner</span></div>
+    <div class="info-row"><span class="info-key">🎯 Nutrition Focus</span><span class="info-val">High protein (100–200g/day), adaptable to your goal</span></div>
+    <div class="info-row"><span class="info-key">🍳 Prep Style</span><span class="info-val">Sunday batch (60–90 min) + Wed refresh (20 min)</span></div>
+    <div class="info-row"><span class="info-key">📖 Recipes</span><span class="info-val">75+ recipes, 5 categories, searchable & filterable</span></div>
+    <div class="info-row"><span class="info-key">✏️ Customizable</span><span class="info-val">Swap any recipe, store, or meal slot to fit your schedule, budget, or taste</span></div>
+  </div>
 
-  <div class="divider"></div>
-  <div class="section-label">Grocery Strategy</div>
-  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Split across 3 stores to maximize value — Costco for bulk proteins, Sprouts for produce & pantry, Safeway for weekly deals on fresh veg.</p>
+  <!-- GROCERY STRATEGY — collapsible -->
+  <button class="store-toggle" onclick="toggleSummarySection('strategy')" id="btn-strategy" style="margin-top:8px;">
+    <div><div class="store-name" style="color:var(--text);font-size:13px;">🛒 Grocery Strategy</div><div class="store-sub">3 stores · ~$70–$90/week ongoing</div></div>
+    <span class="chevron" id="chev-strategy">▾</span>
+  </button>
+  <div class="store-body" id="body-strategy" style="display:none;padding:10px 0 4px;">
+    <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Split across 3 stores to maximize value — Costco for bulk proteins, Sprouts for produce & pantry, Safeway for weekly deals on fresh veg.</p>
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Costco <span style="font-size:10px;color:var(--dim);font-weight:400;">· Sam's Club</span></span><span class="store-pick-est">~$115</span></div><div class="store-pick-note">Bulk proteins, oats, almonds, olive oil — best $/lb</div></div>
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Sprouts <span style="font-size:10px;color:var(--dim);font-weight:400;">· Walmart, Trader Joe's, Whole Foods</span></span><span class="store-pick-est">~$50</span></div><div class="store-pick-note">Produce, dairy, pantry sauces & canned goods</div></div>
   <div class="store-pick"><div class="store-pick-header"><span class="store-pick-name">Safeway <span style="font-size:10px;color:var(--dim);font-weight:400;">· Fry's, Kroger, HEB, Publix</span></span><span class="store-pick-est">~$30</span></div><div class="store-pick-note">Weekly sales on avocados, fresh veg, spice upgrades</div></div>
@@ -903,8 +913,7 @@ input[type=number]{-moz-appearance:textfield;}
   <div style="background:var(--accentBg);border:1px solid var(--accentDim);border-radius:var(--r-sm);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accentGlow);line-height:1.7;">
     💡 <strong>First shop is ~$185–$200</strong> because it includes pantry items (rice, oats, olive oil, spices) that last 4–8 weeks. <strong>Ongoing weekly cost drops to ~$70–$90</strong> — just proteins, fresh produce, and dairy.
   </div>
-
-  <div class="divider"></div>
+  </div><!-- /body-strategy -->
 
   <!-- PANTRY UPGRADES — collapsible -->
   <button class="store-toggle" onclick="toggleSummarySection('pantry')" id="btn-pantry" style="margin-top:0;">
@@ -980,8 +989,8 @@ input[type=number]{-moz-appearance:textfield;}
         <div class="gc-amount" id="grandTotal" style="font-size:22px;">$0.00</div>
       </div>
       <div class="grocery-cost-right">
-        <div class="gc-label">items checked</div>
-        <div class="gc-count" id="itemCount">0</div>
+        <div class="gc-label" id="itemCountLabel">tap to check off</div>
+        <div class="gc-count" id="itemCount">—</div>
         <div class="gc-budget-remaining" id="budgetRemaining" style="color:var(--muted);display:none;"></div>
       </div>
     </div>
@@ -1424,7 +1433,7 @@ input[type=number]{-moz-appearance:textfield;}
     <div class="section-label" style="margin:0;">Weekly Meal Planner</div>
     <div style="display:flex;gap:6px;">
       <button class="plan-clear-btn" onclick="collapseAllPlan()" title="Collapse all days">⊟ Collapse</button>
-      <button class="plan-clear-btn" onclick="clearPlan()">🗑 Clear</button>
+      <button class="plan-clear-btn" onclick="clearPlan()" style="border-color:var(--dim);">⚠️ Clear Week</button>
     </div>
   </div>
   <p style="font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.6;">Tap a day to expand. Choose a recipe for each meal — ingredients will load below each pick.</p>
@@ -2746,9 +2755,10 @@ function calcStoreTotal(prefix){
   return total;
 }
 
-function calcEstimatedTotal(){
+function calcEstimatedTotal(visibleOnly){
   let est = 0;
   document.querySelectorAll('.grocery-item').forEach(item=>{
+    if(visibleOnly && item.style.display === 'none') return;
     est += parseFloat(item.getAttribute('data-est')) || 0;
   });
   return est;
@@ -2766,7 +2776,9 @@ function updateGroceryProgress(){
   if(label) label.textContent = `${done} of ${total} items checked ✓`;
   // Update count display to show checked items
   const countEl = document.getElementById('itemCount');
-  if(countEl) countEl.textContent = done;
+  const countLbl = document.getElementById('itemCountLabel');
+  if(countEl) countEl.textContent = done > 0 ? done : '—';
+  if(countLbl) countLbl.textContent = done > 0 ? 'items checked ✓' : 'tap to check off';
 }
 
 function updateTotal(){
@@ -2788,18 +2800,41 @@ function updateTotal(){
   });
 
   const totalEl = document.getElementById('grandTotal');
+  const planActive = window._groceryPlanFilter;
+  // Highlight cost card when plan filter is on
+  const costCard = document.querySelector('.grocery-cost-card');
+  if(costCard){
+    costCard.style.borderColor = planActive ? 'var(--accentDim)' : '';
+    costCard.style.background = planActive ? 'var(--accentBg)' : '';
+    costCard.style.borderLeftColor = 'var(--accent)';
+  }
+  const estTotal = calcEstimatedTotal(planActive);
   if(count === 0){
-    totalEl.textContent = '$0.00';
-    totalEl.style.fontSize = '22px';
+    if(planActive){
+      totalEl.textContent = '~$'+estTotal.toFixed(0);
+      totalEl.style.fontSize = '22px';
+      totalEl.title = 'Estimated cost for your planned meals';
+    } else {
+      totalEl.textContent = '$0.00';
+      totalEl.style.fontSize = '22px';
+      totalEl.title = '';
+    }
   } else {
     totalEl.textContent = '$'+grand.toFixed(2);
     totalEl.style.fontSize = '';
+    totalEl.title = '';
+  }
+
+  // Update the label to reflect plan mode
+  const gcLabel = document.querySelector('.gc-label');
+  if(gcLabel){
+    gcLabel.textContent = planActive ? 'Est. plan cost (pre-tax)' : 'Projected Total (pre-tax)';
   }
 
   updateGroceryProgress();
 
   const remEl = document.getElementById('budgetRemaining');
-  const displayAmt = count > 0 ? grand : calcEstimatedTotal();
+  const displayAmt = count > 0 ? grand : estTotal;
   if(budget && budget > 0){
     remEl.style.display = 'block';
     const rem = budget - displayAmt;
@@ -3120,6 +3155,7 @@ function applyGroceryPlanFilter(active){
     if(lbl) lbl.textContent = '🗓 Filter by Plan';
     if(count){ count.style.display='none'; }
     document.querySelectorAll('.grocery-item').forEach(i=>{ i.style.display=''; });
+    updateTotal();
     return;
   }
   const keywords = getPlanKeywords();
@@ -3182,6 +3218,7 @@ function applyGroceryPlanFilter(active){
   const lbl = document.getElementById('planFilterLabel');
   if(lbl) lbl.textContent = '✕ Show All';
   if(count){ count.textContent = shown; count.style.display=''; }
+  updateTotal();
 }
 
 // ─── NEW WEEK RESET ───────────────────────────────────────────────
@@ -3222,6 +3259,12 @@ function setTimeFilter(f, btn){
 }
 
 function togglePlanRecipeFilter(){
+  const hasplan = Object.values(weekPlan).some(Boolean);
+  if(!planRecipeFilter && !hasplan){
+    const t = document.getElementById('copyToast');
+    if(t){ const p=t.textContent; t.style.background='var(--card2)'; t.style.color='var(--accentGlow)'; t.style.border='1px solid var(--accentDim)'; t.textContent='📅 No meals planned yet — go to Plan tab first'; t.classList.add('show'); setTimeout(()=>{ t.classList.remove('show'); t.textContent=p; t.style.background=''; t.style.color=''; t.style.border=''; },2500); }
+    return;
+  }
   planRecipeFilter = !planRecipeFilter;
   renderRecipes();
 }
