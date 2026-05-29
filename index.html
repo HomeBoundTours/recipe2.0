@@ -1027,7 +1027,7 @@ input[type=number]{-moz-appearance:textfield;}
     <div><div class="store-name">COSTCO <span style="font-size:10px;color:var(--dim);font-weight:400;letter-spacing:0;">· Sam's Club</span></div><div class="store-sub">Bulk proteins & staples — best $/lb</div></div>
     <span class="chevron" id="chev-costco">▾</span>
   </button>
-  <div class="store-body" id="body-costco">
+  <div class="store-body" id="body-costco" style="display:none;">
     <div class="section-head">Protein</div>
     <div class="grocery-item" id="gi-c1" data-est="17" data-optional="false">
       <div class="checkbox" onclick="toggleItem('c1',this)"></div>
@@ -2054,6 +2054,11 @@ const RECIPES = [
    steps:['Preheat oven to 425°F or heat a skillet over medium-high','Mix honey + soy sauce + sriracha + garlic powder into a spicy glaze','Pat salmon dry, season with salt and pepper','Brush glaze generously over the flesh side of each fillet','Bake 12–14 min until salmon flakes easily, or pan-sear 4 min flesh-side down, flip, 3 min skin-side down','Brush any remaining glaze on top the last 2 min of cooking','Serve over rice with steamed broccoli, top with sesame seeds + green onion'],
    swap:'Adjust sriracha to taste — use more for extra heat, skip it entirely for a pure honey-soy glaze. Works equally well on chicken breast or thighs.'},
 
+  {type:'Dinner',name:'Orange Chicken Bowl',time:'35 min',servings:'4',leftover:true,budget:'medium',
+   ings:['2 lbs boneless skinless chicken breasts (cut into 1-inch cubes)','2 tbsp sesame oil','1 cup fresh orange juice (about 3 oranges)','¼ cup soy sauce (low sodium)','¼ cup chicken broth','3 tbsp honey','1 tbsp fresh ginger (grated)','1 tsp garlic powder','½ tbsp orange zest','½ tsp black pepper','green onion + sesame seeds for topping','prepped brown rice + steamed broccoli for serving'],
+   steps:['Heat sesame oil in a large skillet over medium-high. Add chicken cubes in a single layer — cook 12–15 min, stirring occasionally, until no longer pink. Set chicken aside on a plate','While chicken cooks, whisk together orange juice, soy sauce, chicken broth, honey, ginger, garlic powder, orange zest, and black pepper in a bowl','Pour sauce into the empty skillet and simmer over medium heat 5–8 min, stirring often, until it thickens and coats a spoon. If it won\'t thicken, stir in 1 tbsp cornstarch dissolved in 2 tbsp water','Return chicken to the pan, toss to coat evenly, simmer 2 min more','Sprinkle with green onion and sesame seeds','Divide among 4 containers with rice and broccoli — keeps 4 days in the fridge, freezes up to 3 months'],
+   swap:'Use chicken thighs for extra juiciness — same cook time. Bottled OJ works in a pinch but fresh gives a brighter flavor. Add red pepper flakes or a teaspoon of sriracha to the sauce for a sweet-heat version.'},
+
   // ── SNACK × 4 (to reach 20) ──────────────────────────────────
   {type:'Snack',name:'Banana Peanut Butter Protein Bites',time:'10 min + 20 min freeze',servings:'8 bites',leftover:true,budget:'low',
    ings:['1 ripe banana (mashed)','2 tbsp peanut butter','½ cup rolled oats','1 tbsp honey','pinch of cinnamon','optional: mini chocolate chips or crushed almonds for rolling'],
@@ -2107,7 +2112,7 @@ let openStore = '';
 let openRecipes = {};
 let prepChecked = {};
 let midWeekChecked = {};
-let openRecipeFolders = {Breakfast:true};
+let openRecipeFolders = {};
 let recipeSearchQuery = '';
 let timeFilter = 'all';
 let planRecipeFilter = false;
