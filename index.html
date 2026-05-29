@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Meal Plan — 2-Week Plan</title>
+<title>Meal Prep Planner — High-Protein Budget Meals</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* ── DESIGN TOKENS ─────────────────────────────────────────────── */
@@ -643,8 +643,9 @@ input[type=number]{-moz-appearance:textfield;}
 .plan-slot:last-child{border-bottom:none;}
 .plan-slot-top{display:flex;align-items:center;gap:10px;}
 .plan-slot-label{font-size:11px;color:var(--muted);width:72px;flex-shrink:0;}
-.plan-select{flex:1;background:var(--card2);border:1px solid var(--borderHi);border-radius:var(--r-sm);color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;padding:6px 8px;}
+.plan-select{flex:1;background:var(--card2);border:1px solid var(--borderHi);border-radius:var(--r-sm);color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;padding:6px 8px;transition:background 0.15s,border-color 0.15s;}
 .plan-select:focus{outline:none;border-color:var(--accent);}
+.plan-select.has-meal{background:var(--accentBg);border-color:var(--accentDim);color:var(--accentGlow);font-weight:600;}
 /* Plan recipe preview */
 .plan-recipe-preview{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:7px 10px;margin-top:6px;}
 .prp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
@@ -751,6 +752,22 @@ input[type=number]{-moz-appearance:textfield;}
 .hs-btn{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--muted);font-size:13px;font-family:'DM Sans',sans-serif;padding:7px 4px;cursor:pointer;transition:all 0.15s;}
 .hs-btn.active{background:var(--accentBg);border-color:var(--accent);color:var(--accent);font-weight:700;}
 
+/* ── ONBOARDING CARD ───────────────────────────────────────────── */
+.onboard-card{background:linear-gradient(135deg,#0f1e34 0%,#0d1520 100%);border:1px solid var(--accentDim);border-radius:var(--r-md);padding:14px 16px;margin-bottom:12px;}
+.onboard-card-title{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--accentGlow);letter-spacing:1px;margin-bottom:6px;}
+.onboard-steps{display:flex;flex-direction:column;gap:6px;}
+.onboard-step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);}
+.onboard-step-num{width:22px;height:22px;border-radius:50%;background:var(--accentDim);color:var(--accentGlow);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.onboard-step .hts-tab-link{font-weight:600;}
+.onboard-cta{margin-top:12px;width:100%;background:var(--accent);color:#000;font-weight:700;font-size:13px;border:none;border-radius:var(--r-sm);padding:11px 16px;letter-spacing:0.2px;transition:background 0.15s;}
+.onboard-cta:active{background:var(--accent2);}
+/* ── GROCERY PLAN NUDGE BANNER ─────────────────────────────────── */
+.grocery-plan-nudge-banner{background:var(--accentBg);border:1px solid var(--accent);border-radius:var(--r-md);padding:12px 14px;margin-bottom:10px;display:none;}
+.grocery-plan-nudge-banner.visible{display:block;}
+.gpnb-row{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.gpnb-text{font-size:13px;color:var(--accentGlow);line-height:1.5;flex:1;}
+.gpnb-btn{background:var(--accent);color:#000;border:none;border-radius:var(--r-sm);font-size:12px;font-weight:700;padding:7px 12px;white-space:nowrap;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.gpnb-btn:active{background:var(--accent2);}
 /* ── START PLANNING CTA ────────────────────────────────────────── */
 .start-planning-btn{width:100%;background:var(--accent);color:#000;font-weight:700;font-size:14px;border:none;border-radius:var(--r-md);padding:13px 16px;margin-bottom:14px;letter-spacing:0.3px;transition:background 0.15s,transform 0.1s;}
 .start-planning-btn:active{background:var(--accent2);transform:scale(0.98);}
@@ -775,9 +792,9 @@ input[type=number]{-moz-appearance:textfield;}
   <div class="header-top">
     <div>
       <div class="header-title" style="font-size:26px;line-height:1;">MEAL PREP</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:0.3px;">High-protein eating on a budget</div>
+      <div style="font-size:12px;color:var(--text);margin-top:4px;letter-spacing:0.2px;font-weight:500;">Eat well all week · Shop once · Prep in 90 min</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:0.2px;">High-protein meals · $70–$90/week · 75+ recipes</div>
     </div>
-    <div style="font-size:11px;color:var(--muted);text-align:right;line-height:1.6;padding-top:4px;">75+ recipes · 3 stores</div>
   </div>
 </div>
 
@@ -802,14 +819,25 @@ input[type=number]{-moz-appearance:textfield;}
   <button class="tab-btn" onclick="switchTab('plan',this)"><span class="tab-icon">📅</span>Plan</button>
   <button class="tab-btn" onclick="switchTab('grocery',this)"><span class="tab-icon">🛒</span>Grocery</button>
   <button class="tab-btn" onclick="switchTab('prep',this)"><span class="tab-icon">🍳</span>Prep</button>
-  <button class="tab-btn" onclick="switchTab('matrix',this)"><span class="tab-icon">♻️</span>Leftovers</button>
+  <button class="tab-btn" onclick="switchTab('matrix',this)"><span class="tab-icon">🔄</span>Remix</button>
 </div>
 
 <!-- ===== SUMMARY TAB ===== -->
 <div id="tab-summary" class="content tab-content" style="display:block;">
 
-  <!-- START CTA -->
-  <button class="start-planning-btn" onclick="goToTab('plan')" style="margin-top:6px;">📅 Start Planning This Week →</button>
+  <!-- FIRST-RUN ONBOARDING CARD (hidden once plan exists) -->
+  <div class="onboard-card" id="onboardCard" style="margin-top:6px;">
+    <div class="onboard-card-title">👋 New here? Here's how it works.</div>
+    <div class="onboard-steps">
+      <div class="onboard-step"><div class="onboard-step-num">1</div><span>Go to <strong><span class="hts-tab-link" onclick="goToTab('plan')">Weekly Plan</span></strong> — pick a recipe for each meal slot</span></div>
+      <div class="onboard-step"><div class="onboard-step-num">2</div><span>Open <strong><span class="hts-tab-link" onclick="goToTab('grocery')">Grocery</span></strong> — tap "Filter by Plan" to see exactly what to buy</span></div>
+      <div class="onboard-step"><div class="onboard-step-num">3</div><span>Use <strong><span class="hts-tab-link" onclick="goToTab('prep')">Prep</span></strong> — batch cook on Sunday in ~90 min. Done.</span></div>
+    </div>
+    <button class="onboard-cta" onclick="goToTab('plan')">📅 Start Building My Week →</button>
+  </div>
+
+  <!-- START CTA (shown once plan is underway) -->
+  <button class="start-planning-btn" id="startPlanningBtn" onclick="goToTab('plan')" style="margin-top:6px;display:none;">📅 Continue Planning This Week →</button>
 
   <!-- YOUR WEEK CARD -->
   <div class="your-week-card" id="yourWeekCard">
@@ -1008,6 +1036,14 @@ input[type=number]{-moz-appearance:textfield;}
       <span class="plan-filter-count" id="planFilterCount" style="display:none;"></span>
     </button>
     <button class="plan-filter-btn" id="hideCheckedBtn" style="margin-bottom:0;padding:9px 10px;white-space:nowrap;" onclick="toggleHideChecked()">👁 Hide done</button>
+  </div>
+
+  <!-- PLAN-ACTIVE FILTER NUDGE (shown when plan exists but filter is off) -->
+  <div class="grocery-plan-nudge-banner" id="groceryPlanActiveBanner">
+    <div class="gpnb-row">
+      <div class="gpnb-text">📅 You have <strong id="gpnbMealCount">meals</strong> planned — filter your list to just what you need.</div>
+      <button class="gpnb-btn" onclick="toggleGroceryPlanFilter();document.getElementById('groceryPlanActiveBanner').classList.remove('visible');">Filter for my plan</button>
+    </div>
   </div>
 
   <!-- EMPTY PLAN NUDGE -->
@@ -1443,7 +1479,7 @@ input[type=number]{-moz-appearance:textfield;}
 
 <!-- ===== MIX & MATCH TAB ===== -->
 <div id="tab-matrix" class="content tab-content" style="display:none;">
-  <div class="section-label" style="margin-top:6px;">Leftover Matrix</div>
+  <div class="section-label" style="margin-top:6px;">Remix What You've Got</div>
   <p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6;">Tap what you have prepped — see only the meals you can actually make.</p>
   <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;" id="matrixFilters">
     <button class="time-filter-btn active" onclick="setMatrixFilter('all',this)">All</button>
@@ -2168,6 +2204,11 @@ function renderYourWeek(){
     else if(!isEmpty) greet.innerHTML = '👋 Welcome back!';
     else greet.innerHTML = "👋 Let's build your first week";
   }
+  // Onboarding card: show only when no meals planned; swap to CTA once they've started
+  const onboard = document.getElementById('onboardCard');
+  const startBtn = document.getElementById('startPlanningBtn');
+  if(onboard) onboard.style.display = meals === 0 ? 'block' : 'none';
+  if(startBtn) startBtn.style.display = meals > 0 ? 'block' : 'none';
 }
 function restoreProfile(){
   const ni = document.getElementById('userNameInput');
@@ -2307,14 +2348,81 @@ function saveState(){
   }catch(e){}
 }
 
+// ─── DYNAMIC PREP GENERATOR ─────────────────────────────────────
+function generateDynamicPrepSteps(){
+  const planned = Object.values(weekPlan).filter(Boolean);
+  if(!planned.length) return null;
+  // Gather all ingredients from planned recipes
+  const allIngs = [];
+  planned.forEach(name=>{
+    const r = RECIPES.find(rx=>rx.name===name);
+    if(r) r.ings.forEach(i=>allIngs.push(i.toLowerCase()));
+  });
+  const has = kws => kws.some(k=>allIngs.some(i=>i.includes(k)));
+  const steps = [];
+  // Proteins
+  if(has(['chicken breast','chicken thigh','chicken fillet'])){
+    steps.push({icon:'🍗',time:'0:00–0:30',task:'Season & bake chicken (smoked paprika, garlic powder, salt) at 400°F — 6–8 pieces at once, 22–25 min'});
+  }
+  if(has(['ground beef','ground turkey'])){
+    const meat = allIngs.some(i=>i.includes('ground beef')) ? 'ground beef' : 'ground turkey';
+    steps.push({icon:'🥩',time:'0:00–0:15',task:`Brown 1.5–2 lb ${meat} with onion, garlic, and your spice mix — divide for tacos, bowls, and pasta`});
+  }
+  if(has(['salmon','salmon fillet'])){
+    steps.push({icon:'🐟',time:'0:15–0:30',task:'Season salmon fillets with lemon + garlic; pan-sear 3 min then oven at 425°F for 10 min'});
+  }
+  if(has(['shrimp'])){
+    steps.push({icon:'🦐',time:'0:10–0:20',task:'Sauté shrimp 2–3 min per side in garlic butter — keep slightly underdone if reheating later'});
+  }
+  if(has(['egg','eggs'])){
+    steps.push({icon:'🥚',time:'0:30–0:40',task:'Hard-boil 6–8 eggs: boil 10 min, ice bath, peel and store in water'});
+  }
+  // Carbs
+  if(has(['brown rice','white rice','jasmine rice','basmati rice'])){
+    steps.push({icon:'🍚',time:'0:00–0:25',task:'Cook a big batch of rice in broth for extra flavor — makes 6–8 portions. Start this first.'});
+  }
+  if(has(['pasta','noodle','spaghetti','penne','fettuccine'])){
+    steps.push({icon:'🍝',time:'0:20–0:30',task:'Boil pasta al dente, toss with olive oil to prevent sticking — portion into containers'});
+  }
+  if(has(['quinoa'])){
+    steps.push({icon:'🌾',time:'0:00–0:20',task:'Cook quinoa (2:1 water ratio, 15 min) — use broth for flavor. Makes 4–6 portions.'});
+  }
+  if(has(['sweet potato','sweet potatoes'])){
+    steps.push({icon:'🍠',time:'0:00–0:40',task:'Cube sweet potatoes, toss in olive oil + cinnamon or paprika, roast at 400°F for 30–35 min'});
+  }
+  // Veg
+  if(has(['broccoli','bell pepper','zucchini','asparagus'])){
+    steps.push({icon:'🥦',time:'0:25–0:40',task:'Sheet-pan roast mixed veg (broccoli, bell peppers, zucchini) at 425°F for 20 min — season with garlic + oil'});
+  }
+  if(has(['spinach','kale'])){
+    steps.push({icon:'🥬',time:'0:40–0:45',task:'Sauté spinach or kale in garlic + olive oil — wilt 3 min, portion for bowls and wraps'});
+  }
+  // Sauces / Prep
+  if(has(['greek yogurt','garlic','lemon juice']) || has(['chipotle','lime','sour cream'])){
+    steps.push({icon:'🥣',time:'0:45–0:55',task:'Mix batch sauces: garlic yogurt sauce (yogurt + lemon + garlic) and/or chipotle lime crema — store 5 days'});
+  }
+  // Portioning step always added if any proteins/carbs
+  if(steps.length > 2){
+    steps.push({icon:'📦',time:'0:50–1:00',task:'Portion meals into containers: protein + carb + veg. Label each container with meal + day for easy grab-and-go'});
+  }
+  return steps.length ? steps : null;
+}
+
 // ─── RENDER ─────────────────────────────────────────────────────
 function renderPrep(){
   const el = document.getElementById('prepList');
-  el.innerHTML = PREP_STEPS.map((s,i)=>`
+  const dynamicSteps = generateDynamicPrepSteps();
+  const activeSteps = dynamicSteps || PREP_STEPS;
+  const planedCount = Object.values(weekPlan).filter(Boolean).length;
+  // Show a banner if using dynamic steps
+  const banner = dynamicSteps
+    ? `<div style="font-size:11px;color:var(--accentGlow);background:var(--accentBg);border:1px solid var(--accentDim);border-radius:var(--r-sm);padding:6px 10px;margin-bottom:8px;">✨ Customized for your ${planedCount} planned meal${planedCount!==1?'s':''} this week</div>`
+    : `<div style="font-size:11px;color:var(--muted);padding:4px 0 8px;">Add meals in <span onclick="goToTab('plan')" style="color:var(--accent);cursor:pointer;text-decoration:underline;">Weekly Plan</span> to get a personalized prep checklist.</div>`;
+  el.innerHTML = banner + activeSteps.map((s,i)=>`
     <div class="prep-item" onclick="togglePrep(${i})">
       <div class="prep-icon">${s.icon}</div>
       <div style="flex:1;opacity:${prepChecked[i]?'0.4':'1'}">
-        <div class="prep-time">${s.time}</div>
+        <div class="prep-time">${s.time||''}</div>
         <div class="prep-task" style="${prepChecked[i]?'text-decoration:line-through':''}">${s.task}</div>
       </div>
       <div class="prep-check ${prepChecked[i]?'done':''}" id="prepck-${i}"></div>
@@ -2322,8 +2430,8 @@ function renderPrep(){
   `).join('');
 
   // Update Sunday progress bar
-  const done = PREP_STEPS.filter((_,i)=>prepChecked[i]).length;
-  const total = PREP_STEPS.length;
+  const done = activeSteps.filter((_,i)=>prepChecked[i]).length;
+  const total = activeSteps.length;
   const pct = Math.round((done/total)*100);
   const fill = document.getElementById('prepProgressFill');
   const label = document.getElementById('prepProgressLabel');
@@ -2667,6 +2775,20 @@ function switchTab(name, btn){
   // Search bar only visible on Recipes tab
   const sw = document.querySelector('.global-search-wrap');
   if(sw) sw.style.display = name === 'recipes' ? '' : 'none';
+  // Grocery tab: show filter nudge banner if plan exists but filter is off
+  if(name === 'grocery'){
+    const banner = document.getElementById('groceryPlanActiveBanner');
+    const mealCount = Object.values(weekPlan).filter(Boolean).length;
+    if(banner){
+      if(mealCount > 0 && !window._groceryPlanFilter){
+        const countEl = document.getElementById('gpnbMealCount');
+        if(countEl) countEl.textContent = `${mealCount} meal${mealCount!==1?'s':''}`;
+        banner.classList.add('visible');
+      } else {
+        banner.classList.remove('visible');
+      }
+    }
+  }
   window.scrollTo({top:0, behavior:'smooth'});
 }
 function goToTab(name){
@@ -2992,7 +3114,7 @@ function renderPlan(){
       return `<div class="plan-slot">
         <div class="plan-slot-top">
           <div class="plan-slot-label">${sl.label}</div>
-          <select class="plan-select" onchange="setPlanMeal('${sk}',this.value)">
+          <select class="plan-select${weekPlan[sk]?' has-meal':''}" onchange="setPlanMeal('${sk}',this.value)">
             <option value="">— choose meal —</option>${opts}
           </select>
         </div>
@@ -3140,6 +3262,9 @@ function updateGroceryNudge(){
 function toggleGroceryPlanFilter(){
   window._groceryPlanFilter = !window._groceryPlanFilter;
   applyGroceryPlanFilter(window._groceryPlanFilter);
+  // Dismiss the nudge banner whenever filter is toggled
+  const banner = document.getElementById('groceryPlanActiveBanner');
+  if(banner) banner.classList.remove('visible');
 }
 
 function applyGroceryPlanFilter(active){
@@ -3208,9 +3333,11 @@ function applyGroceryPlanFilter(active){
     if(totalQty > 0 && item.querySelector('.item-info')){
       const hint = document.createElement('div');
       hint.className = 'plan-qty-hint';
-      const displayQty = Number.isInteger(totalQty) ? totalQty : parseFloat(totalQty.toFixed(1));
+      const scaledQty = totalQty * (householdSize || 1);
+      const displayQty = Number.isInteger(scaledQty) ? scaledQty : parseFloat(scaledQty.toFixed(1));
       const unitStr = bestUnit ? ' '+bestUnit : '';
-      hint.textContent = `📋 Plan needs: ~${displayQty}${unitStr}`;
+      const houseStr = householdSize > 1 ? ` (×${householdSize})` : '';
+      hint.textContent = `📋 Plan needs: ~${displayQty}${unitStr}${houseStr}`;
       item.querySelector('.item-info').appendChild(hint);
     }
   });
